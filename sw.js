@@ -1,6 +1,6 @@
 // Offline support. Network first (so updates show up straight away), cache as the fallback.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v3';
+const VERSION = 'spelling-garden-v4';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
