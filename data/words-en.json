@@ -42,7 +42,7 @@
     "highlight": ["e"] },
 
   { "id": "en-08", "n": 8, "word": "pattern", "type": "noun",
-    "meaning": { "en": "Shapes or colours that repeat in a regular way.", "bn": "নকশা" },
+    "meaning": { "en": "Shapes or colors that repeat in a regular way.", "bn": "নকশা" },
     "sentence": "My scarf has a pattern of stars and moons.",
     "tip": { "en": "Double t in the middle: pat-tern.", "bn": "মাঝখানে দুটো t: pat-tern।" },
     "highlight": ["tt"] },
@@ -85,7 +85,7 @@
 
   { "id": "en-15", "n": 15, "word": "mango", "type": "noun",
     "meaning": { "en": "A sweet, juicy tropical fruit with one big seed.", "bn": "আম" },
-    "sentence": "Mango is my favourite summer fruit.",
+    "sentence": "Mango is my favorite summer fruit.",
     "tip": { "en": "man + go — it ends with o.", "bn": "man + go — শেষে o।" },
     "highlight": ["go"] },
 
@@ -146,7 +146,7 @@
 
   { "id": "en-25", "n": 25, "word": "surprise", "type": "noun",
     "meaning": { "en": "Something that happens that you did not expect.", "bn": "চমক, অবাক করা ব্যাপার" },
-    "sentence": "We planned a surprise party for Mum.",
+    "sentence": "We planned a surprise party for Mom.",
     "tip": { "en": "sur-prise: two r's, and it ends with -ise.", "bn": "sur-prise: দুটো r, আর শেষে -ise।" },
     "highlight": ["sur", "ise"] }
 ]

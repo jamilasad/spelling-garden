@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // Builds the pronunciation audio once and stores it in audio/<lang>/.
-//   English words: a real human recording from the free dictionary API when it
-//                  has one (UK first), otherwise the Mac voice "Daniel" (en-GB).
-//   Bangla:        Mac voice "Piya".   Arabic: Mac voice "Majed".
-//   Sentences:     same Mac voices.
+//   English: American female Mac voice "Samantha" (or a downloaded Premium voice, see --voice-en).
+//   Bangla:  Mac voice "Piya".   Arabic: Mac voice "Majed".   Sentences use the same voices.
+//   --dictionary  try human recordings from the free dictionary API first (US first; mixed speakers).
 // Recordings made on the Word Check page are never overwritten.
-// Usage: node tools/build-audio.mjs [--force] [--only=en-03,bn-02]
+// Usage: node tools/build-audio.mjs [--force] [--lang=en] [--only=en-03,bn-02]
+//        [--voice-en="Ava (Premium)"] [--voice-bn=Piya] [--voice-ar=Majed] [--dictionary]
 
 import { readFile, writeFile, mkdir, rm, access } from 'node:fs/promises';
 import { execFile } from 'node:child_process';
@@ -17,14 +17,17 @@ const run = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const INDEX_FILE = path.join(ROOT, 'data/audio-index.json');
 
-const VOICES = { en: 'Daniel', bn: 'Piya', ar: 'Majed' };
-const RATE = { word: 140, sentence: 155 };
+const args = process.argv.slice(2);
+const arg = (name) => (args.find((a) => a.startsWith(`--${name}=`)) || '').slice(name.length + 3);
+const force = args.includes('--force');
+const useDictionary = args.includes('--dictionary');
+const only = arg('only').split(',').filter(Boolean);
+const onlyLang = arg('lang');
+
+const VOICES = { en: arg('voice-en') || 'Samantha', bn: arg('voice-bn') || 'Piya', ar: arg('voice-ar') || 'Majed' };
+const RATE = { word: 135, sentence: 150 };
 // Words whose dictionary recording may be the wrong pronunciation.
 const PREFER_VOICE = new Set(['present']);
-
-const args = process.argv.slice(2);
-const force = args.includes('--force');
-const only = (args.find((a) => a.startsWith('--only=')) || '').slice(7).split(',').filter(Boolean);
 
 const exists = (p) => access(p).then(() => true, () => false);
 const rel = (p) => path.relative(ROOT, p).split(path.sep).join('/');
@@ -46,7 +49,7 @@ async function dictionaryRecording(word, outBase) {
     if (!res.ok) return null;
     const entries = await res.json();
     const urls = entries.flatMap((e) => (e.phonetics || []).map((p) => p.audio)).filter(Boolean);
-    const pick = urls.find((u) => /-uk\.mp3$/.test(u)) || urls.find((u) => /-(au|us)\.mp3$/.test(u)) || urls[0];
+    const pick = urls.find((u) => /-us\.mp3$/.test(u)) || urls.find((u) => /-(uk|au)\.mp3$/.test(u)) || urls[0];
     if (!pick) return null;
     const audio = await fetch(pick.startsWith('//') ? `https:${pick}` : pick);
     if (!audio.ok) return null;
@@ -64,6 +67,7 @@ async function main() {
   let made = 0, kept = 0;
 
   for (const list of lists) {
+    if (onlyLang && list.lang !== onlyLang) continue;
     const words = await readJson(path.join(ROOT, list.file), []);
     const dir = path.join(ROOT, 'audio', list.lang);
     await mkdir(dir, { recursive: true });
@@ -80,11 +84,12 @@ async function main() {
       } else {
         const base = path.join(dir, w.id);
         let got = null;
-        if (list.lang === 'en' && !PREFER_VOICE.has(w.word)) got = await dictionaryRecording(w.word, base);
+        if (useDictionary && list.lang === 'en' && !PREFER_VOICE.has(w.word)) got = await dictionaryRecording(w.word, base);
         if (!got) {
           await speak(w.word, VOICES[list.lang], RATE.word, `${base}.m4a`);
           got = { file: `${base}.m4a`, source: `mac voice ${VOICES[list.lang]}` };
         }
+        if (entry.word && entry.word !== rel(got.file) && !entry.word.startsWith('audio/rec/')) await rm(path.join(ROOT, entry.word), { force: true });
         entry.word = rel(got.file);
         entry.wordSource = got.source;
         made++;

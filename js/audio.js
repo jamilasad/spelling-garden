@@ -60,7 +60,7 @@ function playUrl(url, rate) {
   });
 }
 
-const BCP47 = { en: 'en-GB', bn: 'bn-BD', ar: 'ar-SA' };
+const BCP47 = { en: 'en-US', bn: 'bn-BD', ar: 'ar-SA' };
 function speak(text, lang, rate) {
   return new Promise((resolve) => {
     if (!('speechSynthesis' in window)) return resolve(false);

@@ -1,14 +1,14 @@
 # 🐝 Spelling Garden
 
-A colourful spelling bee practice app for English, Bangla and Arabic words. Everything runs from this folder on your Mac: nothing is uploaded anywhere.
+A colorful spelling bee practice app for English, Bangla and Arabic words. Everything runs from this folder on your Mac: nothing is uploaded anywhere.
 
 ## Start it
 1. Double-click **`Start Spelling Garden.command`**. A Terminal window opens and the app opens in your browser.
    *(The first time, macOS may ask for permission. Right-click the file, choose **Open**, then **Open** again.)*
 2. **On her iPad or phone:** make sure it's on the same Wi-Fi, then type the address shown in the Terminal window (it looks like `http://192.168.x.x:8080`) into Safari. Use Share → **Add to Home Screen** to get an app icon.
-3. Keep the Terminal window open while she practises. Close it (or press Ctrl+C) to stop.
+3. Keep the Terminal window open while she practices. Close it (or press Ctrl+C) to stop.
 
-## How she practises
+## How she practices
 1. **Hear the word.** It plays automatically, and she can tap again, slowly, meaning, sentence or word type.
 2. **She writes it on paper** (or spells it aloud).
 3. **She holds the button** to see the answer. Leaves fly off each letter so she can compare letter by letter.
@@ -49,7 +49,7 @@ Things to know about the online version:
 
 ## Good to know
 - **Progress is saved in each device's browser.** Use Settings → **Save backup** now and then, and **Load backup** to move progress to another device.
-- **Pronunciations:** English uses the Mac's British voice "Daniel" (the free dictionary service was down when the audio was built), Bangla uses "Piya" and Arabic uses "Majed". Check them in Word check. To rebuild: `node tools/build-audio.mjs --force` (your own recordings are kept).
+- **Pronunciations:** English uses the Mac's American female voice "Samantha", Bangla uses "Piya" and Arabic uses "Majed". Check them in Word check. For a more natural English voice, download a Premium voice (System Settings → Accessibility → Spoken Content → System voice → Manage Voices… → English (United States) → **Ava (Premium)**), then run `node tools/build-audio.mjs --force --lang=en --voice-en="Ava (Premium)"`. Your own recordings are always kept.
 - **Offline:** on the Mac the app keeps working without internet. When the Mac serves it over Wi-Fi, the iPad and phone only work while the Mac is running. Once it's on GitHub Pages (above), every device works fully offline.
 - **Contest date** is set to 22 Oct 2026. Change it in Settings.
 
