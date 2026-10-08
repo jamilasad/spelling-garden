@@ -1,0 +1,15 @@
+{
+  "appName": {
+    "en": "Spelling Garden",
+    "bn": "বানান বাগান",
+    "ar": "حديقة الإملاء"
+  },
+  "mascotName": {
+    "en": "Buzzy",
+    "bn": "বাজি",
+    "ar": "بَزِّي"
+  },
+  "defaultProfiles": [],
+  "defaultContestDate": "2026-10-22",
+  "defaultUiLang": "en"
+}

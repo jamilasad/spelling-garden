@@ -1,0 +1,267 @@
+{
+  "en-01": {
+    "word": "audio/en/en-01.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-01-s.m4a"
+  },
+  "en-02": {
+    "word": "audio/en/en-02.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-02-s.m4a"
+  },
+  "en-03": {
+    "word": "audio/en/en-03.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-03-s.m4a"
+  },
+  "en-04": {
+    "word": "audio/en/en-04.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-04-s.m4a"
+  },
+  "en-05": {
+    "word": "audio/en/en-05.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-05-s.m4a"
+  },
+  "en-06": {
+    "word": "audio/en/en-06.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-06-s.m4a"
+  },
+  "en-07": {
+    "word": "audio/en/en-07.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-07-s.m4a"
+  },
+  "en-08": {
+    "word": "audio/en/en-08.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-08-s.m4a"
+  },
+  "en-09": {
+    "word": "audio/en/en-09.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-09-s.m4a"
+  },
+  "en-10": {
+    "word": "audio/en/en-10.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-10-s.m4a"
+  },
+  "en-11": {
+    "word": "audio/en/en-11.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-11-s.m4a"
+  },
+  "en-12": {
+    "word": "audio/en/en-12.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-12-s.m4a"
+  },
+  "en-13": {
+    "word": "audio/en/en-13.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-13-s.m4a"
+  },
+  "en-14": {
+    "word": "audio/en/en-14.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-14-s.m4a"
+  },
+  "en-15": {
+    "word": "audio/en/en-15.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-15-s.m4a"
+  },
+  "en-16": {
+    "word": "audio/en/en-16.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-16-s.m4a"
+  },
+  "en-17": {
+    "word": "audio/en/en-17.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-17-s.m4a"
+  },
+  "en-18": {
+    "word": "audio/en/en-18.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-18-s.m4a"
+  },
+  "en-19": {
+    "word": "audio/en/en-19.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-19-s.m4a"
+  },
+  "en-20": {
+    "word": "audio/en/en-20.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-20-s.m4a"
+  },
+  "en-21": {
+    "word": "audio/en/en-21.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-21-s.m4a"
+  },
+  "en-22": {
+    "word": "audio/en/en-22.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-22-s.m4a"
+  },
+  "en-23": {
+    "word": "audio/en/en-23.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-23-s.m4a"
+  },
+  "en-24": {
+    "word": "audio/en/en-24.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-24-s.m4a"
+  },
+  "en-25": {
+    "word": "audio/en/en-25.m4a",
+    "wordSource": "mac voice Daniel",
+    "sentence": "audio/en/en-25-s.m4a"
+  },
+  "bn-01": {
+    "word": "audio/bn/bn-01.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-01-s.m4a"
+  },
+  "bn-02": {
+    "word": "audio/bn/bn-02.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-02-s.m4a"
+  },
+  "bn-03": {
+    "word": "audio/bn/bn-03.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-03-s.m4a"
+  },
+  "bn-04": {
+    "word": "audio/bn/bn-04.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-04-s.m4a"
+  },
+  "bn-05": {
+    "word": "audio/bn/bn-05.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-05-s.m4a"
+  },
+  "bn-06": {
+    "word": "audio/bn/bn-06.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-06-s.m4a"
+  },
+  "bn-07": {
+    "word": "audio/bn/bn-07.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-07-s.m4a"
+  },
+  "bn-08": {
+    "word": "audio/bn/bn-08.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-08-s.m4a"
+  },
+  "bn-09": {
+    "word": "audio/bn/bn-09.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-09-s.m4a"
+  },
+  "bn-10": {
+    "word": "audio/bn/bn-10.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-10-s.m4a"
+  },
+  "bn-11": {
+    "word": "audio/bn/bn-11.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-11-s.m4a"
+  },
+  "bn-12": {
+    "word": "audio/bn/bn-12.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-12-s.m4a"
+  },
+  "bn-13": {
+    "word": "audio/bn/bn-13.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-13-s.m4a"
+  },
+  "bn-14": {
+    "word": "audio/bn/bn-14.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-14-s.m4a"
+  },
+  "bn-15": {
+    "word": "audio/bn/bn-15.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-15-s.m4a"
+  },
+  "bn-16": {
+    "word": "audio/bn/bn-16.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-16-s.m4a"
+  },
+  "bn-17": {
+    "word": "audio/bn/bn-17.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-17-s.m4a"
+  },
+  "bn-18": {
+    "word": "audio/bn/bn-18.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-18-s.m4a"
+  },
+  "bn-19": {
+    "word": "audio/bn/bn-19.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-19-s.m4a"
+  },
+  "bn-20": {
+    "word": "audio/bn/bn-20.m4a",
+    "wordSource": "mac voice Piya",
+    "sentence": "audio/bn/bn-20-s.m4a"
+  },
+  "ar-01": {
+    "word": "audio/ar/ar-01.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-02": {
+    "word": "audio/ar/ar-02.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-03": {
+    "word": "audio/ar/ar-03.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-04": {
+    "word": "audio/ar/ar-04.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-05": {
+    "word": "audio/ar/ar-05.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-06": {
+    "word": "audio/ar/ar-06.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-07": {
+    "word": "audio/ar/ar-07.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-08": {
+    "word": "audio/ar/ar-08.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-09": {
+    "word": "audio/ar/ar-09.m4a",
+    "wordSource": "mac voice Majed"
+  },
+  "ar-10": {
+    "word": "audio/ar/ar-10.m4a",
+    "wordSource": "mac voice Majed"
+  }
+}

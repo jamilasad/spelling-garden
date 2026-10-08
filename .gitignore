@@ -1,0 +1,14 @@
+# Private: photos of the school word lists (they show a child's name). Never upload.
+WordList/
+
+# Full-size originals waiting to be prepared; the app uses the optimised copies in images/*
+images/incoming/*
+!images/incoming/.gitkeep
+
+# Local Claude Code tools and settings
+.claude/
+
+# System and temporary files
+.DS_Store
+*.tmp.aiff
+node_modules/

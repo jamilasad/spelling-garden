@@ -1,0 +1,51 @@
+[
+  { "id": "ar-01", "n": 1, "word": "وَالِدٌ", "type": "noun",
+    "meaning": { "en": "Father", "bn": "বাবা, পিতা" },
+    "tip": { "bn": "ওয়াও-তে যবর, তারপর আলিফ (وَا); লাম-এ যের; শেষে দাল-এ দুই পেশ (دٌ)।", "en": "وَا = waw + fatha + alif; لِ has kasra; ends with dal + tanween dammah (دٌ)." },
+    "highlight": ["وَا", "دٌ"] },
+
+  { "id": "ar-02", "n": 2, "word": "أُخْتٌ", "type": "noun",
+    "meaning": { "en": "Sister", "bn": "বোন" },
+    "tip": { "bn": "আলিফের উপর হামযা ও পেশ (أُ); খা-তে জযম (خْ); শেষে তা-তে দুই পেশ।", "en": "Alif carries a hamza + dammah (أُ); خ has sukun (خْ); ends with tanween dammah." },
+    "highlight": ["أُ", "خْ"] },
+
+  { "id": "ar-03", "n": 3, "word": "سَبْعَةٌ", "type": "number",
+    "meaning": { "en": "Seven", "bn": "সাত" },
+    "tip": { "bn": "বা-তে জযম (بْ); শেষে গোল তা (ة) দুই পেশসহ (ةٌ)।", "en": "ب has sukun (بْ); ends with taa marbuta (ة) + tanween dammah." },
+    "highlight": ["بْ", "ةٌ"] },
+
+  { "id": "ar-04", "n": 4, "word": "اِثْنَانِ", "type": "number",
+    "meaning": { "en": "Two", "bn": "দুই" },
+    "tip": { "bn": "শুরুতে হামযা ছাড়া আলিফ, যের সহ (اِ); ছা-তে জযম (ثْ)।", "en": "Starts with a plain alif with kasra — no hamza sign (اِ); ث has sukun (ثْ)." },
+    "highlight": ["اِ", "ثْ"] },
+
+  { "id": "ar-05", "n": 5, "word": "مَرِيضٌ", "type": "adjective",
+    "meaning": { "en": "Sick, ill", "bn": "অসুস্থ" },
+    "tip": { "bn": "রা-তে যের, তারপর ইয়া (رِي); শেষে দোয়াদ (ض) দুই পেশসহ।", "en": "رِي = raa + kasra + yaa; it ends with ض (daad) + tanween dammah." },
+    "highlight": ["ضٌ"] },
+
+  { "id": "ar-06", "n": 6, "word": "حِذَاءٌ", "type": "noun",
+    "meaning": { "en": "Shoe", "bn": "জুতা" },
+    "tip": { "bn": "বড় হা (ح) আর যাল (ذ); শেষে আলিফের পরে লাইনের উপর হামযা, দুই পেশসহ (ءٌ)।", "en": "ح (not ه) and ذ (dhaal); it ends with alif + a hamza on the line (ءٌ)." },
+    "highlight": ["حِ", "ءٌ"] },
+
+  { "id": "ar-07", "n": 7, "word": "يَوْمٌ", "type": "noun",
+    "meaning": { "en": "Day", "bn": "দিন" },
+    "tip": { "bn": "ওয়াও-তে জযম (وْ); শেষে মীম-এ দুই পেশ।", "en": "و has sukun (وْ); it ends with meem + tanween dammah." },
+    "highlight": ["وْ"] },
+
+  { "id": "ar-08", "n": 8, "word": "نَعَمْ", "type": "particle",
+    "meaning": { "en": "Yes", "bn": "হ্যাঁ" },
+    "tip": { "bn": "শেষে মীম-এ জযম (مْ) — দুই পেশ নয়!", "en": "It ends with sukun on م (مْ) — no tanween!" },
+    "highlight": ["مْ"] },
+
+  { "id": "ar-09", "n": 9, "word": "قَلَمٌ", "type": "noun",
+    "meaning": { "en": "Pen", "bn": "কলম" },
+    "tip": { "bn": "ক্বাফ (ق) দিয়ে শুরু, কাফ (ك) নয়।", "en": "Starts with ق (qaaf), not ك (kaaf)." },
+    "highlight": ["قَ"] },
+
+  { "id": "ar-10", "n": 10, "word": "هٰذِهِ", "type": "pronoun",
+    "meaning": { "en": "This (for a girl or a feminine thing)", "bn": "এটি (স্ত্রীবাচক)" },
+    "tip": { "bn": "হা-এর উপর খাড়া যবর (هٰ) — আলাদা আলিফ লেখা হয় না!", "en": "Written without a full alif — just a small standing alif on ه (هٰ)." },
+    "highlight": ["هٰ"] }
+]

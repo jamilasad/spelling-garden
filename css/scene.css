@@ -1,0 +1,188 @@
+/* ============ The living garden behind every screen ============ */
+#scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sun {
+  position: absolute;
+  top: -70px;
+  inset-inline-end: -60px;
+  width: 260px;
+  height: 260px;
+}
+.sun-rays {
+  position: absolute;
+  inset: -40%;
+  background: repeating-conic-gradient(from 0deg, rgba(255, 233, 168, .55) 0deg 9deg, transparent 9deg 24deg);
+  border-radius: 50%;
+  mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+  -webkit-mask-image: radial-gradient(circle, #000 35%, transparent 70%);
+  animation: spin 90s linear infinite;
+}
+.sun-disc {
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #FFE27A, var(--honey) 70%);
+  border: var(--line) solid rgba(61, 44, 41, .25);
+  box-shadow: 0 0 60px 20px rgba(255, 216, 102, .45);
+}
+@keyframes spin { to { transform: rotate(1turn); } }
+
+.clouds { position: absolute; inset: 0 0 40% 0; }
+.cloud {
+  position: absolute;
+  left: 0;
+  width: var(--w, 200px);
+  opacity: .95;
+  animation: cloud-drift var(--dur, 100s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform;
+}
+.cloud svg, .cloud img { width: 100%; height: auto; }
+@keyframes cloud-drift {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(calc(100vw + 20%)); }
+}
+
+.hills { position: absolute; inset: auto 0 0 0; height: 46vh; min-height: 260px; }
+.hill-layer {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: max(100%, 1100px);
+  transform: translateX(-50%);
+}
+.hill-layer svg, .hill-layer img { width: 100%; height: auto; }
+.hill-far { bottom: 18%; opacity: .95; }
+.hill-near { bottom: 4%; }
+.hill-front { bottom: -2px; z-index: 3; }
+/* Illustrated layers: full width, partly below the screen edge */
+.scene-art .hills { height: auto; min-height: 0; inset: auto 0 0 0; }
+.scene-art .hill-layer { width: max(100%, 1000px); bottom: 0; }
+.scene-art .hill-far { transform: translate(-50%, 24%); opacity: 1; }
+.scene-art .hill-near { transform: translate(-50%, 34%); }
+.scene-art .hill-front { transform: translate(-50%, 46%); }
+.scene-art .cloud { opacity: 1; }
+
+.ambient { position: absolute; inset: 0; transition: opacity var(--t-slow); }
+
+/* Flying bees: the outer box crosses the screen, the inner box bobs, the wings flap. */
+.flyer {
+  position: absolute;
+  left: 0;
+  top: var(--top, 30%);
+  width: var(--size, 54px);
+  animation: fly-across var(--dur, 26s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+.flyer.reverse { animation-name: fly-back; }
+.flyer .bob { animation: bob var(--bob, 2.6s) ease-in-out infinite alternate; }
+.flyer.reverse .bob > * { transform: scaleX(-1); }
+.flyer svg, .flyer img { width: 100%; height: auto; overflow: visible; }
+.flyer .wing { transform-box: fill-box; transform-origin: 50% 100%; animation: wing-flap .12s ease-in-out infinite alternate; }
+@keyframes fly-across {
+  from { transform: translateX(-12vw); }
+  to { transform: translateX(112vw); }
+}
+@keyframes fly-back {
+  from { transform: translateX(112vw); }
+  to { transform: translateX(-12vw); }
+}
+@keyframes bob {
+  0% { transform: translateY(-14px) rotate(-4deg); }
+  100% { transform: translateY(16px) rotate(5deg); }
+}
+
+/* Falling petals and leaves */
+.faller {
+  position: absolute;
+  top: -60px;
+  left: var(--x, 50%);
+  width: var(--size, 28px);
+  animation: fall var(--dur, 12s) linear forwards;
+}
+.faller .sway { animation: sway var(--sway, 3s) ease-in-out infinite alternate; }
+.faller .sway > * { width: 100%; height: auto; animation: tumble var(--spin, 5s) linear infinite; }
+@keyframes fall { to { transform: translateY(calc(100vh + 120px)); } }
+@keyframes sway { from { transform: translateX(-30px); } to { transform: translateX(34px); } }
+@keyframes tumble { to { transform: rotate(var(--turn, 360deg)); } }
+
+.sparkle {
+  position: absolute;
+  width: 18px; height: 18px;
+  left: var(--x); top: var(--y);
+  background: #fff;
+  clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%);
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+@keyframes twinkle { 0%, 100% { opacity: 0; transform: scale(.4) rotate(0); } 50% { opacity: .95; transform: scale(1) rotate(45deg); } }
+
+.sway-flower { transform-origin: 50% 100%; animation: breeze 5s ease-in-out infinite alternate; }
+@keyframes breeze { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
+
+/* While she listens and writes, the garden goes quiet. */
+#scene.calm .ambient { opacity: .25; }
+#scene.calm .clouds { opacity: .6; transition: opacity var(--t-slow); }
+
+/* Motion turned off: everything stays still. */
+.no-motion #scene .cloud,
+.no-motion #scene .flyer,
+.no-motion #scene .sun-rays { animation: none; }
+.no-motion #scene .cloud { transform: translateX(var(--still-x, 20vw)); }
+.no-motion #scene .flyer { transform: translateX(var(--still-x, 30vw)); }
+.no-motion #scene .faller, .no-motion #scene .sparkle { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  #scene .cloud, #scene .flyer, #scene .sun-rays, #scene .flyer .bob { animation: none; }
+  #scene .cloud { transform: translateX(var(--still-x, 20vw)); }
+  #scene .flyer { transform: translateX(var(--still-x, 30vw)); }
+  #scene .faller, #scene .sparkle { display: none; }
+}
+
+/* ============ One-off effects layer (petal burst, confetti) ============ */
+#fx { position: fixed; inset: 0; z-index: 40; pointer-events: none; overflow: hidden; }
+.burst-bit {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: var(--size, 22px);
+  animation: burst 1100ms var(--ease-out) forwards;
+}
+.burst-bit > * { width: 100%; height: auto; }
+@keyframes burst {
+  0% { transform: translate(-50%, -50%) scale(.3) rotate(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1) rotate(var(--rot)); opacity: 0; }
+}
+.confetti {
+  position: absolute;
+  top: -20px;
+  left: var(--x);
+  width: var(--w, 10px);
+  height: var(--h, 16px);
+  background: var(--c);
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  animation: confetti-fall var(--dur, 2.6s) cubic-bezier(.25, .6, .4, 1) forwards;
+  animation-delay: var(--delay, 0s);
+}
+@keyframes confetti-fall {
+  0% { transform: translateY(0) rotate(0); opacity: 1; }
+  100% { transform: translate(var(--dx, 0), 105vh) rotate(var(--rot, 540deg)); opacity: .9; }
+}
+.honey-fly {
+  position: absolute;
+  left: var(--x); top: var(--y);
+  width: 40px;
+  animation: honey-fly 900ms var(--ease-out) forwards;
+}
+@keyframes honey-fly {
+  0% { transform: translate(-50%, -50%) scale(.6); opacity: 0; }
+  20% { opacity: 1; transform: translate(-50%, -80%) scale(1.15); }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.5); opacity: 0; }
+}

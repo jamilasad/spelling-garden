@@ -1,0 +1,12 @@
+{
+  "name": "spelling-garden",
+  "private": true,
+  "type": "module",
+  "description": "A colourful spelling bee practice garden for English, Bangla and Arabic words.",
+  "scripts": {
+    "start": "node tools/server.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "audio": "node tools/build-audio.mjs",
+    "images": "node tools/prepare-images.mjs"
+  }
+}

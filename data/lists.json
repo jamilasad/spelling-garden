@@ -1,0 +1,35 @@
+[
+  {
+    "id": "en-g1a",
+    "lang": "en",
+    "file": "data/words-en.json",
+    "title": {
+      "en": "English words",
+      "bn": "ইংরেজি শব্দ",
+      "ar": "كلمات إنجليزية"
+    },
+    "source": "Grade 1 · Group A · Spelling Bee 2026–27"
+  },
+  {
+    "id": "bn-g1a",
+    "lang": "bn",
+    "file": "data/words-bn.json",
+    "title": {
+      "en": "Bangla words",
+      "bn": "বাংলা বানান",
+      "ar": "كلمات بنغالية"
+    },
+    "source": "শ্রেণি ১ · বাংলা বানান"
+  },
+  {
+    "id": "ar-g1a",
+    "lang": "ar",
+    "file": "data/words-ar.json",
+    "title": {
+      "en": "Arabic words",
+      "bn": "আরবি শব্দ",
+      "ar": "كلمات عربية"
+    },
+    "source": "Grade 1 · Group A · Spelling Bee 2026–27"
+  }
+]
