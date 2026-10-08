@@ -9,7 +9,12 @@
     "bn": "বাজি",
     "ar": "بَزِّي"
   },
-  "defaultProfiles": [],
+  "defaultProfiles": [
+    {
+      "name": "Umamah",
+      "avatar": "honey"
+    }
+  ],
   "defaultContestDate": "2026-10-22",
   "defaultUiLang": "en"
 }

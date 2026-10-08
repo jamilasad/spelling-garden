@@ -43,7 +43,7 @@ Online, it works fully offline on every device after the first visit, with no Ma
 5. On her iPad, open it in Safari → Share → **Add to Home Screen**.
 
 Things to know about the online version:
-- **The website is public:** anyone with the link can open it. The word-list photos (`WordList/`) are never uploaded (see `.gitignore`), and no child's name is built in. Each device asks for the player's name the first time, and it stays on that device.
+- **The website is public:** anyone with the link can open it. The word-list photos (`WordList/`) are never uploaded (see `.gitignore`) because they show the school's name. Umamah is set up as the default player (`data/app-config.json`); others can add their own name on their device.
 - **Recording works only on the Mac:** record pronunciations on the Mac version first, then upload. Your recordings in `audio/rec/` become part of the website.
 - **Updates:** change things on the Mac, then `git add -A && git commit -m "…" && git push`. Devices pick up the update the next time they open the app online.
 
