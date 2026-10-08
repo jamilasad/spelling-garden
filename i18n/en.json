@@ -66,7 +66,6 @@
   "mock.timeUp": "Time's up! Hold the button to check.",
   "bee.title": "Bee Mode",
   "bee.exit": "Stop practicing",
-  "bee.exitConfirm": "Stop now? The words you finished are saved.",
   "bee.honeyLabel": "Honey drops",
   "bee.hear": "Hear the word",
   "bee.holdReveal": "Hold to see the answer",
@@ -214,5 +213,12 @@
   "parent.resetDone": "Progress reset",
   "parent.printTricky": "Tricky words practice sheet",
   "parent.printAll": "Full word list practice sheet",
-  "parent.print": "Print"
+  "parent.print": "Print",
+  "bee.exitTitle": "Stop practicing?",
+  "bee.exitMessage": "The words you finished are saved. You can carry on next time!",
+  "bee.exitStop": "Stop",
+  "bee.exitKeep": "Keep going",
+  "parent.resetTitle": "Reset progress?",
+  "parent.resetYes": "Reset",
+  "parent.srcNeural": "Natural voice"
 }

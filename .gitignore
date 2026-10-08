@@ -12,3 +12,6 @@ images/incoming/*
 .DS_Store
 *.tmp.aiff
 node_modules/
+
+# Python tools for building audio
+.venv/

@@ -61,7 +61,6 @@
   "mock.timeUp": "انتهى الوقت! اضغط مطوّلًا على الزر للتحقق.",
   "bee.title": "وضع النحلة",
   "bee.exit": "إيقاف التدريب",
-  "bee.exitConfirm": "هل تريد التوقف الآن؟ الكلمات التي أنهيتها محفوظة.",
   "bee.honeyLabel": "قطرات العسل",
   "bee.hear": "استمع إلى الكلمة",
   "bee.holdReveal": "اضغط مطوّلًا لترى الإجابة",
@@ -205,5 +204,12 @@
   "parent.resetDone": "تم مسح التقدّم",
   "parent.printTricky": "ورقة تدريب الكلمات الصعبة",
   "parent.printAll": "ورقة تدريب القائمة كاملة",
-  "parent.print": "طباعة"
+  "parent.print": "طباعة",
+  "bee.exitTitle": "هل تريد إيقاف التدريب؟",
+  "bee.exitMessage": "الكلمات التي أنهيتها محفوظة. يمكنك المتابعة في المرة القادمة!",
+  "bee.exitStop": "إيقاف",
+  "bee.exitKeep": "تابِع",
+  "parent.resetTitle": "مسح التقدّم؟",
+  "parent.resetYes": "مسح",
+  "parent.srcNeural": "صوت طبيعي"
 }

@@ -5,7 +5,7 @@ import { buildQueue, requeuePosition, dayString, isTricky, shuffle } from '../sc
 import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML } from '../art.js';
 import { icon } from '../icons.js';
-import { go, holdButton } from '../ui.js';
+import { go, holdButton, confirmDialog } from '../ui.js';
 import { sayWord, saySentence, stopAudio } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
@@ -369,9 +369,14 @@ export default {
       summary.dataset.missed = missed.join(',');
     }
 
-    function exit() {
+    async function exit() {
       if (state !== 'summary' && firstTry.size > 0) {
-        if (!window.confirm(t('bee.exitConfirm'))) return;
+        stopAudio();
+        const stop = await confirmDialog({
+          title: t('bee.exitTitle'), message: t('bee.exitMessage'),
+          yes: t('bee.exitStop'), no: t('bee.exitKeep'), pose: 'oops',
+        });
+        if (!stop || !alive) return;
         const ids = [...firstTry.keys()];
         const missed = ids.filter((id) => !firstTry.get(id));
         finishSession({ mode, total: ids.length, firstTry: ids.length - missed.length, missed, partial: true });
@@ -394,6 +399,7 @@ export default {
     };
     const onKey = (e) => {
       if (e.target.closest('input, textarea, select') || e.metaKey || e.ctrlKey) return;
+      if (document.querySelector('.dialog-backdrop')) return; // a question is open
       const k = e.key.toLowerCase();
       if (state === 'listen' && k === ' ' && document.activeElement !== holdBtn && !e.repeat) {
         e.preventDefault();

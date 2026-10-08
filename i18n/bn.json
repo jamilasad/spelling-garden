@@ -61,7 +61,6 @@
   "mock.timeUp": "সময় শেষ! মিলিয়ে দেখতে বোতামটি চেপে ধরো।",
   "bee.title": "মৌমাছি মোড",
   "bee.exit": "অনুশীলন থামাও",
-  "bee.exitConfirm": "এখনই থামবে? যে শব্দগুলো শেষ করেছ সেগুলো সেভ আছে।",
   "bee.honeyLabel": "মধুর ফোঁটা",
   "bee.hear": "শব্দটি শোনো",
   "bee.holdReveal": "উত্তর দেখতে চেপে ধরো",
@@ -205,5 +204,12 @@
   "parent.resetDone": "অগ্রগতি মুছে ফেলা হয়েছে",
   "parent.printTricky": "কঠিন শব্দের অনুশীলনের পাতা",
   "parent.printAll": "পুরো তালিকার অনুশীলনের পাতা",
-  "parent.print": "প্রিন্ট"
+  "parent.print": "প্রিন্ট",
+  "bee.exitTitle": "অনুশীলন থামাবে?",
+  "bee.exitMessage": "যে শব্দগুলো শেষ করেছ সেগুলো সেভ আছে। পরের বার আবার শুরু করতে পারবে!",
+  "bee.exitStop": "থামাও",
+  "bee.exitKeep": "চালিয়ে যাও",
+  "parent.resetTitle": "অগ্রগতি মুছে ফেলবেন?",
+  "parent.resetYes": "মুছে ফেলুন",
+  "parent.srcNeural": "স্বাভাবিক কণ্ঠ"
 }

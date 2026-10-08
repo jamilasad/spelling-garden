@@ -3,7 +3,7 @@ import { data, reloadAudioIndex } from '../data.js';
 import { profiles, progress, activeProfile, wordChecked, setWordChecked, resetProgress } from '../store.js';
 import { t, tn, escapeHtml, dirOf, pick, num } from '../i18n.js';
 import { icon } from '../icons.js';
-import { topbar, toast, go } from '../ui.js';
+import { topbar, toast, go, confirmDialog } from '../ui.js';
 import { sayWord, saySentence, bustAudio, stopAudio } from '../audio.js';
 import { tilesHTML } from '../reveal.js';
 import { isTricky, isMastered, isSeen, MAX_BOX } from '../scheduler.js';
@@ -27,6 +27,7 @@ function sourceLabel(id, kind) {
   const src = kind === 'word' ? entry.wordSource : entry.sentenceSource;
   if (src === 'recording') return t('parent.srcRecording');
   if (src && src.startsWith('dictionary')) return t('parent.srcDictionary');
+  if (src && src.startsWith('neural')) return t('parent.srcNeural');
   return entry[kind] ? t('parent.srcVoice') : t('parent.srcDevice');
 }
 
@@ -220,11 +221,15 @@ export default {
       else if (el.dataset.rec) startRecording(el);
       else if (el.dataset.act === 'print') window.print();
       else if (el.dataset.act === 'reset') {
-        if (window.confirm(t('parent.resetConfirm'))) {
+        confirmDialog({
+          title: t('parent.resetTitle'), message: t('parent.resetConfirm'),
+          yes: t('parent.resetYes'), no: t('common.cancel'), yesTone: 'berry', noTone: 'cream',
+        }).then((yes) => {
+          if (!yes) return;
           resetProgress(el.dataset.pid);
           toast(t('parent.resetDone'));
           go('parent', { tab: 'progress' });
-        }
+        });
       }
     };
     const onChange = (e) => {

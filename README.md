@@ -49,7 +49,7 @@ Things to know about the online version:
 
 ## Good to know
 - **Progress is saved in each device's browser.** Use Settings → **Save backup** now and then, and **Load backup** to move progress to another device.
-- **Pronunciations:** English uses the Mac's American female voice "Samantha", Bangla uses "Piya" and Arabic uses "Majed". Check them in Word check. For a more natural English voice, download a Premium voice (System Settings → Accessibility → Spoken Content → System voice → Manage Voices… → English (United States) → **Ava (Premium)**), then run `node tools/build-audio.mjs --force --lang=en --voice-en="Ava (Premium)"`. Your own recordings are always kept.
+- **Pronunciations:** Bangla uses Microsoft's natural Bangladeshi voice "Nabanita" (generated once, stored in `audio/`), English uses the Mac's American voice "Samantha", and Arabic uses the Mac voice "Majed". Check them in Word check, and record your own voice for any word that's still not right. To rebuild a language: `node tools/build-audio.mjs --force --lang=bn` (your own recordings are always kept). The natural voices need a one-time setup: `python3 -m venv .venv && .venv/bin/pip install edge-tts`. Options: `--voice-en=en-US-JennyNeural`, `--voice-ar=ar-SA-ZariyahNeural`, or any Mac voice name such as `--voice-en=Samantha`.
 - **Offline:** on the Mac the app keeps working without internet. When the Mac serves it over Wi-Fi, the iPad and phone only work while the Mac is running. Once it's on GitHub Pages (above), every device works fully offline.
 - **Contest date** is set to 22 Oct 2026. Change it in Settings.
 

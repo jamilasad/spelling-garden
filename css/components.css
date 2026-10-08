@@ -477,3 +477,32 @@
 .lang-tag[data-lang='en'] { background: var(--sky-pale); }
 .lang-tag[data-lang='bn'] { background: var(--leaf-pale); }
 .lang-tag[data-lang='ar'] { background: var(--lavender-pale); }
+
+/* ============ In-app dialog ============ */
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: var(--s5) var(--s4);
+  background: rgba(61, 44, 41, .42);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  animation: dlg-fade var(--t-quick) var(--ease-out) both;
+}
+.dialog {
+  width: min(100%, 440px);
+  display: grid;
+  justify-items: center;
+  gap: var(--s3);
+  text-align: center;
+  padding-top: var(--s7);
+  animation: dlg-pop var(--t-move) var(--ease-pop) both;
+}
+.dialog-mascot { width: 116px; height: 116px; margin-top: -116px; }
+.dialog-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s3); width: 100%; margin-top: var(--s2); }
+.dialog-actions .btn { flex: 1 1 150px; }
+.dialog-backdrop.closing { animation: dlg-fade var(--t-quick) reverse forwards; }
+@keyframes dlg-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes dlg-pop { from { opacity: 0; transform: translateY(16px) scale(.94); } to { opacity: 1; transform: none; } }

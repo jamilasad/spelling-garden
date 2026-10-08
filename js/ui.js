@@ -1,6 +1,7 @@
 // Small shared UI helpers.
 import { icon } from './icons.js';
-import { t } from './i18n.js';
+import { t, escapeHtml } from './i18n.js';
+import { mascotHTML } from './art.js';
 
 let toastTimer = 0;
 export function toast(message, ms = 2600) {
@@ -107,4 +108,50 @@ export function downloadFile(name, text, type = 'application/json') {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/**
+ * A friendly in-app question instead of the browser's plain alert.
+ * The "no" button is the safe choice and gets the focus.
+ * @returns {Promise<boolean>} true when the "yes" button is chosen
+ */
+export function confirmDialog({ title, message = '', yes, no, yesTone = 'cream', noTone = 'honey', pose = 'think' }) {
+  return new Promise((resolve) => {
+    const before = document.activeElement;
+    const wrap = document.createElement('div');
+    wrap.className = 'dialog-backdrop';
+    wrap.innerHTML = `<div class="dialog card" role="alertdialog" aria-modal="true" aria-labelledby="dlg-title" aria-describedby="dlg-msg">
+        <div class="dialog-mascot" aria-hidden="true">${mascotHTML(pose)}</div>
+        <h2 id="dlg-title">${escapeHtml(title)}</h2>
+        ${message ? `<p id="dlg-msg" class="lead">${escapeHtml(message)}</p>` : ''}
+        <div class="dialog-actions">
+          <button class="btn btn-${yesTone}" type="button" data-answer="yes">${escapeHtml(yes)}</button>
+          <button class="btn btn-${noTone}" type="button" data-answer="no">${escapeHtml(no)}</button>
+        </div>
+      </div>`;
+    const close = (answer) => {
+      document.removeEventListener('keydown', onKey, true);
+      wrap.classList.add('closing');
+      setTimeout(() => wrap.remove(), 160);
+      if (before && before.focus) before.focus({ preventScroll: true });
+      resolve(answer);
+    };
+    const buttons = () => [...wrap.querySelectorAll('button')];
+    const onKey = (e) => {
+      if (e.key === 'Escape') { e.preventDefault(); close(false); }
+      else if (e.key === 'Tab') {
+        const [first, last] = [buttons()[0], buttons()[buttons().length - 1]];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    wrap.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-answer]');
+      if (b) close(b.dataset.answer === 'yes');
+      else if (e.target === wrap) close(false);
+    });
+    document.addEventListener('keydown', onKey, true);
+    document.body.appendChild(wrap);
+    wrap.querySelector('[data-answer="no"]').focus({ preventScroll: true });
+  });
 }

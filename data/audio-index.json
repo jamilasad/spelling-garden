@@ -125,104 +125,124 @@
     "sentence": "audio/en/en-25-s.m4a"
   },
   "bn-01": {
-    "word": "audio/bn/bn-01.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-01-s.m4a"
+    "word": "audio/bn/bn-01.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-01-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-02": {
-    "word": "audio/bn/bn-02.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-02-s.m4a"
+    "word": "audio/bn/bn-02.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-02-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-03": {
-    "word": "audio/bn/bn-03.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-03-s.m4a"
+    "word": "audio/bn/bn-03.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-03-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-04": {
-    "word": "audio/bn/bn-04.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-04-s.m4a"
+    "word": "audio/bn/bn-04.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-04-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-05": {
-    "word": "audio/bn/bn-05.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-05-s.m4a"
+    "word": "audio/bn/bn-05.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-05-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-06": {
-    "word": "audio/bn/bn-06.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-06-s.m4a"
+    "word": "audio/bn/bn-06.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-06-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-07": {
-    "word": "audio/bn/bn-07.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-07-s.m4a"
+    "word": "audio/bn/bn-07.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-07-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-08": {
-    "word": "audio/bn/bn-08.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-08-s.m4a"
+    "word": "audio/bn/bn-08.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-08-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-09": {
-    "word": "audio/bn/bn-09.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-09-s.m4a"
+    "word": "audio/bn/bn-09.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-09-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-10": {
-    "word": "audio/bn/bn-10.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-10-s.m4a"
+    "word": "audio/bn/bn-10.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-10-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-11": {
-    "word": "audio/bn/bn-11.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-11-s.m4a"
+    "word": "audio/bn/bn-11.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-11-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-12": {
-    "word": "audio/bn/bn-12.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-12-s.m4a"
+    "word": "audio/bn/bn-12.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-12-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-13": {
-    "word": "audio/bn/bn-13.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-13-s.m4a"
+    "word": "audio/bn/bn-13.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-13-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-14": {
-    "word": "audio/bn/bn-14.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-14-s.m4a"
+    "word": "audio/bn/bn-14.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-14-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-15": {
-    "word": "audio/bn/bn-15.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-15-s.m4a"
+    "word": "audio/bn/bn-15.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-15-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-16": {
-    "word": "audio/bn/bn-16.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-16-s.m4a"
+    "word": "audio/bn/bn-16.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-16-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-17": {
-    "word": "audio/bn/bn-17.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-17-s.m4a"
+    "word": "audio/bn/bn-17.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-17-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-18": {
-    "word": "audio/bn/bn-18.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-18-s.m4a"
+    "word": "audio/bn/bn-18.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-18-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-19": {
-    "word": "audio/bn/bn-19.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-19-s.m4a"
+    "word": "audio/bn/bn-19.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-19-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "bn-20": {
-    "word": "audio/bn/bn-20.m4a",
-    "wordSource": "mac voice Piya",
-    "sentence": "audio/bn/bn-20-s.m4a"
+    "word": "audio/bn/bn-20.mp3",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "sentence": "audio/bn/bn-20-s.mp3",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
   },
   "ar-01": {
     "word": "audio/ar/ar-01.m4a",
