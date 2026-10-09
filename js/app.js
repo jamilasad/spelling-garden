@@ -1,8 +1,8 @@
 // Spelling Garden — app shell: loads everything, then shows screens by URL hash (#/bee?mode=today …).
 import { loadData, data } from './data.js';
-import { loadStore, settings, activeProfile } from './store.js';
+import { loadStore, settings, activeProfile, wornHat } from './store.js';
 import { setLang, t, pick } from './i18n.js';
-import { loadArt } from './art.js';
+import { loadArt, setWornHat } from './art.js';
 import { buildScene, setCalm, applyMotionSetting } from './ambient.js';
 import { unlockAudio, stopAudio } from './audio.js';
 import { unlockSfx } from './sfx.js';
@@ -18,8 +18,9 @@ import settingsScreen from './screens/settings.js';
 import parent from './screens/parent.js';
 import words from './screens/words.js';
 import learn from './screens/learn.js';
+import honey from './screens/honey.js';
 
-const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent, words, learn };
+const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent, words, learn, honey };
 const NO_PROFILE_NEEDED = new Set(['profiles', 'settings', 'parent']);
 let cleanup = null;
 
@@ -44,6 +45,7 @@ export async function render() {
   }
   stopAudio();
   setCalm(false);
+  setWornHat(activeProfile() ? wornHat() : null);
 
   const root = document.getElementById('app');
   root.innerHTML = screen.render({ params });

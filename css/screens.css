@@ -459,3 +459,74 @@ fieldset.field > legend { padding: 0; margin-bottom: var(--s2); display: flex; a
   .words-page .wr-status, .words-page .wr-play { display: none !important; }
   .words-page .garden-key { display: none; }
 }
+
+/* ============ Honey chips on the home screen ============ */
+.honey-chip-link, .goal-chip { text-decoration: none; }
+.chip-jar { width: 22px; height: 26px; display: inline-block; flex: none; }
+.chip-jar svg { width: 100%; height: 100%; }
+.goal-chip { position: relative; overflow: hidden; isolation: isolate; }
+.goal-chip::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: var(--honey);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+  opacity: .55;
+}
+[dir='rtl'] .goal-chip::before { transform-origin: 100% 50%; }
+.goal-chip.is-done { background: var(--honey); }
+button.honey-chip { cursor: pointer; font: inherit; color: inherit; }
+
+/* ============ Honey Pot ============ */
+.honey-hero { display: grid; grid-template-columns: 120px 1fr; align-items: center; gap: var(--s4); }
+.jar-big { width: 120px; }
+.jar-big svg { width: 100%; height: auto; }
+.jar-honey { transition: d .6s var(--ease-out); }
+.honey-hero-text { display: grid; gap: var(--s2); min-width: 0; }
+.full-jars { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.mini-jar { width: 26px; height: 30px; display: inline-block; }
+.mini-jar svg { width: 100%; height: 100%; }
+@media (min-width: 720px) { .honey-hero { grid-template-columns: 170px 1fr; } .jar-big { width: 170px; } }
+
+.goal-card { display: grid; gap: var(--s3); }
+.goal-card h2, .shop-head h2, .decor-card h2 { display: flex; align-items: center; gap: var(--s2); font-size: var(--fs-lead); }
+.goal-card h2 svg, .shop-head h2 svg, .decor-card h2 svg { width: 26px; height: 26px; }
+.goal-bar { height: 22px; border: var(--line) solid var(--ink); border-radius: var(--r-pill); background: var(--white); overflow: hidden; }
+.goal-bar > span { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--honey); border-inline-end: var(--line) solid var(--ink); transition: width var(--t-slow) var(--ease-out); }
+.goal-card.is-done { background: var(--honey-pale); }
+
+.shop-card { display: grid; gap: var(--s5); }
+.shop-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); }
+.shop-title { font-size: var(--fs-lead); margin-bottom: var(--s3); }
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--s3); }
+.shop-item {
+  display: grid; justify-items: center; align-content: start; gap: var(--s2);
+  padding: var(--s3);
+  background: var(--white);
+  border: 2px solid var(--ink);
+  border-radius: var(--r-md);
+  text-align: center;
+}
+.shop-item.is-owned { background: #F6FFF4; }
+.shop-item h3 { font-size: 1.05rem; line-height: 1.25; }
+.shop-preview { width: 96px; height: 96px; display: grid; place-items: center; }
+.shop-preview > svg, .shop-preview > img { width: 100%; height: 100%; object-fit: contain; }
+.shop-preview .mascot { width: 96px; height: 96px; }
+.shop-colours img { border-radius: 50%; }
+.shop-item .btn-small { min-height: 42px; font-size: 1rem; padding-inline: var(--s3); }
+.price { display: inline-flex; align-items: center; gap: 2px; font-weight: 800; }
+.price svg { width: 18px; height: 18px; }
+
+/* ============ Garden corner ============ */
+.decor-card { display: grid; gap: var(--s3); justify-items: start; }
+.decor-strip {
+  width: 100%;
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: var(--s3);
+  padding: var(--s3) var(--s3) 0;
+  border-radius: var(--r-md);
+  background: linear-gradient(180deg, #CDEFFC 0%, #E8F8FF 55%, #8EDB98 55%, #6CC77A 100%);
+  border: 2px solid var(--ink);
+}
+.decor-item { width: 84px; height: 84px; }
+.decor-item svg, .decor-item img { width: 100%; height: 100%; }
+.decor-butterfly { align-self: center; animation: m-float 3s ease-in-out infinite; }
+.decor-rainbow { width: 120px; }

@@ -1,5 +1,6 @@
 // Artwork: uses the illustrations listed in images/manifest.json when they exist,
 // and falls back to hand-drawn SVG placeholders in the same sticker style.
+import { hatSVG } from './honey.js';
 
 const INK = '#3D2C29';
 const STRIPE = '#5B3A29';
@@ -82,15 +83,31 @@ const POSE_SHAPE = {
   read: { arms: 'down' }, point: { arms: 'wave' }, face: {}, sleep: { mood: 'joy' },
 };
 
+// Where a hat sits on Buzzy's head in each illustrated pose: centre x, hat bottom y and width (% of the box), tilt.
+const HAT_SPOT = {
+  wave: [47, 24, 32, -4], listen: [48, 25, 32, 6], think: [50, 28, 30, 0],
+  cheer: [48, 28, 28, -4], oops: [47, 24, 32, -6], face: [50, 26, 40, 0],
+};
+let wornHatId = null;
+/** Called by the app whenever the player changes or buys a hat. */
+export function setWornHat(id) { wornHatId = id || null; }
+
+function hatOverlay(pose, hat) {
+  const spot = HAT_SPOT[pose];
+  if (!hat || !spot || !hasArt(`mascot-${pose}`)) return '';
+  const [x, y, w, r] = spot;
+  return `<span class="hat" style="--hat-x:${x};--hat-y:${y};--hat-w:${w};--hat-r:${r}deg">${hatSVG(hat)}</span>`;
+}
+
 /** Buzzy in a pose: the real illustration if it exists, otherwise the placeholder. */
-export function mascotHTML(pose = 'wave', { avatar = 'honey' } = {}) {
+export function mascotHTML(pose = 'wave', { avatar = 'honey', hat = wornHatId } = {}) {
   const name = `mascot-${pose}`;
   const inner = hasArt(name)
     ? img(name)
     : hasArt('mascot-wave') && avatar === 'honey'
       ? img('mascot-wave')
       : buzzySVG({ avatar, ...(POSE_SHAPE[pose] || {}) });
-  return `<div class="mascot" data-pose="${pose}">${inner}</div>`;
+  return `<div class="mascot" data-pose="${pose}"><div class="mascot-body">${inner}${hatOverlay(pose, hat)}</div></div>`;
 }
 
 export function setMascotPose(el, pose) {
@@ -101,7 +118,11 @@ export function setMascotPose(el, pose) {
 }
 
 // Colour variants of Buzzy's face until separate avatar illustrations exist.
+// silver, gold and rainbow are bought in the Honey Shop.
 const AVATAR_TINT = {
+  silver: 'grayscale(1) brightness(1.12) contrast(1.05)',
+  gold: 'saturate(1.7) brightness(1.06) contrast(1.05)',
+  rainbow: 'none',
   honey: 'none',
   pink: 'hue-rotate(-62deg) saturate(1.05)',
   mint: 'hue-rotate(95deg) saturate(.85)',
@@ -113,9 +134,9 @@ const AVATAR_TINT = {
 export function avatarHTML(avatar = 'honey') {
   if (hasArt(`avatar-${avatar}`)) return img(`avatar-${avatar}`);
   if (hasArt('mascot-face')) {
-    return `<img src="${artUrl('mascot-face')}" alt="" draggable="false" decoding="async" style="filter:${AVATAR_TINT[avatar] || 'none'}">`;
+    return `<img src="${artUrl('mascot-face')}" alt="" draggable="false" decoding="async" class="${avatar === 'rainbow' ? 'tint-rainbow' : ''}" style="filter:${AVATAR_TINT[avatar] || 'none'}">`;
   }
-  return buzzySVG({ avatar });
+  return buzzySVG({ avatar: AVATARS[avatar] ? avatar : 'honey' });
 }
 
 // ---------- Sunflower ----------

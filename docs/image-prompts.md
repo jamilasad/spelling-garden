@@ -138,3 +138,11 @@ Buzzy acts out the actions and feelings (attach the reference). Words marked "sk
 - ⭐ Priority (≈ 30 images): Buzzy 8, icon 1, flying bee 1, sunflower 6, nature 9, scene layers 3
 - ⭐⭐ Nice to have (≈ 45): avatars, extra nature pieces, scenes, garden flowers, cards, badges
 - ⭐⭐⭐ Optional (≈ 54): word pictures
+
+## Honey Shop items (optional) ⭐⭐⭐
+The shop already has hand-drawn hats and decorations. To replace any of them with your own art, use the template below (1024×1024, transparent) and save with the file name shown.
+> Using the style bible above: a single [ITEM], flat vector sticker, centred, no text, transparent background.
+
+**Hats** (drawn front-on, as if sitting on a head; the bottom edge is where it touches the head): `hat-flower.png` flower crown · `hat-bow.png` big pink bow · `hat-party.png` striped party hat · `hat-sunhat.png` straw sun hat with a lavender ribbon · `hat-grad.png` graduation cap with a honey-yellow tassel · `hat-crown.png` small golden crown with gems
+
+**Garden decorations:** `decor-ladybug.png` · `decor-butterfly.png` · `decor-wateringcan.png` · `decor-birdhouse.png` · `decor-pond.png` (small pond with a duck) · `decor-rainbow.png` (rainbow with two little clouds)

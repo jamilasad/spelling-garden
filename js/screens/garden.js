@@ -1,6 +1,7 @@
 // My Garden — one plant per word, growing from soil to full bloom, plus the badge shelf.
 import { data } from '../data.js';
-import { progress } from '../store.js';
+import { progress, ownedOf } from '../store.js';
+import { SHOP, decorSVG } from '../honey.js';
 import { t, escapeHtml, dirOf, pick, num } from '../i18n.js';
 import { plantHTML, badgeHTML } from '../art.js';
 import { icon } from '../icons.js';
@@ -45,6 +46,13 @@ export default {
       <section class="card badge-shelf">
         <h2>${icon('trophy')} ${t('garden.badges', { n: num(earnedCount), total: num(BADGES.length) })}</h2>
         <div class="badge-row">${badges}</div>
+      </section>
+      <section class="card decor-card">
+        <h2>${icon('flower')} ${t('garden.decorTitle')}</h2>
+        ${ownedOf('decor').length
+          ? `<div class="decor-strip">${SHOP.decor.filter((d) => ownedOf('decor').includes(d.id)).map((d) => `<div class="decor-item decor-${d.id}" title="${t(`shop.decor.${d.id}`)}">${decorSVG(d.id)}</div>`).join('')}</div>`
+          : `<p class="sub">${t('garden.decorEmpty')}</p>`}
+        <a class="btn btn-small btn-honey" href="#/honey">${icon('honey')}<span>${t('garden.toShop')}</span></a>
       </section>
       <p class="garden-key">${t('garden.key')}</p>
       ${beds}

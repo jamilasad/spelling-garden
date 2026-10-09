@@ -1,11 +1,11 @@
 // Learn words — Look, Say, Cover, Write, Check. A calm way to memorise before testing.
 // Learning is tracked separately from test results, so review timing stays honest.
 import { data, listById } from '../data.js';
-import { progress, recordLearned, activeProfile } from '../store.js';
+import { progress, recordLearned, activeProfile, honeyBalance } from '../store.js';
 import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl } from '../art.js';
 import { icon } from '../icons.js';
-import { go } from '../ui.js';
+import { go, toast } from '../ui.js';
 import { sayWord, stopAudio } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm, motionAllowed } from '../ambient.js';
@@ -43,7 +43,7 @@ export default {
       <header class="topbar">
         <button class="icon-btn" type="button" data-act="exit" aria-label="${t('common.back')}">${icon('close')}</button>
         <h1 class="title">${escapeHtml(title)}</h1>
-        <span class="chip chip-honey honey-chip" aria-label="${t('bee.honeyLabel')}">${icon('honey')}<span class="honey-n">${num(progress().honey || 0)}</span></span>
+        <button class="chip chip-honey honey-chip" type="button" data-act="honey-info" aria-label="${t('bee.honeyLabel')}">${icon('honey')}<span class="honey-n">${num(honeyBalance())}</span></button>
       </header>
       <ol class="steps" aria-label="${t('learn.title')}">${steps}</ol>
       <div class="bee-main">
@@ -196,7 +196,8 @@ export default {
 
     function answer(got) {
       run++;
-      recordLearned(word.id, got);
+      const { goalReached } = recordLearned(word.id, got);
+      if (goalReached) setTimeout(() => { if (alive) { sfx.badge(); confetti(70); toast(t('honey.goalToast'), 4000); } }, 900);
       if (!done.has(word.id)) done.set(word.id, got);
       if (got) {
         setFlowerStage(flowerEl, 4);
@@ -205,7 +206,7 @@ export default {
         setPose('cheer');
         setBubble(t(`praise.${1 + Math.floor(Math.random() * 6)}`));
         honeyFly(flowerEl, honeyChip);
-        setTimeout(() => { if (alive) $('.honey-n').textContent = num(progress().honey || 0); }, 750);
+        setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
         setActions(btn('next', 'honey', 'next', i === queue.length - 1 ? t('bee.finish') : t('bee.next')));
       } else {
         setFlowerStage(flowerEl, 5);
@@ -272,6 +273,7 @@ export default {
       else if (act === 'again-word') look();
       else if (act === 'next') next();
       else if (act === 'test') go('bee', { mode: 'retry', ids: summary.dataset.ids });
+      else if (act === 'honey-info') toast(t('honey.explainShort'), 4200);
       else if (act === 'exit') { if (history.length > 1) history.back(); else go('words'); }
     };
     root.addEventListener('click', onClick);

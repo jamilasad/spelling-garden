@@ -12,6 +12,12 @@ A colorful spelling bee practice app for English, Bangla and Arabic words. Every
 - **My word list:** all words together, or one language at a time (English, বাংলা, العربية). Tap 🔊 to hear a word, or tap the word to learn it. **Print** gives a clean memory sheet with the tricky parts marked, one language per page.
 - **Learn words:** Look → Say → Cover → Write → Check. She sees the word, spells along as the letters light up, the leaves cover it, she writes it from memory on paper, then checks. Learning doesn't affect her test results; afterwards, **Test myself** quizzes the same words.
 
+## Honey Pot
+Every word she gets right earns a **honey drop** (it never goes down for a "Not yet").
+- **Honey jars:** every 25 drops fills a jar.
+- **Today's goal:** collect 20 drops a day (change it in Settings: 10, 20 or 30), with a celebration when she reaches it.
+- **Honey Shop:** spend drops on hats for Buzzy, special bee colours (silver, gold, rainbow) and decorations for My Garden.
+
 ## How she practices
 1. **Hear the word.** It plays automatically, and she can tap again, slowly, meaning, sentence or word type.
 2. **She writes it on paper** (or spells it aloud).

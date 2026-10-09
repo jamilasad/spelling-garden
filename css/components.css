@@ -306,13 +306,28 @@
 
 /* ============ Mascot ============ */
 .mascot { position: relative; width: 100%; height: 100%; }
-.mascot img, .mascot svg { width: 100%; height: 100%; object-fit: contain; overflow: visible; }
-.mascot[data-pose='listen'] svg, .mascot[data-pose='listen'] img { animation: m-listen 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
-.mascot[data-pose='think'] svg, .mascot[data-pose='think'] img { animation: m-think 3s ease-in-out infinite; transform-origin: 50% 90%; }
-.mascot[data-pose='cheer'] svg, .mascot[data-pose='cheer'] img { animation: m-cheer .7s var(--ease-out) 2; transform-origin: 50% 100%; }
-.mascot[data-pose='oops'] svg, .mascot[data-pose='oops'] img { animation: m-oops .9s ease-in-out 1; transform-origin: 50% 90%; }
-.mascot[data-pose='wave'] svg, .mascot[data-pose='wave'] img,
-.mascot[data-pose='trophy'] svg, .mascot[data-pose='trophy'] img { animation: m-float 3.2s ease-in-out infinite; }
+.mascot-body { position: relative; width: 100%; height: 100%; }
+.mascot-body > img, .mascot-body > svg { width: 100%; height: 100%; object-fit: contain; overflow: visible; }
+.mascot[data-pose='listen'] .mascot-body { animation: m-listen 2.4s ease-in-out infinite; transform-origin: 50% 90%; }
+.mascot[data-pose='think'] .mascot-body { animation: m-think 3s ease-in-out infinite; transform-origin: 50% 90%; }
+.mascot[data-pose='cheer'] .mascot-body { animation: m-cheer .7s var(--ease-out) 2; transform-origin: 50% 100%; }
+.mascot[data-pose='oops'] .mascot-body { animation: m-oops .9s ease-in-out 1; transform-origin: 50% 90%; }
+.mascot[data-pose='wave'] .mascot-body,
+.mascot[data-pose='trophy'] .mascot-body { animation: m-float 3.2s ease-in-out infinite; }
+.mascot .hat {
+  position: absolute;
+  left: calc(var(--hat-x) * 1%);
+  top: calc(var(--hat-y) * 1%);
+  width: calc(var(--hat-w) * 1%);
+  transform: translate(-50%, -88%) rotate(var(--hat-r, 0deg));
+  transform-origin: 50% 100%;
+  pointer-events: none;
+  animation: hat-on .5s var(--ease-pop) both;
+}
+.mascot .hat svg, .mascot .hat img { width: 100%; height: auto; display: block; overflow: visible; }
+@keyframes hat-on { from { opacity: 0; transform: translate(-50%, -160%) rotate(var(--hat-r, 0deg)); } }
+.tint-rainbow { animation: rainbow 6s linear infinite; }
+@keyframes rainbow { to { filter: hue-rotate(360deg) saturate(1.3); } }
 @keyframes m-listen { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(5deg) translateY(-3px); } }
 @keyframes m-think { 0%, 100% { transform: translateX(0) rotate(0); } 50% { transform: translateX(3px) rotate(3deg); } }
 @keyframes m-cheer { 0% { transform: translateY(0) scale(1, 1); } 30% { transform: translateY(-26px) scale(.96, 1.05); } 60% { transform: translateY(0) scale(1.06, .94); } 100% { transform: none; } }

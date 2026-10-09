@@ -11,6 +11,7 @@ const DEFAULT_SETTINGS = {
   reveal: 'letters',   // 'letters' | 'word'
   contestDate: '',
   mockTimer: 0,        // seconds per word in Mock Contest (0 = no timer)
+  dailyGoal: 20,       // honey drops to collect each day
 };
 
 let state = null;
@@ -88,7 +89,24 @@ export function setActiveProfile(id) {
 
 // ---------- Progress ----------
 function emptyProgress() {
-  return { words: {}, streak: { count: 0, last: null, best: 0 }, honey: 0, badges: {}, sessions: [] };
+  return {
+    words: {}, streak: { count: 0, last: null, best: 0 }, badges: {}, sessions: [],
+    honey: 0,            // every drop ever earned (fills the jars, never goes down)
+    spent: 0,            // drops spent in the Honey Shop
+    honeyDays: {},       // day → drops earned that day (for the daily goal)
+    owned: { hats: [], colours: [], decor: [] },
+    hat: null,           // the hat Buzzy is wearing
+  };
+}
+
+/** Adds one honey drop. Returns true when this drop reaches today's goal. */
+function addHoney(p, day) {
+  p.honey = (p.honey || 0) + 1;
+  p.honeyDays = p.honeyDays || {};
+  p.honeyDays[day] = (p.honeyDays[day] || 0) + 1;
+  const days = Object.keys(p.honeyDays).sort();
+  for (const old of days.slice(0, Math.max(0, days.length - 90))) delete p.honeyDays[old];
+  return p.honeyDays[day] === (state.settings.dailyGoal || 20);
 }
 
 export function progress(profileId = state.active) {
@@ -97,12 +115,13 @@ export function progress(profileId = state.active) {
   return state.progress[profileId];
 }
 
+/** @returns {{ record: object, goalReached: boolean }} */
 export function recordResult(wordId, gotIt, day = dayString()) {
   const p = progress();
   p.words[wordId] = applyResult(p.words[wordId], gotIt, day);
-  if (gotIt) p.honey += 1;
+  const goalReached = gotIt ? addHoney(p, day) : false;
   save();
-  return p.words[wordId];
+  return { record: p.words[wordId], goalReached };
 }
 
 /** Look–Say–Cover–Write–Check: counts as learning, not as a test, so review timing is untouched. */
@@ -113,9 +132,37 @@ export function recordLearned(wordId, gotIt, day = dayString()) {
   r.times += 1;
   r.last = day;
   p.learned[wordId] = r;
-  if (gotIt) p.honey += 1;
+  const goalReached = gotIt ? addHoney(p, day) : false;
   save();
-  return r;
+  return { record: r, goalReached };
+}
+
+// ---------- Honey Pot ----------
+export const honeyEarned = () => progress().honey || 0;
+export const honeyBalance = () => Math.max(0, (progress().honey || 0) - (progress().spent || 0));
+export const honeyToday = (day = dayString()) => progress().honeyDays?.[day] || 0;
+
+function ownedLists(p) {
+  p.owned = { hats: [], colours: [], decor: [], ...(p.owned || {}) };
+  return p.owned;
+}
+export const owns = (kind, id) => ownedLists(progress())[kind].includes(id);
+export const ownedOf = (kind) => [...ownedLists(progress())[kind]];
+export const wornHat = () => progress().hat || null;
+
+/** Spends honey on an item. Returns false when there isn't enough. */
+export function buyItem(kind, id, price) {
+  const p = progress();
+  if (owns(kind, id)) return true;
+  if (honeyBalance() < price) return false;
+  p.spent = (p.spent || 0) + price;
+  ownedLists(p)[kind].push(id);
+  save();
+  return true;
+}
+export function wearHat(id) {
+  progress().hat = id || null;
+  save();
 }
 
 export function finishSession(summary, day = dayString()) {

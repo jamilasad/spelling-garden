@@ -1,11 +1,11 @@
 // Bee Mode — hear the word, write it on paper, hold to reveal, then check yourself.
 import { data, listById } from '../data.js';
-import { progress, recordResult, finishSession, awardBadge, activeProfile, settings } from '../store.js';
+import { progress, recordResult, finishSession, awardBadge, activeProfile, settings, honeyBalance } from '../store.js';
 import { buildQueue, requeuePosition, dayString, isTricky, shuffle } from '../scheduler.js';
 import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML } from '../art.js';
 import { icon } from '../icons.js';
-import { go, holdButton, confirmDialog } from '../ui.js';
+import { go, holdButton, confirmDialog, toast } from '../ui.js';
 import { sayWord, saySentence, stopAudio } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
@@ -62,7 +62,7 @@ export default {
       <header class="topbar">
         <button class="icon-btn" type="button" data-act="exit" aria-label="${t('bee.exit')}">${icon('close')}</button>
         <h1 class="title">${escapeHtml(sessionTitle(params))}</h1>
-        <span class="chip chip-honey honey-chip" aria-label="${t('bee.honeyLabel')}">${icon('honey')}<span class="honey-n">${num(progress().honey || 0)}</span></span>
+        <button class="chip chip-honey honey-chip" type="button" data-act="honey-info" aria-label="${t('bee.honeyLabel')}">${icon('honey')}<span class="honey-n">${num(honeyBalance())}</span></button>
       </header>
       <div class="combs" aria-hidden="true"></div>
       <div class="bee-main">
@@ -275,7 +275,8 @@ export default {
     function answerWith(got) {
       if (state !== 'check') return;
       setState('done');
-      recordResult(word.id, got);
+      const { goalReached } = recordResult(word.id, got);
+      if (goalReached) setTimeout(() => celebrateGoal(), 900);
       if (!firstTry.has(word.id)) firstTry.set(word.id, got);
       results[i] = got;
       checkRow.hidden = true;
@@ -287,7 +288,7 @@ export default {
         const n = 1 + Math.floor(Math.random() * 6);
         setBubble(t(`praise.${n}`));
         honeyFly(flowerEl, honeyChip);
-        setTimeout(() => { if (alive) $('.honey-n').textContent = num(progress().honey || 0); }, 750);
+        setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
       } else {
         setFlowerStage(flowerEl, 5);
         sfx.soft();
@@ -308,6 +309,13 @@ export default {
         : `<span>${t('bee.next')}</span>${icon('next', { className: 'flip-rtl' })}`;
       nextBtn.hidden = false;
       nextBtn.focus({ preventScroll: true });
+    }
+
+    function celebrateGoal() {
+      if (!alive) return;
+      sfx.badge();
+      confetti(70);
+      toast(t('honey.goalToast'), 4000);
     }
 
     function next() {
@@ -396,6 +404,7 @@ export default {
       else if (act === 'next') next();
       else if (act === 'exit') exit();
       else if (act === 'retry') go('bee', { mode: 'retry', ids: summary.dataset.missed });
+      else if (act === 'honey-info') toast(t('honey.explainShort'), 4200);
     };
     const onKey = (e) => {
       if (e.target.closest('input, textarea, select') || e.metaKey || e.ctrlKey) return;

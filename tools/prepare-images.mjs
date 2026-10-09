@@ -35,6 +35,8 @@ const RULES = [
   ['card-', 'cards', 400],
   ['badge-', 'badges', 320],
   ['word-', 'words', 512],
+  ['hat-', 'shop', 320],
+  ['decor-', 'shop', 320],
 ];
 
 async function listImages(dir) {

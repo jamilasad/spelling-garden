@@ -43,6 +43,11 @@ export default {
               ${radio('reveal', 'word', t('settings.revealWord'), s.reveal === 'word')}
             </div>
           </fieldset>
+          <fieldset class="field"><legend class="field-label">${icon('honey')} ${t('settings.dailyGoal')}</legend>
+            <div class="choices">
+              ${[10, 20, 30].map((n) => radio('dailyGoal', String(n), t('settings.goalDrops', { n }), (s.dailyGoal || 20) === n)).join('')}
+            </div>
+          </fieldset>
           <label class="field"><span class="field-label">${icon('calendar')} ${t('settings.contestDate')}</span>
             <input class="text-input" type="date" name="contestDate" value="${escapeHtml(s.contestDate || '')}" min="${dayString()}">
           </label>
@@ -78,6 +83,7 @@ export default {
       if (!el.name) return;
       if (el.type === 'checkbox') setSetting(el.name, el.checked);
       else if (el.name === 'speechRate') setSetting('speechRate', Number(el.value));
+      else if (el.name === 'dailyGoal') setSetting('dailyGoal', Number(el.value));
       else setSetting(el.name, el.value);
       if (el.name === 'uiLang' || el.name === 'motion') await applySettings();
       else toast(t('settings.saved'), 1200);

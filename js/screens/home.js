@@ -1,6 +1,7 @@
 // The home garden: greeting, today's practice, the three word lists and the rest of the garden.
 import { data, wordsOfList } from '../data.js';
-import { activeProfile, progress, settings } from '../store.js';
+import { activeProfile, progress, settings, honeyBalance, honeyToday, honeyEarned } from '../store.js';
+import { jarSVG, jarProgress } from '../honey.js';
 import { t, tn, pick, escapeHtml, num } from '../i18n.js';
 import { mascotHTML, avatarHTML, flowerHTML } from '../art.js';
 import { icon } from '../icons.js';
@@ -67,7 +68,8 @@ export default {
         </div>
         <div class="chips hero-chips">
           ${streak ? `<span class="chip chip-honey">${icon('flame')}${tn('home.streak', streak)}</span>` : ''}
-          <span class="chip chip-leaf">${icon('honey')}${tn('home.honey', p.honey || 0)}</span>
+          <a class="chip chip-honey honey-chip-link" href="#/honey"><span class="chip-jar">${jarSVG(jarProgress(honeyEarned()).level)}</span>${tn('home.honey', honeyBalance())}</a>
+          <a class="chip chip-leaf goal-chip ${honeyToday() >= (settings().dailyGoal || 20) ? 'is-done' : ''}" href="#/honey" style="--p:${Math.min(1, honeyToday() / (settings().dailyGoal || 20))}">${icon('star')}${t('home.goalChip', { n: honeyToday(), goal: settings().dailyGoal || 20 })}</a>
           ${contestChip()}
         </div>
         <div class="hero-flower sway-flower">${flowerHTML(4)}</div>
