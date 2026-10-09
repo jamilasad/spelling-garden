@@ -8,6 +8,10 @@ A colorful spelling bee practice app for English, Bangla and Arabic words. Every
 2. **On her iPad or phone:** make sure it's on the same Wi-Fi, then type the address shown in the Terminal window (it looks like `http://192.168.x.x:8080`) into Safari. Use Share → **Add to Home Screen** to get an app icon.
 3. Keep the Terminal window open while she practices. Close it (or press Ctrl+C) to stop.
 
+## Learning the words first
+- **My word list:** all words together, or one language at a time (English, বাংলা, العربية). Tap 🔊 to hear a word, or tap the word to learn it. **Print** gives a clean memory sheet with the tricky parts marked, one language per page.
+- **Learn words:** Look → Say → Cover → Write → Check. She sees the word, spells along as the letters light up, the leaves cover it, she writes it from memory on paper, then checks. Learning doesn't affect her test results; afterwards, **Test myself** quizzes the same words.
+
 ## How she practices
 1. **Hear the word.** It plays automatically, and she can tap again, slowly, meaning, sentence or word type.
 2. **She writes it on paper** (or spells it aloud).

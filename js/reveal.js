@@ -10,32 +10,33 @@ export function tilesHTML(word, { open = false, covers = true } = {}) {
   const glow = highlightedTiles(tiles, word.word, word.highlight);
   const body = tiles.map((t, i) => {
     if (t.space) return '<div class="tile tile-space"></div>';
-    return `<div class="tile${glow.has(i) ? ' glow' : ''}${open ? ' open' : ''}">
+    return `<div class="tile${glow.has(i) ? ' glow' : ''}${open ? ' open' : ''}" style="--k:${i}">
       <div class="hex"></div><div class="hex-in"></div>
       <div class="glyph">${escapeHtml(t.display)}</div>
-      ${covers && !open ? `<div class="cover">${coverLeafHTML(i)}</div>` : ''}
+      ${covers && (!open || covers === 'always') ? `<div class="cover">${coverLeafHTML(i)}</div>` : ''}
     </div>`;
   }).join('');
   return `<div class="tiles" lang="${word.lang}" dir="${dirOf(word.lang)}" style="--n:${tiles.length}" aria-hidden="true">${body}</div>`;
 }
 
-/** The whole word, with the tricky parts marked (English and Bangla only — spans could break Arabic joining). */
-export function bigWordHTML(word) {
+/** The word with its tricky parts marked (English and Bangla only — spans could break Arabic joining). */
+export function markedWordHTML(word) {
   const s = word.word;
-  let html = escapeHtml(s);
-  if (word.lang !== 'ar' && word.highlight?.length) {
-    const parts = [];
-    let from = 0;
-    for (const h of word.highlight) {
-      const at = s.indexOf(h, from);
-      if (at < 0) continue;
-      parts.push(escapeHtml(s.slice(from, at)), `<span class="hl">${escapeHtml(h)}</span>`);
-      from = at + h.length;
-    }
-    parts.push(escapeHtml(s.slice(from)));
-    html = parts.join('');
+  if (word.lang === 'ar' || !word.highlight?.length) return escapeHtml(s);
+  const parts = [];
+  let from = 0;
+  for (const h of word.highlight) {
+    const at = s.indexOf(h, from);
+    if (at < 0) continue;
+    parts.push(escapeHtml(s.slice(from, at)), `<span class="hl">${escapeHtml(h)}</span>`);
+    from = at + h.length;
   }
-  return `<div class="big-word" lang="${word.lang}" dir="${dirOf(word.lang)}">${html}</div>`;
+  parts.push(escapeHtml(s.slice(from)));
+  return parts.join('');
+}
+
+export function bigWordHTML(word) {
+  return `<div class="big-word" lang="${word.lang}" dir="${dirOf(word.lang)}">${markedWordHTML(word)}</div>`;
 }
 
 /** Plays the reveal. Resolves when every tile is open. */

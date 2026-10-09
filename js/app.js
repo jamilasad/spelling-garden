@@ -16,8 +16,10 @@ import hive from './screens/hive.js';
 import garden from './screens/garden.js';
 import settingsScreen from './screens/settings.js';
 import parent from './screens/parent.js';
+import words from './screens/words.js';
+import learn from './screens/learn.js';
 
-const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent };
+const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent, words, learn };
 const NO_PROFILE_NEEDED = new Set(['profiles', 'settings', 'parent']);
 let cleanup = null;
 

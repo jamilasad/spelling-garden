@@ -105,6 +105,19 @@ export function recordResult(wordId, gotIt, day = dayString()) {
   return p.words[wordId];
 }
 
+/** Look–Say–Cover–Write–Check: counts as learning, not as a test, so review timing is untouched. */
+export function recordLearned(wordId, gotIt, day = dayString()) {
+  const p = progress();
+  p.learned = p.learned || {};
+  const r = p.learned[wordId] || { times: 0, last: null };
+  r.times += 1;
+  r.last = day;
+  p.learned[wordId] = r;
+  if (gotIt) p.honey += 1;
+  save();
+  return r;
+}
+
 export function finishSession(summary, day = dayString()) {
   const p = progress();
   p.streak = nextStreak(p.streak, day);

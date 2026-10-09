@@ -73,10 +73,16 @@ export default {
         <div class="hero-flower sway-flower">${flowerHTML(4)}</div>
       </section>
 
-      <button class="btn btn-honey btn-big today-btn" data-go="bee?mode=today" type="button">
-        ${icon('play')}<span><span class="today-title">${t('home.today')}</span>
-        <span class="today-sub">${c.due ? tn('home.todayDue', c.due) : c.fresh ? tn('home.todayNew', Math.min(c.fresh, 15)) : t('home.todayReview')}</span></span>
-      </button>
+      <div class="cta-row">
+        <button class="btn btn-leaf btn-big today-btn" data-go="setup?mode=learn" type="button">
+          ${icon('sprout')}<span><span class="today-title">${t('home.learn')}</span>
+          <span class="today-sub">${t('home.learnSub')}</span></span>
+        </button>
+        <button class="btn btn-honey btn-big today-btn" data-go="bee?mode=today" type="button">
+          ${icon('play')}<span><span class="today-title">${t('home.today')}</span>
+          <span class="today-sub">${c.due ? tn('home.todayDue', c.due) : c.fresh ? tn('home.todayNew', Math.min(c.fresh, 15)) : t('home.todayReview')}</span></span>
+        </button>
+      </div>
 
       <section class="home-section">
         <h2>${t('home.lists')}</h2>
@@ -84,6 +90,10 @@ export default {
       </section>
 
       <section class="home-section more-grid">
+        <button class="tap-card" data-go="words" type="button">
+          <span class="art art-icon art-sky">${icon('list')}</span>
+          <span><span class="label">${t('words.title')}</span><span class="sub">${t('home.wordListSub', { n: data.words.length })}</span></span>
+        </button>
         <button class="tap-card" data-go="hive" type="button">
           <span class="art art-icon art-honey">${icon('hive')}</span>
           <span><span class="label">${t('hive.title')}</span><span class="sub">${c.tricky ? tn('home.trickyCount', c.tricky) : t('home.trickyNone')}</span></span>
