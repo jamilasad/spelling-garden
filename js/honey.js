@@ -1,5 +1,5 @@
 // Honey Pot: the shop catalogue and the hand-drawn jar, hats and garden decorations.
-// Any item can be replaced by an illustration named hat-<id>.png or decor-<id>.png (see docs/image-prompts.md).
+// Any item can be replaced by an illustration named hat-<id>.png or decor-<id>.png (see docs/image-prompts/).
 import { hasArt, artUrl } from './art.js';
 
 export const JAR_SIZE = 25;

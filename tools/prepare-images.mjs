@@ -16,6 +16,15 @@ const INCOMING = path.join(ROOT, 'images', 'incoming');
 
 // file-name prefix → [folder, longest side in px]
 const RULES = [
+  ['garden-lawn', 'scene', 2000],
+  ['plant-', 'garden', 420],
+  ['tree-', 'garden', 700],
+  ['item-', 'garden', 480],
+  ['water-', 'garden', 640],
+  ['big-', 'garden', 760],
+  ['visitor-', 'garden', 260],
+  ['treasure-', 'garden', 520],
+  ['extra-', 'garden', 320],
   ['mascot-', 'mascot', 520],
   ['avatar-', 'avatars', 320],
   ['icon-app', 'icons', 1024],
@@ -88,7 +97,7 @@ async function main() {
   const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
   await writeFile(path.join(ROOT, 'images', 'manifest.json'), JSON.stringify(sorted, null, 2) + '\n');
   console.log(`\n${done} new image(s) prepared, ${Object.keys(sorted).length} in total. Reload the app to see them.`);
-  if (unknown.length) console.log(`Not recognised (check the file names in docs/image-prompts.md): ${unknown.join(', ')}`);
+  if (unknown.length) console.log(`Not recognised (check the file names in docs/image-prompts/): ${unknown.join(', ')}`);
   if (done) console.log('Tip: run `node tools/optimize-images.mjs` to make them about 5–10× smaller (WebP).');
   if (done && process.argv.includes('--clean')) {
     for (const file of incoming) await rm(path.join(INCOMING, file));

@@ -42,9 +42,9 @@ Hold the 🔒 button on the home screen (or the button in Settings) for about a 
 - **Print:** practice sheets with writing lines (tricky words or the full list).
 
 ## Adding the illustrations
-1. Make images with `docs/image-prompts.md`. It lists what's already made and the prompts still to do, in order.
+1. Make images with the prompts in `docs/image-prompts/` (start with `README.md` there). Each group has its own file with tick boxes.
 2. Save them with the exact file names into `images/incoming/`.
-3. In Terminal, from this folder, run `node tools/prepare-images.mjs`, then `node tools/optimize-images.mjs` (makes them much smaller), and reload the app. Or ask Claude to do it.
+3. In Terminal, from this folder, run `node tools/prepare-images.mjs`, then `node tools/optimize-images.mjs` (makes them much smaller), and reload the app. Or ask Claude to "add the new images".
 
 Anything you haven't made yet stays as a placeholder drawing.
 
