@@ -27,9 +27,13 @@ export function buildScene() {
     const dur = rand(95, 170);
     return `<div class="cloud" style="top:${c.top}%;--w:${c.w}px;--dur:${dur.toFixed(0)}s;--delay:-${rand(0, dur).toFixed(0)}s;--still-x:${rand(2, 80).toFixed(0)}vw">${cloudHTML(c.v)}</div>`;
   }).join('');
+  // Three bees fly across at different heights and speeds; two hover in small figure-8s near the edges.
   const flyers = [
-    { top: 28, size: 40, dur: 26, rev: false }, { top: 46, size: 32, dur: 34, rev: true },
+    { top: 22, size: 46, dur: 26, rev: false }, { top: 40, size: 38, dur: 33, rev: true }, { top: 56, size: 32, dur: 40, rev: false },
   ].map((f) => `<div class="flyer${f.rev ? ' reverse' : ''}" style="--top:${f.top}%;--size:${f.size}px;--dur:${f.dur}s;--delay:-${rand(0, f.dur).toFixed(1)}s;--bob:${rand(2.2, 3.2).toFixed(1)}s;--still-x:${rand(10, 80).toFixed(0)}vw"><div class="bob">${beeFlyerHTML()}</div></div>`).join('');
+  const hoverers = [
+    { x: 5, y: 46, size: 40, hx: 3.4 }, { x: 87, y: 30, size: 34, hx: 2.8 },
+  ].map((h) => `<div class="hoverer" style="--x:${h.x}%;--y:${h.y}%;--size:${h.size}px;--hx:${h.hx}s;--delay:-${rand(0, h.hx).toFixed(1)}s"><div class="hy">${beeFlyerHTML()}</div></div>`).join('');
   const sparkles = Array.from({ length: 5 }, () =>
     `<span class="sparkle" style="--x:${rand(6, 94).toFixed(0)}%;--y:${rand(58, 82).toFixed(0)}%;--dur:${rand(2.4, 4.2).toFixed(1)}s;--delay:-${rand(0, 4).toFixed(1)}s"></span>`).join('');
 
@@ -41,7 +45,7 @@ export function buildScene() {
       <div class="hill-layer hill-near">${hillsHTML('near')}</div>
       <div class="hill-layer hill-front">${hillsHTML('front')}</div>
     </div>
-    <div class="ambient">${flyers}${sparkles}</div>`;
+    <div class="ambient">${flyers}${hoverers}${sparkles}</div>`;
   scene.classList.toggle('scene-art', hasArt('scene-hills-far'));
   ambient = scene.querySelector('.ambient');
   applyMotionSetting();

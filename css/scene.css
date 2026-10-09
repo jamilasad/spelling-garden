@@ -89,7 +89,22 @@
 .flyer .bob { animation: bob var(--bob, 2.6s) ease-in-out infinite alternate; }
 .flyer.reverse .bob > * { transform: scaleX(-1); }
 .flyer svg, .flyer img { width: 100%; height: auto; overflow: visible; }
-.flyer .wing { transform-box: fill-box; transform-origin: 50% 100%; animation: wing-flap .12s ease-in-out infinite alternate; }
+.flyer .wing, .hoverer .wing { transform-box: fill-box; transform-origin: 85% 90%; animation: wing-flap .12s ease-in-out infinite alternate; }
+.flyer .wing.front, .hoverer .wing.front { transform-origin: 70% 92%; animation-delay: .03s; }
+
+/* Hovering bees: a small figure-8 in one spot */
+.hoverer {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  animation: hover-x var(--hx, 3.2s) ease-in-out infinite alternate;
+  animation-delay: var(--delay, 0s);
+}
+.hoverer .hy { animation: hover-y calc(var(--hx, 3.2s) / 2) ease-in-out infinite alternate; }
+.hoverer svg { width: 100%; height: auto; overflow: visible; }
+@keyframes hover-x { from { transform: translateX(-26px) rotate(-6deg); } to { transform: translateX(26px) rotate(6deg); } }
+@keyframes hover-y { from { transform: translateY(-10px); } to { transform: translateY(10px); } }
 @keyframes fly-across {
   from { transform: translateX(-12vw); }
   to { transform: translateX(112vw); }
@@ -139,12 +154,14 @@
 /* Motion turned off: everything stays still. */
 .no-motion #scene .cloud,
 .no-motion #scene .flyer,
+.no-motion #scene .hoverer,
+.no-motion #scene .hoverer .hy,
 .no-motion #scene .sun-rays { animation: none; }
 .no-motion #scene .cloud { transform: translateX(var(--still-x, 20vw)); }
 .no-motion #scene .flyer { transform: translateX(var(--still-x, 30vw)); }
 .no-motion #scene .faller, .no-motion #scene .sparkle { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  #scene .cloud, #scene .flyer, #scene .sun-rays, #scene .flyer .bob { animation: none; }
+  #scene .cloud, #scene .flyer, #scene .sun-rays, #scene .flyer .bob, #scene .hoverer, #scene .hoverer .hy, #scene .wing { animation: none; }
   #scene .cloud { transform: translateX(var(--still-x, 20vw)); }
   #scene .flyer { transform: translateX(var(--still-x, 30vw)); }
   #scene .faller, #scene .sparkle { display: none; }

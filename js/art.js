@@ -209,11 +209,12 @@ export function coverLeafHTML(i) {
 
 export function beeFlyerHTML() {
   if (hasArt('bee-flyer')) {
-    // The illustrated bee has no wings on purpose; these flap behind its back.
-    return `<svg viewBox="0 0 100 186" aria-hidden="true">
-      <g class="wing"><ellipse cx="22" cy="78" rx="17" ry="28" transform="rotate(-38 22 78)" fill="#DDF3FF" fill-opacity=".92" stroke="${INK}" stroke-width="4"/></g>
-      <g class="wing" style="animation-delay:.06s"><ellipse cx="36" cy="70" rx="15" ry="25" transform="rotate(-14 36 70)" fill="#EAF8FF" fill-opacity=".92" stroke="${INK}" stroke-width="4"/></g>
+    // The illustrated bee has no wings on purpose: one flaps behind its back and a see-through,
+    // shiny one flaps on the near side (style C from the mockup).
+    return `<svg viewBox="-36 0 136 186" aria-hidden="true">
+      <g class="wing"><ellipse cx="2" cy="86" rx="14" ry="28" transform="rotate(-64 2 86)" fill="#DDF3FF" fill-opacity=".95" stroke="${INK}" stroke-width="3.5"/></g>
       <image href="${artUrl('bee-flyer')}" x="0" y="0" width="100" height="186"/>
+      <g class="wing front"><ellipse cx="8" cy="96" rx="18" ry="34" transform="rotate(-54 8 96)" fill="#F4FBFF" fill-opacity=".62" stroke="${INK}" stroke-width="3.5"/><path d="M-10 82 Q-6 96 6 104" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".95"/></g>
     </svg>`;
   }
   return `<svg viewBox="0 0 64 56" aria-hidden="true">
