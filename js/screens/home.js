@@ -119,7 +119,7 @@ export default {
     };
     root.addEventListener('click', onClick);
     const parentBtn = root.querySelector('.parent-btn');
-    const stopHold = holdButton(parentBtn, 1200, () => go('parent'), () => toast(t('home.parentHint')));
+    const stopHold = holdButton(parentBtn, 1200, () => go('parent'), () => toast(t('home.parentHint')), { meter: t('home.holdMeter') });
     return () => {
       root.removeEventListener('click', onClick);
       stopHold();

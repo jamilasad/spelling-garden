@@ -31,11 +31,28 @@ export function topbar({ title = '', back = '', end = '', start = '' } = {}) {
   return `<header class="topbar">${first}<h1 class="title">${title}</h1>${end || '<span class="spacer"></span>'}</header>`;
 }
 
+let meterEl = null;
+function showMeter(label, p) {
+  if (!meterEl) {
+    meterEl = document.createElement('div');
+    meterEl.id = 'holdmeter';
+    meterEl.setAttribute('aria-hidden', 'true');
+    meterEl.innerHTML = '<span class="hm-label"></span><span class="hm-bar"><span></span></span>';
+    document.body.appendChild(meterEl);
+  }
+  meterEl.querySelector('.hm-label').textContent = label;
+  meterEl.style.setProperty('--p', p.toFixed(3));
+  meterEl.classList.add('show');
+}
+const hideMeter = () => meterEl?.classList.remove('show');
+
 /**
  * Press-and-hold behaviour (pointer, Enter or Space). Fills --p from 0 to 1.
+ * options.meter: a label to show in a progress bar at the top of the screen,
+ * for small buttons that a finger covers while holding.
  * @returns cleanup function
  */
-export function holdButton(el, ms, onDone, onTooShort) {
+export function holdButton(el, ms, onDone, onTooShort, { meter = '' } = {}) {
   let start = 0;
   let raf = 0;
   let done = false;
@@ -44,10 +61,12 @@ export function holdButton(el, ms, onDone, onTooShort) {
     el.style.setProperty('--p', 0);
     el.classList.remove('holding', 'is-pressed');
     start = 0;
+    if (meter) hideMeter();
   };
   const tick = (now) => {
     const p = Math.min(1, (now - start) / ms);
     el.style.setProperty('--p', p.toFixed(3));
+    if (meter) showMeter(meter, p);
     if (p >= 1) {
       done = true;
       reset();

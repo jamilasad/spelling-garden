@@ -1,7 +1,12 @@
 /* ============ The living garden behind every screen ============ */
 #scene {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Large-viewport height: stays put while the phone's address bar hides and shows. */
+  height: 100vh;
+  height: 100lvh;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;

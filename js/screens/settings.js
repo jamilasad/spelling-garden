@@ -105,7 +105,7 @@ export default {
       }
     };
     file.addEventListener('change', onFile);
-    const stopHold = holdButton(root.querySelector('.parent-hold'), 1200, () => go('parent'));
+    const stopHold = holdButton(root.querySelector('.parent-hold'), 1200, () => go('parent'), null, { meter: t('home.holdMeter') });
 
     return () => {
       form.removeEventListener('change', onChange);

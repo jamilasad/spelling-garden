@@ -127,7 +127,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-shadow: 0 0 6px rgba(255, 255, 255, .9), 0 2px 0 rgba(255, 255, 255, .8);
+}
+/* Screen titles sit on a soft cream label so they stay readable over clouds and sun */
+.topbar .title {
+  flex: 0 1 auto;
+  margin-inline: auto;
+  padding: 2px var(--s4);
+  background: rgba(255, 248, 231, .9);
+  border-radius: var(--r-pill);
 }
 .topbar .spacer { width: var(--tap); flex: none; }
 [dir='rtl'] .flip-rtl { transform: scaleX(-1); }
@@ -200,6 +207,7 @@
   left: 50%;
   bottom: max(var(--s5), env(safe-area-inset-bottom));
   transform: translate(-50%, 140%);
+  width: max-content;
   max-width: min(92vw, 520px);
   padding: var(--s3) var(--s5);
   background: var(--ink);
@@ -517,3 +525,28 @@
   from { transform: translate(55%, -140%) rotate(95deg) scale(.7); opacity: 0; }
   to { transform: none; opacity: 1; }
 }
+
+/* ============ Hold meter: shows hold progress where a finger can't cover it ============ */
+#holdmeter {
+  position: fixed;
+  z-index: 55;
+  top: max(var(--s3), calc(env(safe-area-inset-top) + var(--s2)));
+  left: 50%;
+  transform: translate(-50%, -160%);
+  width: max-content;
+  max-width: min(92vw, 420px);
+  display: grid;
+  gap: var(--s2);
+  padding: var(--s3) var(--s5);
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: var(--r-lg);
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--lift);
+  pointer-events: none;
+  transition: transform var(--t-quick) var(--ease-out);
+}
+#holdmeter.show { transform: translate(-50%, 0); }
+#holdmeter .hm-bar { display: block; height: 10px; border-radius: var(--r-pill); background: rgba(255, 248, 231, .25); overflow: hidden; }
+#holdmeter .hm-bar > span { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--honey); border-radius: inherit; }

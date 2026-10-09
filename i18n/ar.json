@@ -247,5 +247,6 @@
   "learn.doneTitle.other": "تعلّمت كلمات: {n}!",
   "learn.doneLead": "الآن اختبر نفسك لترى أي الكلمات تتذكّرها.",
   "learn.testNow": "اختبر نفسي",
-  "learn.backToList": "العودة إلى قائمة كلماتي"
+  "learn.backToList": "العودة إلى قائمة كلماتي",
+  "home.holdMeter": "استمر في الضغط…"
 }

@@ -258,5 +258,6 @@
   "learn.doneTitle.other": "You learned {n} words!",
   "learn.doneLead": "Now test yourself to see which words stick.",
   "learn.testNow": "Test myself",
-  "learn.backToList": "Back to my word list"
+  "learn.backToList": "Back to my word list",
+  "home.holdMeter": "Keep holding…"
 }
