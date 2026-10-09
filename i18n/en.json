@@ -312,5 +312,6 @@
   "garden.decorEmpty": "Buy decorations in the Honey Shop to brighten up your garden.",
   "garden.toShop": "Honey Shop",
   "settings.dailyGoal": "Daily honey goal",
-  "settings.goalDrops": "{n} drops"
+  "settings.goalDrops": "{n} drops",
+  "settings.ambient": "Garden sounds (birds and bees)"
 }

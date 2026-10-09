@@ -2,13 +2,30 @@
 import { data, wordsOfList } from '../data.js';
 import { activeProfile, progress, settings, honeyBalance, honeyToday, honeyEarned } from '../store.js';
 import { jarSVG, jarProgress } from '../honey.js';
-import { t, tn, pick, escapeHtml, num } from '../i18n.js';
+import { t, tn, pick, escapeHtml, num, getLang } from '../i18n.js';
 import { mascotHTML, avatarHTML, flowerHTML } from '../art.js';
 import { icon } from '../icons.js';
 import { go, toast, holdButton } from '../ui.js';
 import { isMastered, isSeen, isTricky, isDue, dayString, daysBetween } from '../scheduler.js';
 
 const LANG_COLOR = { en: 'var(--sky)', bn: 'var(--leaf-deep)', ar: 'var(--lavender)' };
+const LOGO_COLORS = ['#FFC93C', '#FF6B9D', '#5BC0EB', '#7BD389', '#9B5DE5', '#FF8C42'];
+
+/** The app name as sticker letters. English gets a colour per letter; Bangla and Arabic a colour
+ *  per word, because splitting their letters into pieces would break how they join. */
+function logoHTML(name, lang) {
+  if (lang !== 'en') {
+    return name.split(' ').map((w, i) => `<span style="color:${LOGO_COLORS[(i * 2) % 6]}">${escapeHtml(w)}</span>`).join(' ');
+  }
+  const tilt = [-6, 4, -3, 5, -4, 3];
+  const lift = [0, -3, 2, -2, 3, -1];
+  let k = 0;
+  return [...name].map((ch) => {
+    if (ch === ' ') return ' ';
+    const i = k++;
+    return `<span class="l" style="color:${LOGO_COLORS[i % 6]};transform:rotate(${tilt[i % 6]}deg) translateY(${lift[i % 6]}px)">${escapeHtml(ch)}</span>`;
+  }).join('');
+}
 
 function counts() {
   const recs = progress().words;
@@ -55,7 +72,7 @@ export default {
     return `<div class="page home-page">
       <header class="topbar home-topbar">
         <a class="avatar-btn" href="#/profiles" aria-label="${t('home.switchPlayer')}">${avatarHTML(me.avatar)}</a>
-        <p class="title app-name">${escapeHtml(pick(data.config.appName))}</p>
+        <p class="title app-name logo" aria-label="${escapeHtml(pick(data.config.appName))}">${logoHTML(pick(data.config.appName), getLang())}</p>
         <a class="icon-btn" href="#/settings" aria-label="${t('settings.title')}">${icon('settings')}</a>
         <button class="icon-btn parent-btn" type="button" aria-label="${t('home.parentHold')}">${icon('lock')}</button>
       </header>
@@ -63,7 +80,7 @@ export default {
       <section class="card hero">
         <div class="hero-mascot">${mascotHTML('wave', { avatar: me.avatar })}</div>
         <div class="hero-text">
-          <h1>${t('home.hello', { name: escapeHtml(me.name) })}</h1>
+          <h1>${t('home.hello', { name: `<bdi>${escapeHtml(me.name)}</bdi>` })}</h1>
           <p class="lead">${t('home.lead')}</p>
         </div>
         <div class="chips hero-chips">

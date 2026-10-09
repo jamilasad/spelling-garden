@@ -335,7 +335,7 @@ export default {
       const p = finishSession({ mode, total: ids.length, firstTry: right, missed });
       const qualified = qualifyingBadges(p, data.words, { total: ids.length, firstTry: right });
       const fresh = [...qualified].filter((id) => awardBadge(id));
-      const name = escapeHtml(activeProfile()?.name || '');
+      const name = `<bdi>${escapeHtml(activeProfile()?.name || '')}</bdi>`;
 
       const badgeBits = fresh.map((id) => {
         const b = BADGES.find((x) => x.id === id);

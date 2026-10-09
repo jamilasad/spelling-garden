@@ -530,3 +530,14 @@ button.honey-chip { cursor: pointer; font: inherit; color: inherit; }
 .decor-item svg, .decor-item img { width: 100%; height: 100%; }
 .decor-butterfly { align-self: center; animation: m-float 3s ease-in-out infinite; }
 .decor-rainbow { width: 120px; }
+
+/* ============ Sticker-letter logo ============ */
+.logo { font-weight: 800; line-height: 1.25; white-space: nowrap; -webkit-text-stroke: .16em var(--ink); paint-order: stroke fill; text-shadow: 0 .09em 0 var(--ink); letter-spacing: .01em; }
+.logo .l { display: inline-block; }
+.home-topbar .title.app-name.logo { background: none; padding: 0 var(--s2); overflow: visible; font-size: clamp(2rem, 3.4vw, 2.9rem); }
+:lang(ar) .home-topbar .title.app-name.logo { line-height: 1.6; }
+@media (max-width: 560px) {
+  .home-topbar { flex-wrap: wrap; row-gap: 0; }
+  .home-topbar .title.app-name.logo { order: 5; flex-basis: 100%; text-align: center; font-size: 2.05rem; margin-top: -4px; }
+  .home-topbar > a.icon-btn { margin-inline-start: auto; }
+}

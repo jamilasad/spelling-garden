@@ -2,6 +2,7 @@
 // first tap so iPad Safari lets later words play automatically.
 import { data } from './data.js';
 import { settings } from './store.js';
+import { duckForSpeech } from './ambience.js';
 
 const player = new Audio();
 player.preload = 'auto';
@@ -84,19 +85,29 @@ function urlFor(word, kind) {
   return busts[word.id] ? `${path}?v=${busts[word.id]}` : path;
 }
 
-export async function sayWord(word, { slow = false } = {}) {
-  const rate = slow ? 0.6 : settings().speechRate;
-  const url = urlFor(word, 'word');
-  if (url && (await playUrl(url, rate))) return true;
-  return speak(word.word, word.lang, rate);
+// The garden fades almost to silence while a word or sentence is spoken.
+async function withQuietGarden(play) {
+  duckForSpeech(true);
+  try { return await play(); } finally { duckForSpeech(false); }
 }
 
-export async function saySentence(word) {
-  if (!word.sentence) return false;
-  const rate = settings().speechRate;
-  const url = urlFor(word, 'sentence');
-  if (url && (await playUrl(url, rate))) return true;
-  return speak(word.sentence, word.lang, rate);
+export function sayWord(word, { slow = false } = {}) {
+  return withQuietGarden(async () => {
+    const rate = slow ? 0.6 : settings().speechRate;
+    const url = urlFor(word, 'word');
+    if (url && (await playUrl(url, rate))) return true;
+    return speak(word.word, word.lang, rate);
+  });
+}
+
+export function saySentence(word) {
+  if (!word.sentence) return Promise.resolve(false);
+  return withQuietGarden(async () => {
+    const rate = settings().speechRate;
+    const url = urlFor(word, 'sentence');
+    if (url && (await playUrl(url, rate))) return true;
+    return speak(word.sentence, word.lang, rate);
+  });
 }
 
 export const hasSentence = (word) => Boolean(word.sentence);

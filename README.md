@@ -63,6 +63,13 @@ Things to know about the online version:
 - **Offline:** on the Mac the app keeps working without internet. When the Mac serves it over Wi-Fi, the iPad and phone only work while the Mac is running. Once it's on GitHub Pages (above), every device works fully offline.
 - **Contest date** is set to 22 Oct 2026. Change it in Settings.
 
+## Sound credits
+All garden sounds are real recordings released into the public domain (CC0):
+- Morning garden birdsong (`audio/garden/garden-morning.m4a`): "Morning birds in garden village Chambon-sur-Cisse" by bruno.auzet, https://freesound.org/people/bruno.auzet/sounds/851792/ (shortened to a 1-minute loop)
+- Bee buzz (`audio/garden/bee-buzz.m4a`): "Solitary bees or flies" by Joseph Sardin, BigSoundBank, https://bigsoundbank.com/solitary-bees-or-flies-s0101.html
+
+Turn garden sounds off in Settings → "Garden sounds". They fade almost to silence whenever a word is spoken and are off in the Mock contest.
+
 ## For developers
 - Plain HTML/CSS/JavaScript, no build step. `tools/server.mjs` is a zero-dependency Node server.
 - Word lists: `data/words-*.json` and `data/lists.json`. Audio index: `data/audio-index.json`.

@@ -4,6 +4,7 @@ import { t, escapeHtml } from '../i18n.js';
 import { icon } from '../icons.js';
 import { topbar, toast, downloadFile, go, holdButton } from '../ui.js';
 import { applySettings } from '../app.js';
+import { startAmbience, stopAmbience } from '../ambience.js';
 import { dayString } from '../scheduler.js';
 
 const radio = (name, value, label, checked, extra = '') =>
@@ -29,6 +30,7 @@ export default {
 
         <section class="card settings-stack">
           <label class="switch"><span class="field-label">${icon('play')} ${t('settings.sound')}</span><input type="checkbox" name="sound" ${s.sound ? 'checked' : ''}></label>
+          <label class="switch"><span class="field-label">${icon('flower')} ${t('settings.ambient')}</span><input type="checkbox" name="ambient" ${s.ambient !== false ? 'checked' : ''}></label>
           <label class="switch"><span class="field-label">${icon('motion')} ${t('settings.motion')}</span><input type="checkbox" name="motion" ${s.motion ? 'checked' : ''}></label>
           <fieldset class="field"><legend class="field-label">${icon('slow')} ${t('settings.speed')}</legend>
             <div class="choices">
@@ -82,6 +84,7 @@ export default {
       const el = e.target;
       if (!el.name) return;
       if (el.type === 'checkbox') setSetting(el.name, el.checked);
+      if (el.name === 'ambient') { if (el.checked) startAmbience(); else stopAmbience(); }
       else if (el.name === 'speechRate') setSetting('speechRate', Number(el.value));
       else if (el.name === 'dailyGoal') setSetting('dailyGoal', Number(el.value));
       else setSetting(el.name, el.value);

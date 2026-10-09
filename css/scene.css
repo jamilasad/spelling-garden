@@ -89,8 +89,8 @@
 .flyer .bob { animation: bob var(--bob, 2.6s) ease-in-out infinite alternate; }
 .flyer.reverse .bob > * { transform: scaleX(-1); }
 .flyer svg, .flyer img { width: 100%; height: auto; overflow: visible; }
-.flyer .wing, .hoverer .wing { transform-box: fill-box; transform-origin: 85% 90%; animation: wing-flap .12s ease-in-out infinite alternate; }
-.flyer .wing.front, .hoverer .wing.front { transform-origin: 70% 92%; animation-delay: .03s; }
+.bee-sprite .wing, .flyer .wing, .hoverer .wing { transform-box: fill-box; transform-origin: 85% 90%; animation: wing-flap .12s ease-in-out infinite alternate; }
+.bee-sprite .wing.front, .flyer .wing.front, .hoverer .wing.front { transform-origin: 70% 92%; animation-delay: .03s; }
 
 /* Hovering bees: a small figure-8 in one spot */
 .hoverer {
@@ -208,3 +208,10 @@
   20% { opacity: 1; transform: translate(-50%, -80%) scale(1.15); }
   100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.5); opacity: 0; }
 }
+
+/* Bees that come and go (moved by script) */
+.bee-sprite { position: absolute; left: 0; top: 0; width: var(--size, 40px); will-change: transform; }
+.bee-sprite svg { width: 100%; height: auto; overflow: visible; display: block; }
+.bee-sprite.facing-left .bee-inner { transform: scaleX(-1); }
+.bee-sprite.tapped .bee-inner svg { animation: bee-loop .6s ease-in-out; }
+@keyframes bee-loop { 50% { transform: rotate(-200deg) scale(1.25); } 100% { transform: rotate(-360deg); } }

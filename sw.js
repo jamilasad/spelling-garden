@@ -2,7 +2,7 @@
 // Every network request revalidates with the server ("no-cache"), so a new version is picked up
 // on the next online visit instead of waiting for the browser's own cache to expire.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v9';
+const VERSION = 'spelling-garden-v10';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
@@ -10,7 +10,8 @@ const CORE = [
   'js/app.js', 'js/ambient.js', 'js/art.js', 'js/audio.js', 'js/badges.js', 'js/data.js', 'js/fx.js',
   'js/i18n.js', 'js/icons.js', 'js/reveal.js', 'js/scheduler.js', 'js/segment.js', 'js/sfx.js', 'js/store.js', 'js/ui.js',
   'js/screens/home.js', 'js/screens/profiles.js', 'js/screens/setup.js', 'js/screens/bee.js', 'js/screens/hive.js',
-  'js/screens/garden.js', 'js/screens/settings.js', 'js/screens/parent.js', 'js/screens/words.js', 'js/screens/learn.js', 'js/screens/honey.js', 'js/honey.js',
+  'js/screens/garden.js', 'js/screens/settings.js', 'js/screens/parent.js', 'js/screens/words.js', 'js/screens/learn.js', 'js/screens/honey.js', 'js/honey.js', 'js/ambience.js',
+  'audio/garden/garden-morning.m4a', 'audio/garden/bee-buzz.m4a',
   'i18n/en.json', 'i18n/bn.json', 'i18n/ar.json',
   'data/app-config.json', 'data/lists.json', 'data/words-en.json', 'data/words-bn.json', 'data/words-ar.json',
   'data/audio-index.json', 'images/manifest.json',

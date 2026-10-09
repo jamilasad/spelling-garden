@@ -7,6 +7,7 @@ const DEFAULT_SETTINGS = {
   uiLang: 'en',
   speechRate: 0.9,
   sound: true,
+  ambient: true,       // garden sounds (birdsong and bees)
   motion: true,
   reveal: 'letters',   // 'letters' | 'word'
   contestDate: '',

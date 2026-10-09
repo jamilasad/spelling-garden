@@ -297,5 +297,6 @@
   "garden.decorEmpty": "বাগান সাজাতে মধুর দোকান থেকে জিনিস কেনো।",
   "garden.toShop": "মধুর দোকান",
   "settings.dailyGoal": "প্রতিদিনের মধুর লক্ষ্য",
-  "settings.goalDrops": "{n} ফোঁটা"
+  "settings.goalDrops": "{n} ফোঁটা",
+  "settings.ambient": "বাগানের শব্দ (পাখি আর মৌমাছি)"
 }

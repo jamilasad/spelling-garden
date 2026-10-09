@@ -297,5 +297,6 @@
   "garden.decorEmpty": "اشترِ زينة من متجر العسل لتزيّن حديقتك.",
   "garden.toShop": "متجر العسل",
   "settings.dailyGoal": "هدف العسل اليومي",
-  "settings.goalDrops": "{n} قطرة"
+  "settings.goalDrops": "{n} قطرة",
+  "settings.ambient": "أصوات الحديقة (طيور ونحل)"
 }

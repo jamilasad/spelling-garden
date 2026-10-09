@@ -3,19 +3,26 @@ import { settings } from './store.js';
 
 let ctx = null;
 
-function audioCtx() {
-  if (!settings().sound) return null;
+/** The one audio context shared by sound effects and the garden sounds. */
+export function audioContext() {
   if (!ctx) {
     const C = window.AudioContext || window.webkitAudioContext;
     if (!C) return null;
     ctx = new C();
   }
-  if (ctx.state === 'suspended') ctx.resume();
+  if (ctx.state === 'suspended' && document.visibilityState === 'visible') ctx.resume();
   return ctx;
 }
 
+/** The audio context only if sound has already started (never creates one). */
+export const existingAudioContext = () => ctx;
+
+function audioCtx() {
+  return settings().sound ? audioContext() : null;
+}
+
 export function unlockSfx() {
-  const c = audioCtx();
+  const c = audioContext();
   if (!c) return;
   const g = c.createGain();
   g.gain.value = 0;

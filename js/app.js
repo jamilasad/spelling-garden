@@ -6,6 +6,7 @@ import { loadArt, setWornHat } from './art.js';
 import { buildScene, setCalm, applyMotionSetting } from './ambient.js';
 import { unlockAudio, stopAudio } from './audio.js';
 import { unlockSfx } from './sfx.js';
+import { startAmbience, setAmbienceMuted } from './ambience.js';
 import { go } from './ui.js';
 
 import home from './screens/home.js';
@@ -45,6 +46,7 @@ export async function render() {
   }
   stopAudio();
   setCalm(false);
+  setAmbienceMuted(name === 'bee' && params.mode === 'mock');
   setWornHat(activeProfile() ? wornHat() : null);
 
   const root = document.getElementById('app');
@@ -72,6 +74,7 @@ async function boot() {
   const unlock = () => {
     unlockAudio();
     unlockSfx();
+    startAmbience();
     window.removeEventListener('pointerdown', unlock, true);
     window.removeEventListener('keydown', unlock, true);
   };
