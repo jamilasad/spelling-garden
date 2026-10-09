@@ -82,6 +82,7 @@ async function boot() {
   window.addEventListener('keydown', unlock, true);
   window.addEventListener('hashchange', render);
   await render();
+  hideSplash();
 
   if ('serviceWorker' in navigator && window.isSecureContext) registerUpdates();
 }
@@ -105,7 +106,19 @@ function registerUpdates() {
   }).catch(() => {});
 }
 
+// The loading screen (in index.html) stays at least this long, so Buzzy's entrance isn't cut short.
+const SPLASH_MIN_MS = 1100;
+function hideSplash() {
+  const el = document.getElementById('splash');
+  if (!el) return;
+  setTimeout(() => {
+    el.classList.add('done');
+    setTimeout(() => el.remove(), 500);
+  }, Math.max(0, SPLASH_MIN_MS - performance.now()));
+}
+
 boot().catch((err) => {
   console.error(err);
+  hideSplash();
   document.getElementById('app').innerHTML = `<div class="page"><div class="card"><h2>${t('error.boot')}</h2><p>${String(err.message || err)}</p></div></div>`;
 });

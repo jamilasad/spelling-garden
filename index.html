@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" style="background:#8FD6F6">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -13,6 +13,56 @@
   <link rel="icon" href="images/icons/icon-192.png" type="image/png">
   <link rel="apple-touch-icon" href="images/icons/icon-180.png">
   <link rel="preload" href="fonts/baloo-2-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="images/mascot/mascot-wave.webp" as="image">
+  <!-- The loading screen is styled here, so it shows the moment the page opens. -->
+  <style>
+    @font-face { font-family: 'GardenSplash'; font-weight: 400 800; font-display: block; src: url('fonts/baloo-2-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2026; }
+    @font-face { font-family: 'GardenSplash'; font-weight: 400 800; font-display: block; src: url('fonts/baloo-da-2-bengali.woff2') format('woff2'); unicode-range: U+0980-09FE, U+200C-200D; }
+    @font-face { font-family: 'GardenSplash'; font-weight: 400 800; font-display: block; src: url('fonts/baloo-bhaijaan-2-arabic.woff2') format('woff2'); unicode-range: U+0600-06FF, U+FB50-FDFF, U+FE70-FEFF; }
+    #splash {
+      position: fixed; inset: 0; z-index: 100; overflow: hidden;
+      display: grid; place-items: center;
+      background: linear-gradient(180deg, #8FD6F6 0%, #C4ECFC 52%, #EAF9FF 74%, #DDF4E4 100%);
+      font-family: 'GardenSplash', system-ui, sans-serif; color: #3D2C29;
+      transition: opacity .45s ease, visibility 0s linear .45s;
+    }
+    #splash.done { opacity: 0; visibility: hidden; }
+    #splash.done .sp-center { transform: scale(1.06); }
+    #splash img { display: block; user-select: none; -webkit-user-drag: none; }
+    .sp-sun { position: absolute; top: -80px; right: -70px; width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, #FFE27A, #FFC93C 70%); box-shadow: 0 0 70px 26px rgba(255,216,102,.5); }
+    .sp-rays { position: absolute; top: -200px; right: -190px; width: 500px; height: 500px; border-radius: 50%;
+      background: repeating-conic-gradient(rgba(255,233,168,.55) 0deg 9deg, transparent 9deg 24deg);
+      -webkit-mask-image: radial-gradient(circle, #000 30%, transparent 68%); mask-image: radial-gradient(circle, #000 30%, transparent 68%);
+      animation: sp-spin 60s linear infinite; }
+    .sp-cloud { position: absolute; opacity: .95; animation: sp-drift 9s ease-in-out infinite alternate; }
+    .sp-cloud.c1 { top: 9%; left: -30px; width: 210px; }
+    .sp-cloud.c2 { top: 21%; right: 6%; width: 140px; animation-duration: 11s; animation-direction: alternate-reverse; }
+    .sp-hills { position: absolute; left: 50%; bottom: 0; width: max(100%, 1000px); transform: translate(-50%, 34%); }
+    .sp-grass { position: absolute; left: 50%; bottom: 0; width: max(100%, 1000px); transform: translate(-50%, 46%); }
+    .sp-center { position: relative; z-index: 2; display: grid; justify-items: center; gap: 10px; padding: 0 16px 14vh;
+      text-align: center; transition: transform .45s ease; }
+    .sp-buzzy { width: min(46vw, 210px); aspect-ratio: 1; animation: sp-in .9s cubic-bezier(.34,1.56,.64,1) both, sp-float 2.6s ease-in-out .9s infinite; }
+    .sp-buzzy img { width: 100%; height: 100%; object-fit: contain; }
+    .sp-logo { font-weight: 800; font-size: clamp(2.4rem, 9vw, 4rem); line-height: 1.2; white-space: nowrap;
+      -webkit-text-stroke: .16em #3D2C29; paint-order: stroke fill; text-shadow: 0 .09em 0 #3D2C29;
+      animation: sp-pop .7s cubic-bezier(.34,1.56,.64,1) .25s both; }
+    .sp-logo span { display: inline-block; }
+    .sp-logo[lang='ar'] { line-height: 1.6; }
+    .sp-combs { display: flex; gap: 8px; margin-top: 8px; }
+    .sp-combs i { width: 26px; height: 30px; background: #3D2C29; clip-path: polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%); position: relative; }
+    .sp-combs i::after { content: ''; position: absolute; inset: 3.5px; background: #FFF8E7; clip-path: inherit; animation: sp-fill 1.5s ease-in-out infinite; }
+    .sp-combs i:nth-child(2)::after { animation-delay: .25s; }
+    .sp-combs i:nth-child(3)::after { animation-delay: .5s; }
+    .sp-text { margin: 0; font-weight: 700; font-size: 1.15rem; background: rgba(255,248,231,.88); padding: 2px 16px; border-radius: 999px; }
+    @keyframes sp-spin { to { transform: rotate(1turn); } }
+    @keyframes sp-drift { to { transform: translateX(26px); } }
+    @keyframes sp-in { from { transform: translate(-60vw, -10vh) rotate(-18deg) scale(.6); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes sp-float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+    @keyframes sp-pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+    @keyframes sp-fill { 0%, 100% { background: #FFF8E7; } 40%, 60% { background: #FFC93C; } }
+    @media (prefers-reduced-motion: reduce) { #splash *, #splash *::after { animation: none !important; } }
+  </style>
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -21,12 +71,55 @@
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
+  <div id="splash" aria-hidden="true">
+    <div class="sp-rays"></div>
+    <div class="sp-sun"></div>
+    <img class="sp-cloud c1" src="images/nature/cloud-1.webp" alt="" onerror="this.remove()">
+    <img class="sp-cloud c2" src="images/nature/cloud-2.webp" alt="" onerror="this.remove()">
+    <img class="sp-hills" src="images/scene/scene-hills-near.webp" alt="" onerror="this.remove()">
+    <img class="sp-grass" src="images/scene/scene-grass-front.webp" alt="" onerror="this.remove()">
+    <div class="sp-center">
+      <div class="sp-buzzy"><img src="images/mascot/mascot-wave.webp" alt="" onerror="this.remove()"></div>
+      <div class="sp-logo" id="sp-logo" lang="en"></div>
+      <div class="sp-combs"><i></i><i></i><i></i></div>
+      <p class="sp-text" id="sp-text">Getting the garden ready…</p>
+    </div>
+  </div>
+  <script>
+    // Draw the loading screen in the language the app was last used in.
+    (function () {
+      var lang = 'en';
+      try { lang = JSON.parse(localStorage.getItem('spelling-garden:v1')).settings.uiLang || 'en'; } catch (e) {}
+      var names = { en: 'Spelling Garden', bn: 'বানান বাগান', ar: 'حديقة الإملاء' };
+      var texts = { en: 'Getting the garden ready…', bn: 'বাগান সাজানো হচ্ছে…', ar: 'نُجهّز الحديقة…' };
+      if (!names[lang]) lang = 'en';
+      var colors = ['#FFC93C', '#FF6B9D', '#5BC0EB', '#7BD389', '#9B5DE5', '#FF8C42'];
+      var tilt = [-6, 4, -3, 5, -4, 3], lift = [0, -3, 2, -2, 3, -1];
+      var logo = document.getElementById('sp-logo');
+      logo.lang = lang;
+      logo.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      var html = '';
+      if (lang === 'en') {
+        var k = 0;
+        names.en.split('').forEach(function (ch) {
+          if (ch === ' ') { html += ' '; return; }
+          html += '<span style="color:' + colors[k % 6] + ';transform:rotate(' + tilt[k % 6] + 'deg) translateY(' + lift[k % 6] + 'px)">' + ch + '</span>';
+          k++;
+        });
+      } else {
+        html = names[lang].split(' ').map(function (w, i) { return '<span style="color:' + colors[(i * 2) % 6] + '">' + w + '</span>'; }).join(' ');
+      }
+      logo.innerHTML = html;
+      var text = document.getElementById('sp-text');
+      text.textContent = texts[lang];
+      text.lang = lang;
+      text.dir = logo.dir;
+    })();
+  </script>
   <div id="scene" aria-hidden="true"></div>
-  <main id="app" tabindex="-1">
-    <div class="page boot-page"><p class="lead">🐝 …</p></div>
-  </main>
+  <main id="app" tabindex="-1"></main>
   <div id="toast" role="status" aria-live="polite"></div>
   <div id="fx" aria-hidden="true"></div>
-  <noscript><p style="padding:24px;font:20px sans-serif">Spelling Garden needs JavaScript turned on.</p></noscript>
+  <noscript><p style="position:relative;z-index:200;padding:24px;font:20px sans-serif;background:#fff">Spelling Garden needs JavaScript turned on.</p></noscript>
 </body>
 </html>
