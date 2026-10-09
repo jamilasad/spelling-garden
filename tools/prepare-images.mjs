@@ -35,6 +35,7 @@ const RULES = [
   ['card-', 'cards', 400],
   ['badge-', 'badges', 320],
   ['word-', 'words', 512],
+  ['logo-', 'brand', 600],
   ['hat-', 'shop', 320],
   ['decor-', 'shop', 320],
 ];
