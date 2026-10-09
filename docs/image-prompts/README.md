@@ -13,6 +13,12 @@ One file per group. Work through them top to bottom. Each image has a tick box: 
 | [06-shop-hats.md](06-shop-hats.md) | Illustrated hats for Buzzy | 6 | Optional |
 | [07-avatars.md](07-avatars.md) | Player pictures in different colours | 8 | Optional |
 
+## Making them in a loop with Codex
+Instead of pasting prompts one by one into ChatGPT, Codex can generate them all in a loop with the OpenAI Images API:
+- **[CODEX.md](CODEX.md):** the prompt to paste into Codex, plus what you need first (an API key)
+- **`image-jobs.json`:** every prompt written out in full, made by `node tools/build-image-jobs.mjs` (re-run it after editing any prompt file)
+- **`docs/art-reference/style-sheet.png`:** your approved art, attached to every request so the style stays the same
+
 ## Tips
 - **One ChatGPT chat for everything,** so the style stays the same. If the chat gets long and images start to drift, start a new chat and paste Message 1 again.
 - **You don't have to finish a file before using it.** Whatever you've saved gets added; anything missing stays drawn by code or hidden.
