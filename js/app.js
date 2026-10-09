@@ -31,6 +31,10 @@ function parseHash() {
 
 export async function render() {
   const { name, params } = parseHash();
+  if (updateWaiting && !BUSY_SCREENS.has(name)) {
+    location.reload();
+    return;
+  }
   if (!activeProfile() && !NO_PROFILE_NEEDED.has(name)) return go('profiles');
   const screen = ROUTES[name] || home;
 
@@ -74,9 +78,26 @@ async function boot() {
   window.addEventListener('hashchange', render);
   await render();
 
-  if ('serviceWorker' in navigator && window.isSecureContext) {
-    navigator.serviceWorker.register('sw.js').catch(() => {});
-  }
+  if ('serviceWorker' in navigator && window.isSecureContext) registerUpdates();
+}
+
+// When a new version arrives, reload so it shows — but never in the middle of a session.
+let updateWaiting = false;
+const BUSY_SCREENS = new Set(['bee', 'learn']);
+
+function registerUpdates() {
+  const hadController = Boolean(navigator.serviceWorker.controller);
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController || updateWaiting) return;
+    updateWaiting = true;
+    if (!BUSY_SCREENS.has(parseHash().name)) location.reload();
+  });
+  navigator.serviceWorker.register('sw.js').then((reg) => {
+    // An installed app can stay open for days: check for a new version whenever it comes back to the front.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') reg.update().catch(() => {});
+    });
+  }).catch(() => {});
 }
 
 boot().catch((err) => {

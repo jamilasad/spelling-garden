@@ -1,6 +1,8 @@
 // Offline support. Network first (so updates show up straight away), cache as the fallback.
+// Every network request revalidates with the server ("no-cache"), so a new version is picked up
+// on the next online visit instead of waiting for the browser's own cache to expire.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v6';
+const VERSION = 'spelling-garden-v7';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
@@ -19,7 +21,8 @@ const CORE = [
 
 async function precache() {
   const cache = await caches.open(VERSION);
-  await cache.addAll(CORE);
+  const fresh = (u) => new Request(u, { cache: 'reload' });
+  await cache.addAll(CORE.map(fresh));
   // Audio and illustrations are listed in their index files.
   try {
     const audio = await (await fetch('data/audio-index.json', { cache: 'no-store' })).json();
@@ -28,7 +31,7 @@ async function precache() {
       ...Object.values(audio).flatMap((e) => [e.word, e.sentence]),
       ...Object.values(art),
     ].filter(Boolean);
-    await Promise.allSettled(extra.map((u) => cache.add(u)));
+    await Promise.allSettled(extra.map((u) => cache.add(fresh(u))));
   } catch { /* the app still works online */ }
 }
 
@@ -70,7 +73,10 @@ self.addEventListener('fetch', (event) => {
     const cache = await caches.open(VERSION);
     const hasRange = req.headers.has('range');
     try {
-      const fresh = await fetch(req);
+      // A navigation request can't be copied with new options, so fetch its URL instead.
+      const fresh = req.mode === 'navigate'
+        ? await fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' })
+        : await fetch(req, { cache: 'no-cache' });
       if (fresh.ok && fresh.status === 200 && !hasRange) cache.put(req, fresh.clone());
       return fresh;
     } catch {
