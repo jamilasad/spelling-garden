@@ -13,8 +13,8 @@
         "docs/art-reference/style-sheet.png"
       ],
       "prompt": "STYLE: Flat vector sticker illustration for a children's educational app (ages 8–10), matching the attached style sheet exactly: thick smooth rounded outlines in dark chocolate brown (#3D2C29), flat colour fills with one soft cel-shading tone and one small white highlight per shape. No gradients, no textures, no realistic detail, no 3D rendering. Cheerful, cute, friendly and warm. Palette: honey yellow #FFC93C, warm orange #FF8C42, sky blue #5BC0EB, leaf green #7BD389, deep green #3FA34D, berry pink #FF6B9D, lavender purple #9B5DE5, cream #FFF8E7, white #FFFFFF, outline brown #3D2C29. Absolutely no text, letters, numbers, logos, signatures or watermarks anywhere. No white sticker border, no frame, no drop shadow. Transparent background.\n\nThe attached style sheet is ONLY a style reference: match its outline thickness, colours and shading, but do not copy any of its objects.\n\nSUBJECT: A wide, flat, gentle cartoon lawn seen from a low angle: soft leaf-green grass with a few tiny darker grass tufts and two or three tiny wildflowers, filling the bottom 75% of the image. The lawn's far edge is a soft rolling line with a row of round green bushes. The top 25% is completely transparent (no sky). The lawn is mostly empty so objects can be placed on it. Landscape 3:2 (1536×1024). No text.\n\nCanvas: 1536×1024 pixels, transparent background.",
-      "done": false,
-      "exists": false
+      "done": true,
+      "exists": true
     },
     {
       "file": "plant-tulip.png",

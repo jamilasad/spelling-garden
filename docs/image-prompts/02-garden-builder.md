@@ -19,7 +19,7 @@ Sizes: **Square** = 1024×1024 · **Tall** = portrait 2:3 (1024×1536) · **Wide
 ---
 
 ## Step 1 · The garden itself (1 image)
-- [ ] **`garden-lawn.png`** · Wide
+- [x] **`garden-lawn.png`** · Wide
   ```
   A wide, flat, gentle cartoon lawn seen from a low angle: soft leaf-green grass with a few tiny darker grass tufts and two or three tiny wildflowers, filling the bottom 75% of the image. The lawn's far edge is a soft rolling line with a row of round green bushes. The top 25% is completely transparent (no sky). The lawn is mostly empty so objects can be placed on it. Landscape 3:2 (1536×1024). No text.
   ```
