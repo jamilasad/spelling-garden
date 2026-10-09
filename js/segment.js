@@ -88,7 +88,13 @@ export function segment(word, lang) {
     i = end;
   }
   if (lang === 'ar') addArabicJoiners(tiles);
+  tiles.forEach((t) => { t.display = displayable(t.display); });
   return tiles;
+}
+
+/** A tile that starts with a mark (ং ঁ ঃ) gets an invisible base, so fonts don't draw a dotted circle. */
+export function displayable(text) {
+  return /^\p{M}/u.test(text) ? `\u00A0${text}` : text;
 }
 
 function addArabicJoiners(tiles) {

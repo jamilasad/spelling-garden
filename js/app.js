@@ -1,6 +1,6 @@
 // Spelling Garden — app shell: loads everything, then shows screens by URL hash (#/bee?mode=today …).
 import { loadData, data } from './data.js';
-import { loadStore, settings, activeProfile, wornHat } from './store.js';
+import { loadStore, settings, activeProfile, wornHat, addActiveSeconds } from './store.js';
 import { setLang, t, pick } from './i18n.js';
 import { loadArt, setWornHat } from './art.js';
 import { buildScene, setCalm, applyMotionSetting } from './ambient.js';
@@ -20,8 +20,9 @@ import parent from './screens/parent.js';
 import words from './screens/words.js';
 import learn from './screens/learn.js';
 import honey from './screens/honey.js';
+import missing from './screens/missing.js';
 
-const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent, words, learn, honey };
+const ROUTES = { '': home, profiles, setup, bee, hive, garden, settings: settingsScreen, parent, words, learn, honey, missing };
 const NO_PROFILE_NEEDED = new Set(['profiles', 'settings', 'parent']);
 let cleanup = null;
 
@@ -81,15 +82,28 @@ async function boot() {
   window.addEventListener('pointerdown', unlock, true);
   window.addEventListener('keydown', unlock, true);
   window.addEventListener('hashchange', render);
+  trackActiveTime();
   await render();
   hideSplash();
 
   if ('serviceWorker' in navigator && window.isSecureContext) registerUpdates();
 }
 
+// Counts time actually spent in the app (visible, and touched in the last minute) for the parent report.
+function trackActiveTime() {
+  const TICK = 15;
+  let lastInput = Date.now();
+  const touched = () => { lastInput = Date.now(); };
+  window.addEventListener('pointerdown', touched, true);
+  window.addEventListener('keydown', touched, true);
+  setInterval(() => {
+    if (document.visibilityState === 'visible' && activeProfile() && Date.now() - lastInput < 60000) addActiveSeconds(TICK);
+  }, TICK * 1000);
+}
+
 // When a new version arrives, reload so it shows — but never in the middle of a session.
 let updateWaiting = false;
-const BUSY_SCREENS = new Set(['bee', 'learn']);
+const BUSY_SCREENS = new Set(['bee', 'learn', 'missing']);
 
 function registerUpdates() {
   const hadController = Boolean(navigator.serviceWorker.controller);

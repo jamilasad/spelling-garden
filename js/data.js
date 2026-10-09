@@ -6,6 +6,8 @@ export const data = {
   words: [],
   byId: new Map(),
   audio: {},
+  voices: {},      // lang → [{ id, name, kind }], first is the default narrator
+  spell: {},       // spelling-name clip per tile key
 };
 
 async function getJson(url, fallback) {
@@ -18,14 +20,18 @@ async function getJson(url, fallback) {
 }
 
 export async function loadData() {
-  const [config, lists, audio] = await Promise.all([
+  const [config, lists, audio, voices, spell] = await Promise.all([
     getJson('data/app-config.json', {}),
     getJson('data/lists.json', []),
     getJson('data/audio-index.json', {}),
+    getJson('data/voices.json', {}),
+    getJson('data/spell-index.json', {}),
   ]);
   data.config = config;
   data.lists = lists;
   data.audio = audio;
+  data.voices = voices;
+  data.spell = spell;
   const perList = await Promise.all(lists.map((l) => getJson(l.file, [])));
   data.words = [];
   data.byId.clear();

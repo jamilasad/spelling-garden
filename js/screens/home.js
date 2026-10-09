@@ -113,6 +113,10 @@ export default {
           <span class="art art-icon art-sky">${icon('list')}</span>
           <span><span class="label">${t('words.title')}</span><span class="sub">${t('home.wordListSub', { n: data.words.length })}</span></span>
         </button>
+        <button class="tap-card" data-go="setup?mode=missing" type="button">
+          <span class="art art-icon art-lavender">${icon('puzzle')}</span>
+          <span><span class="label">${t('missing.title')}</span><span class="sub">${t('home.missingSub')}</span></span>
+        </button>
         <button class="tap-card" data-go="hive" type="button">
           <span class="art art-icon art-honey">${icon('hive')}</span>
           <span><span class="label">${t('hive.title')}</span><span class="sub">${c.tricky ? tn('home.trickyCount', c.tricky) : t('home.trickyNone')}</span></span>

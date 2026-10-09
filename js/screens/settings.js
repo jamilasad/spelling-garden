@@ -5,6 +5,8 @@ import { icon } from '../icons.js';
 import { topbar, toast, downloadFile, go, holdButton } from '../ui.js';
 import { applySettings } from '../app.js';
 import { startAmbience, stopAmbience } from '../ambience.js';
+import { data } from '../data.js';
+import { voicesFor, narratorOf, sayWord } from '../audio.js';
 import { dayString } from '../scheduler.js';
 
 const radio = (name, value, label, checked, extra = '') =>
@@ -56,6 +58,15 @@ export default {
         </section>
       </form>
 
+      <section class="card settings-stack narrators">
+        <h2>${icon('users')} ${t('settings.narrators')}</h2>
+        <p class="sub">${t('settings.narratorsHint')}</p>
+        ${['en', 'bn', 'ar'].filter((l) => voicesFor(l).length > 1).map((l) => `
+          <fieldset class="field"><legend class="field-label"><span class="lang-tag" data-lang="${l}">${t(`langShort.${l}`)}</span> ${t(`settings.narrator.${l}`)}</legend>
+            <div class="choices">${voicesFor(l).map((v) => `<label class="choice"><input type="radio" name="narrator-${l}" value="${v.id}" ${narratorOf(l) === v.id ? 'checked' : ''}><span>${escapeHtml(v.name)} <small>(${t(`voice.${v.kind}`)})</small></span></label>`).join('')}</div>
+          </fieldset>`).join('')}
+      </section>
+
       <section class="card settings-stack">
         <h2>${icon('users')} ${t('settings.players')}</h2>
         <a class="btn btn-cream" href="#/profiles">${icon('users')}<span>${t('settings.switchPlayer')}</span></a>
@@ -92,6 +103,17 @@ export default {
       else toast(t('settings.saved'), 1200);
     };
     form.addEventListener('change', onChange);
+
+    // Narrators live outside the main form; choosing one plays a word in that voice.
+    const onNarrator = (e) => {
+      const el = e.target;
+      if (!el.name?.startsWith('narrator-')) return;
+      const lang = el.name.slice(9);
+      setSetting('narrator', { ...settings().narrator, [lang]: el.value });
+      const sample = data.words.find((w) => w.lang === lang);
+      if (sample) sayWord(sample);
+    };
+    root.querySelector('.narrators')?.addEventListener('change', onNarrator);
 
     const onClick = (e) => {
       if (e.target.closest('[data-act="export"]')) {

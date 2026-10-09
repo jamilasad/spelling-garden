@@ -7,8 +7,9 @@ import { topbar, toast, go, confirmDialog } from '../ui.js';
 import { sayWord, saySentence, bustAudio, stopAudio } from '../audio.js';
 import { tilesHTML } from '../reveal.js';
 import { isTricky, isMastered, isSeen, MAX_BOX } from '../scheduler.js';
+import { reportTab, mountReport, reportRows } from '../report.js';
 
-const TABS = ['words', 'progress', 'print'];
+const TABS = ['report', 'words', 'progress', 'print'];
 let canRecord = null;
 
 async function checkRecording() {
@@ -142,10 +143,11 @@ export default {
   title: () => t('parent.title'),
 
   render({ params }) {
-    const tab = TABS.includes(params.tab) ? params.tab : 'words';
+    const tab = TABS.includes(params.tab) ? params.tab : 'report';
     const pid = params.who || activeProfile()?.id || profiles()[0]?.id;
     const tabs = TABS.map((x) => `<a class="tab ${x === tab ? 'is-on' : ''}" href="#/parent?tab=${x}" ${x === tab ? 'aria-current="page"' : ''}>${t(`parent.tab.${x}`)}</a>`).join('');
-    const body = tab === 'progress' ? progressTab(pid) : tab === 'print' ? printTab(params.kind || 'tricky', pid) : wordsTab(params.f || 'all');
+    const range = Number(params.range) === 14 ? 14 : 7;
+    const body = tab === 'report' ? reportTab(pid, range) : tab === 'progress' ? progressTab(pid) : tab === 'print' ? printTab(params.kind || 'tricky', pid) : wordsTab(params.f || 'all');
     return `<div class="page parent-page">
       ${topbar({ title: t('parent.title'), back: activeProfile() ? 'home' : 'profiles' })}
       <nav class="tabs no-print">${tabs}</nav>
@@ -241,12 +243,17 @@ export default {
         const sub = root.querySelector('.parent-intro .sub');
         if (sub) sub.textContent = t('parent.checkedCount', { n: num(checked), total: num(data.words.length) });
       } else if (el.name === 'wfilter') go('parent', { tab: 'words', f: el.value });
-      else if (el.name === 'who') go('parent', { tab: params.tab || 'progress', who: el.value });
+      else if (el.name === 'who') go('parent', { tab: params.tab || 'report', who: el.value, ...(params.range ? { range: params.range } : {}) });
+      else if (el.name === 'range') go('parent', { tab: 'report', range: el.value, ...(params.who ? { who: params.who } : {}) });
       else if (el.name === 'pkind') go('parent', { tab: 'print', kind: el.value });
     };
     root.addEventListener('click', onClick);
     root.addEventListener('change', onChange);
+    const tab = TABS.includes(params.tab) ? params.tab : 'report';
+    const pid = params.who || activeProfile()?.id || profiles()[0]?.id;
+    const stopReport = tab === 'report' ? mountReport(root, reportRows(pid, Number(params.range) === 14 ? 14 : 7)) : null;
     return () => {
+      stopReport?.();
       stopRecording();
       root.removeEventListener('click', onClick);
       root.removeEventListener('change', onChange);

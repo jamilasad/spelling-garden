@@ -3,6 +3,7 @@
 import { data } from './data.js';
 import { settings } from './store.js';
 import { duckForSpeech } from './ambience.js';
+import { spellingOf, spellKey, canSpell } from './spellnames.js';
 
 const player = new Audio();
 player.preload = 'auto';
@@ -36,6 +37,7 @@ export function unlockAudio() {
 }
 
 export function stopAudio() {
+  spellRun++;
   try { player.pause(); } catch { /* ignore */ }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
@@ -78,9 +80,25 @@ function speak(text, lang, rate) {
   });
 }
 
-function urlFor(word, kind) {
+// ---------- Narrators ----------
+export const voicesFor = (lang) => data.voices[lang] || [];
+export const narratorOf = (lang) => settings().narrator?.[lang] || voicesFor(lang)[0]?.id || '';
+export const voiceName = (lang, id) => voicesFor(lang).find((v) => v.id === id)?.name || '';
+
+/** Narrators that actually have audio for this word, starting with the chosen one. */
+export function voicesForWord(word) {
+  const entry = data.audio[word.id] || {};
+  const all = voicesFor(word.lang).map((v) => v.id);
+  const have = all.filter((id, i) => (i === 0 ? entry.word : entry.voices?.[id]?.word));
+  const first = narratorOf(word.lang);
+  return have.includes(first) ? [first, ...have.filter((id) => id !== first)] : have;
+}
+
+function urlFor(word, kind, voice = narratorOf(word.lang)) {
   const entry = data.audio[word.id];
-  const path = entry && entry[kind];
+  if (!entry) return '';
+  const isDefault = voice === voicesFor(word.lang)[0]?.id;
+  const path = (!isDefault && entry.voices?.[voice]?.[kind]) || entry[kind];
   if (!path) return '';
   return busts[word.id] ? `${path}?v=${busts[word.id]}` : path;
 }
@@ -91,23 +109,61 @@ async function withQuietGarden(play) {
   try { return await play(); } finally { duckForSpeech(false); }
 }
 
-export function sayWord(word, { slow = false } = {}) {
+export function sayWord(word, { slow = false, voice } = {}) {
   return withQuietGarden(async () => {
     const rate = slow ? 0.6 : settings().speechRate;
-    const url = urlFor(word, 'word');
+    const url = urlFor(word, 'word', voice);
     if (url && (await playUrl(url, rate))) return true;
     return speak(word.word, word.lang, rate);
   });
 }
 
-export function saySentence(word) {
+export function saySentence(word, { voice } = {}) {
   if (!word.sentence) return Promise.resolve(false);
   return withQuietGarden(async () => {
     const rate = settings().speechRate;
-    const url = urlFor(word, 'sentence');
+    const url = urlFor(word, 'sentence', voice);
     if (url && (await playUrl(url, rate))) return true;
     return speak(word.sentence, word.lang, rate);
   });
 }
 
 export const hasSentence = (word) => Boolean(word.sentence);
+
+// ---------- Spelling aloud ----------
+let spellRun = 0;
+
+export const canSpellAloud = (word) => canSpell(word.lang);
+export const spellClip = (tile, lang) => data.spell[spellKey(tile, lang)] || '';
+
+/** Plays one piece's name (e.g. "উঁয়ো-এ গ"). */
+export function sayPiece(tile, lang) {
+  const url = spellClip(tile, lang);
+  if (!url) return Promise.resolve(false);
+  return withQuietGarden(() => playUrl(url, 1));
+}
+
+/**
+ * Spells a word aloud piece by piece. onPiece(index) is called as each piece starts,
+ * so the screen can light up the matching tile. Stops when another sound starts.
+ */
+export async function spellAloud(word, onPiece = () => {}) {
+  const me = ++spellRun;
+  const pieces = spellingOf(word);
+  duckForSpeech(true);
+  try {
+    for (let i = 0; i < pieces.length; i++) {
+      if (me !== spellRun) return false;
+      onPiece(i, pieces[i]);
+      const url = spellClip(pieces[i].tile, word.lang);
+      if (url) await playUrl(url, 1);
+      else await new Promise((r) => setTimeout(r, 700));
+      await new Promise((r) => setTimeout(r, 180));
+    }
+    return me === spellRun;
+  } finally {
+    if (me === spellRun) { onPiece(-1); duckForSpeech(false); }
+  }
+}
+
+export function stopSpelling() { spellRun++; }

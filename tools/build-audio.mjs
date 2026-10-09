@@ -7,6 +7,7 @@
 //   • Mac voices (offline, built in): Samantha (US English), Piya (Bangla, India), Majed (Arabic)
 // A voice name ending in "Neural" uses the Microsoft voice; any other name uses the Mac `say` command.
 // Recordings made on the Word Check page are never overwritten.
+// A word can name its own default voice with "voice" (e.g. "bn-IN-TanishaaNeural") when that voice says it best.
 // A word can give the voice a hint spelling with "say" / "sentenceSay" in its data, when the voice
 // mispronounces the real spelling (e.g. চমৎকার → "চমোৎকার" so it says cho-mot-kar). The screen still shows the real word.
 // Usage: node tools/build-audio.mjs [--force] [--lang=bn] [--only=en-03,bn-02]
@@ -18,6 +19,9 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { makeLoud } from './loudness.mjs';
+import { tileName, spokenName, spellKey, canSpell } from '../js/spellnames.js';
+import { segment } from '../js/segment.js';
 
 const run = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,8 +37,8 @@ const onlyLang = arg('lang');
 const EDGE_TTS = path.join(ROOT, '.venv', 'bin', 'edge-tts');
 const NEURAL = { en: 'en-US-JennyNeural', bn: 'bn-BD-NabanitaNeural', ar: 'ar-SA-ZariyahNeural' };
 const MAC = { en: 'Samantha', bn: 'Piya', ar: 'Majed' };
-const RATE = { word: 135, sentence: 150 };              // Mac voices, words per minute
-const NEURAL_RATE = { word: '-12%', sentence: '-6%' };   // a little slower for children
+const RATE = { word: 135, sentence: 150, name: 145 };   // Mac voices, words per minute
+const NEURAL_RATE = { word: '-12%', sentence: '-6%', name: '-8%' };   // a little slower for children
 // Words whose dictionary recording may be the wrong pronunciation.
 const PREFER_VOICE = new Set(['present']);
 
@@ -47,26 +51,29 @@ async function readJson(file, fallback) {
 
 const isNeural = (voice) => /Neural$/.test(voice);
 
-/** Writes `${base}.m4a` (Mac voice) or `${base}.mp3` (neural voice); returns the file path. */
+/** Speaks `text` and writes a louder `${base}.m4a`; returns the file path. */
 async function speak(text, voice, kind, base) {
-  if (isNeural(voice)) {
-    const out = `${base}.mp3`;
-    for (let attempt = 1; ; attempt++) {
-      try {
-        await run(EDGE_TTS, ['--voice', voice, `--rate=${NEURAL_RATE[kind]}`, '--text', text, '--write-media', out]);
-        return out;
-      } catch (err) {
-        if (attempt >= 3) throw err;
-        await new Promise((r) => setTimeout(r, 1500 * attempt));
+  const raw = isNeural(voice) ? `${base}.raw.mp3` : `${base}.raw.aiff`;
+  try {
+    if (isNeural(voice)) {
+      for (let attempt = 1; ; attempt++) {
+        try {
+          await run(EDGE_TTS, ['--voice', voice, `--rate=${NEURAL_RATE[kind]}`, '--text', text, '--write-media', raw]);
+          break;
+        } catch (err) {
+          if (attempt >= 3) throw err;
+          await new Promise((r) => setTimeout(r, 1500 * attempt));
+        }
       }
+    } else {
+      await run('say', ['-v', voice, '-r', String(RATE[kind]), '-o', raw, text]);
     }
+    const out = `${base}.m4a`;
+    await makeLoud(raw, out);
+    return out;
+  } finally {
+    await rm(raw, { force: true });
   }
-  const out = `${base}.m4a`;
-  const tmp = `${base}.tmp.aiff`;
-  await run('say', ['-v', voice, '-r', String(RATE[kind]), '-o', tmp, text]);
-  await run('afconvert', ['-f', 'm4af', '-d', 'aac', '-b', '64000', tmp, out]);
-  await rm(tmp, { force: true });
-  return out;
 }
 
 // Removes an older generated file when the new one has a different name (e.g. .m4a → .mp3).
@@ -96,10 +103,14 @@ async function main() {
   const haveNeural = await exists(EDGE_TTS);
   const VOICES = {};
   for (const lang of ['en', 'bn', 'ar']) {
-    VOICES[lang] = arg(`voice-${lang}`) || (haveNeural ? NEURAL[lang] : MAC[lang]);
+    VOICES[lang] = arg(`voice-${lang}`) || (haveNeural ? (await readJson(path.join(ROOT, 'data/voices.json'), {}))[lang]?.[0]?.voice || NEURAL[lang] : MAC[lang]);
     if (isNeural(VOICES[lang]) && !haveNeural) throw new Error(`${VOICES[lang]} needs the edge-tts tool: python3 -m venv .venv && .venv/bin/pip install edge-tts`);
   }
   const lists = await readJson(path.join(ROOT, 'data/lists.json'), []);
+  // Extra narrators (data/voices.json): the first voice is the default; the others are alternatives
+  // she can switch to when one voice is hard to understand.
+  const voiceSets = await readJson(path.join(ROOT, 'data/voices.json'), {});
+  const altVoices = (lang) => (haveNeural ? (voiceSets[lang] || []).slice(1) : []);
   const index = await readJson(INDEX_FILE, {});
   let made = 0, kept = 0;
 
@@ -121,9 +132,17 @@ async function main() {
       } else {
         const base = path.join(dir, w.id);
         let got = null;
-        if (useDictionary && list.lang === 'en' && !PREFER_VOICE.has(w.word)) got = await dictionaryRecording(w.word, base);
+        if (useDictionary && list.lang === 'en' && !PREFER_VOICE.has(w.word)) {
+          got = await dictionaryRecording(w.word, base);
+          if (got) {
+            const loud = `${base}.m4a`;
+            await makeLoud(got.file, loud);
+            await rm(got.file, { force: true });
+            got.file = loud;
+          }
+        }
         if (!got) {
-          const voice = VOICES[list.lang];
+          const voice = w.voice || VOICES[list.lang];
           const file = await speak(w.say || w.word, voice, 'word', base);
           got = { file, source: `${isNeural(voice) ? 'neural' : 'mac'} voice ${voice}` };
         }
@@ -141,7 +160,7 @@ async function main() {
         if (keepSentence) {
           kept++;
         } else {
-          const voice = VOICES[list.lang];
+          const voice = w.voice || VOICES[list.lang];
           const sFile = await speak(w.sentenceSay || w.sentence, voice, 'sentence', path.join(dir, `${w.id}-s`));
           await replaceOld(entry.sentence, sFile);
           entry.sentence = rel(sFile);
@@ -149,11 +168,50 @@ async function main() {
           made++;
         }
       }
+      // Alternative narrators
+      entry.voices = entry.voices || {};
+      for (const v of altVoices(list.lang)) {
+        const vdir = path.join(dir, v.id);
+        await mkdir(vdir, { recursive: true });
+        const cur = entry.voices[v.id] || {};
+        if (force || !cur.word || !(await exists(path.join(ROOT, cur.word)))) {
+          cur.word = rel(await speak(w.say || w.word, v.voice, 'word', path.join(vdir, w.id)));
+          made++;
+        } else kept++;
+        if (w.sentence) {
+          if (force || !cur.sentence || !(await exists(path.join(ROOT, cur.sentence)))) {
+            cur.sentence = rel(await speak(w.sentenceSay || w.sentence, v.voice, 'sentence', path.join(vdir, `${w.id}-s`)));
+            made++;
+          } else kept++;
+        }
+        entry.voices[v.id] = cur;
+      }
+      if (!Object.keys(entry.voices).length) delete entry.voices;
       index[w.id] = entry;
+      console.log(`  ${w.id}  ${w.word}  ✓`);
     }
   }
 
   await writeFile(INDEX_FILE, JSON.stringify(index, null, 2) + '\n');
+
+  // Spelling-aloud names: one short clip per letter / akshara (e.g. "উঁয়ো-এ গ").
+  const spellFile = path.join(ROOT, 'data/spell-index.json');
+  const spell = await readJson(spellFile, {});
+  const spellDir = path.join(ROOT, 'audio', 'spell');
+  await mkdir(spellDir, { recursive: true });
+  for (const list of lists) {
+    if (only.length || !canSpell(list.lang) || (onlyLang && list.lang !== onlyLang)) continue;
+    const words = await readJson(path.join(ROOT, list.file), []);
+    const tiles = new Set(words.flatMap((w) => segment(w.word, list.lang).filter((t) => !t.space).map((t) => t.text)));
+    for (const tile of tiles) {
+      const key = spellKey(tile, list.lang);
+      if (!force && spell[key] && await exists(path.join(ROOT, spell[key]))) { kept++; continue; }
+      const file = await speak(spokenName(tileName(tile, list.lang), list.lang), VOICES[list.lang], 'name', path.join(spellDir, key));
+      spell[key] = rel(file);
+      made++;
+    }
+  }
+  await writeFile(spellFile, JSON.stringify(spell, null, 2) + '\n');
   console.log(`\nDone: ${made} made, ${kept} already there. Index → data/audio-index.json`);
 }
 

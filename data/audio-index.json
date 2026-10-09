@@ -1,312 +1,862 @@
 {
   "en-01": {
-    "word": "audio/en/en-01.mp3",
+    "word": "audio/en/en-01.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-01-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-01-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-01.m4a",
+        "sentence": "audio/en/emma/en-01-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-01.m4a",
+        "sentence": "audio/en/ava/en-01-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-01.m4a",
+        "sentence": "audio/en/andrew/en-01-s.m4a"
+      }
+    }
   },
   "en-02": {
-    "word": "audio/en/en-02.mp3",
+    "word": "audio/en/en-02.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-02-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-02-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-02.m4a",
+        "sentence": "audio/en/emma/en-02-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-02.m4a",
+        "sentence": "audio/en/ava/en-02-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-02.m4a",
+        "sentence": "audio/en/andrew/en-02-s.m4a"
+      }
+    }
   },
   "en-03": {
-    "word": "audio/en/en-03.mp3",
+    "word": "audio/en/en-03.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-03-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-03-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-03.m4a",
+        "sentence": "audio/en/emma/en-03-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-03.m4a",
+        "sentence": "audio/en/ava/en-03-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-03.m4a",
+        "sentence": "audio/en/andrew/en-03-s.m4a"
+      }
+    }
   },
   "en-04": {
-    "word": "audio/en/en-04.mp3",
+    "word": "audio/en/en-04.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-04-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-04-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-04.m4a",
+        "sentence": "audio/en/emma/en-04-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-04.m4a",
+        "sentence": "audio/en/ava/en-04-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-04.m4a",
+        "sentence": "audio/en/andrew/en-04-s.m4a"
+      }
+    }
   },
   "en-05": {
-    "word": "audio/en/en-05.mp3",
+    "word": "audio/en/en-05.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-05-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-05-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-05.m4a",
+        "sentence": "audio/en/emma/en-05-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-05.m4a",
+        "sentence": "audio/en/ava/en-05-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-05.m4a",
+        "sentence": "audio/en/andrew/en-05-s.m4a"
+      }
+    }
   },
   "en-06": {
-    "word": "audio/en/en-06.mp3",
+    "word": "audio/en/en-06.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-06-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-06-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-06.m4a",
+        "sentence": "audio/en/emma/en-06-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-06.m4a",
+        "sentence": "audio/en/ava/en-06-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-06.m4a",
+        "sentence": "audio/en/andrew/en-06-s.m4a"
+      }
+    }
   },
   "en-07": {
-    "word": "audio/en/en-07.mp3",
+    "word": "audio/en/en-07.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-07-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-07-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-07.m4a",
+        "sentence": "audio/en/emma/en-07-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-07.m4a",
+        "sentence": "audio/en/ava/en-07-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-07.m4a",
+        "sentence": "audio/en/andrew/en-07-s.m4a"
+      }
+    }
   },
   "en-08": {
-    "word": "audio/en/en-08.mp3",
+    "word": "audio/en/en-08.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-08-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-08-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-08.m4a",
+        "sentence": "audio/en/emma/en-08-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-08.m4a",
+        "sentence": "audio/en/ava/en-08-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-08.m4a",
+        "sentence": "audio/en/andrew/en-08-s.m4a"
+      }
+    }
   },
   "en-09": {
-    "word": "audio/en/en-09.mp3",
+    "word": "audio/en/en-09.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-09-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-09-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-09.m4a",
+        "sentence": "audio/en/emma/en-09-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-09.m4a",
+        "sentence": "audio/en/ava/en-09-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-09.m4a",
+        "sentence": "audio/en/andrew/en-09-s.m4a"
+      }
+    }
   },
   "en-10": {
-    "word": "audio/en/en-10.mp3",
+    "word": "audio/en/en-10.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-10-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-10-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-10.m4a",
+        "sentence": "audio/en/emma/en-10-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-10.m4a",
+        "sentence": "audio/en/ava/en-10-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-10.m4a",
+        "sentence": "audio/en/andrew/en-10-s.m4a"
+      }
+    }
   },
   "en-11": {
-    "word": "audio/en/en-11.mp3",
+    "word": "audio/en/en-11.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-11-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-11-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-11.m4a",
+        "sentence": "audio/en/emma/en-11-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-11.m4a",
+        "sentence": "audio/en/ava/en-11-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-11.m4a",
+        "sentence": "audio/en/andrew/en-11-s.m4a"
+      }
+    }
   },
   "en-12": {
-    "word": "audio/en/en-12.mp3",
+    "word": "audio/en/en-12.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-12-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-12-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-12.m4a",
+        "sentence": "audio/en/emma/en-12-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-12.m4a",
+        "sentence": "audio/en/ava/en-12-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-12.m4a",
+        "sentence": "audio/en/andrew/en-12-s.m4a"
+      }
+    }
   },
   "en-13": {
-    "word": "audio/en/en-13.mp3",
+    "word": "audio/en/en-13.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-13-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-13-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-13.m4a",
+        "sentence": "audio/en/emma/en-13-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-13.m4a",
+        "sentence": "audio/en/ava/en-13-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-13.m4a",
+        "sentence": "audio/en/andrew/en-13-s.m4a"
+      }
+    }
   },
   "en-14": {
-    "word": "audio/en/en-14.mp3",
+    "word": "audio/en/en-14.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-14-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-14-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-14.m4a",
+        "sentence": "audio/en/emma/en-14-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-14.m4a",
+        "sentence": "audio/en/ava/en-14-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-14.m4a",
+        "sentence": "audio/en/andrew/en-14-s.m4a"
+      }
+    }
   },
   "en-15": {
-    "word": "audio/en/en-15.mp3",
+    "word": "audio/en/en-15.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-15-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-15-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-15.m4a",
+        "sentence": "audio/en/emma/en-15-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-15.m4a",
+        "sentence": "audio/en/ava/en-15-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-15.m4a",
+        "sentence": "audio/en/andrew/en-15-s.m4a"
+      }
+    }
   },
   "en-16": {
-    "word": "audio/en/en-16.mp3",
+    "word": "audio/en/en-16.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-16-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-16-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-16.m4a",
+        "sentence": "audio/en/emma/en-16-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-16.m4a",
+        "sentence": "audio/en/ava/en-16-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-16.m4a",
+        "sentence": "audio/en/andrew/en-16-s.m4a"
+      }
+    }
   },
   "en-17": {
-    "word": "audio/en/en-17.mp3",
+    "word": "audio/en/en-17.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-17-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-17-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-17.m4a",
+        "sentence": "audio/en/emma/en-17-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-17.m4a",
+        "sentence": "audio/en/ava/en-17-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-17.m4a",
+        "sentence": "audio/en/andrew/en-17-s.m4a"
+      }
+    }
   },
   "en-18": {
-    "word": "audio/en/en-18.mp3",
+    "word": "audio/en/en-18.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-18-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-18-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-18.m4a",
+        "sentence": "audio/en/emma/en-18-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-18.m4a",
+        "sentence": "audio/en/ava/en-18-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-18.m4a",
+        "sentence": "audio/en/andrew/en-18-s.m4a"
+      }
+    }
   },
   "en-19": {
-    "word": "audio/en/en-19.mp3",
+    "word": "audio/en/en-19.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-19-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-19-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-19.m4a",
+        "sentence": "audio/en/emma/en-19-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-19.m4a",
+        "sentence": "audio/en/ava/en-19-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-19.m4a",
+        "sentence": "audio/en/andrew/en-19-s.m4a"
+      }
+    }
   },
   "en-20": {
-    "word": "audio/en/en-20.mp3",
+    "word": "audio/en/en-20.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-20-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-20-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-20.m4a",
+        "sentence": "audio/en/emma/en-20-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-20.m4a",
+        "sentence": "audio/en/ava/en-20-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-20.m4a",
+        "sentence": "audio/en/andrew/en-20-s.m4a"
+      }
+    }
   },
   "en-21": {
-    "word": "audio/en/en-21.mp3",
+    "word": "audio/en/en-21.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-21-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-21-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-21.m4a",
+        "sentence": "audio/en/emma/en-21-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-21.m4a",
+        "sentence": "audio/en/ava/en-21-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-21.m4a",
+        "sentence": "audio/en/andrew/en-21-s.m4a"
+      }
+    }
   },
   "en-22": {
-    "word": "audio/en/en-22.mp3",
+    "word": "audio/en/en-22.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-22-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-22-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-22.m4a",
+        "sentence": "audio/en/emma/en-22-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-22.m4a",
+        "sentence": "audio/en/ava/en-22-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-22.m4a",
+        "sentence": "audio/en/andrew/en-22-s.m4a"
+      }
+    }
   },
   "en-23": {
-    "word": "audio/en/en-23.mp3",
+    "word": "audio/en/en-23.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-23-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-23-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-23.m4a",
+        "sentence": "audio/en/emma/en-23-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-23.m4a",
+        "sentence": "audio/en/ava/en-23-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-23.m4a",
+        "sentence": "audio/en/andrew/en-23-s.m4a"
+      }
+    }
   },
   "en-24": {
-    "word": "audio/en/en-24.mp3",
+    "word": "audio/en/en-24.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-24-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-24-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-24.m4a",
+        "sentence": "audio/en/emma/en-24-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-24.m4a",
+        "sentence": "audio/en/ava/en-24-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-24.m4a",
+        "sentence": "audio/en/andrew/en-24-s.m4a"
+      }
+    }
   },
   "en-25": {
-    "word": "audio/en/en-25.mp3",
+    "word": "audio/en/en-25.m4a",
     "wordSource": "neural voice en-US-JennyNeural",
-    "sentence": "audio/en/en-25-s.mp3",
-    "sentenceSource": "neural voice en-US-JennyNeural"
+    "sentence": "audio/en/en-25-s.m4a",
+    "sentenceSource": "neural voice en-US-JennyNeural",
+    "voices": {
+      "emma": {
+        "word": "audio/en/emma/en-25.m4a",
+        "sentence": "audio/en/emma/en-25-s.m4a"
+      },
+      "ava": {
+        "word": "audio/en/ava/en-25.m4a",
+        "sentence": "audio/en/ava/en-25-s.m4a"
+      },
+      "andrew": {
+        "word": "audio/en/andrew/en-25.m4a",
+        "sentence": "audio/en/andrew/en-25-s.m4a"
+      }
+    }
   },
   "bn-01": {
-    "word": "audio/bn/bn-01.mp3",
+    "word": "audio/bn/bn-01.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-01-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-01-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-01.m4a",
+        "sentence": "audio/bn/pradeep/bn-01-s.m4a"
+      }
+    }
   },
   "bn-02": {
-    "word": "audio/bn/bn-02.mp3",
+    "word": "audio/bn/bn-02.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-02-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-02-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-02.m4a",
+        "sentence": "audio/bn/pradeep/bn-02-s.m4a"
+      }
+    }
   },
   "bn-03": {
-    "word": "audio/bn/bn-03.mp3",
+    "word": "audio/bn/bn-03.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-03-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-03-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-03.m4a",
+        "sentence": "audio/bn/pradeep/bn-03-s.m4a"
+      }
+    }
   },
   "bn-04": {
-    "word": "audio/bn/bn-04.mp3",
+    "word": "audio/bn/bn-04.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-04-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-04-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-04.m4a",
+        "sentence": "audio/bn/pradeep/bn-04-s.m4a"
+      }
+    }
   },
   "bn-05": {
-    "word": "audio/bn/bn-05.mp3",
+    "word": "audio/bn/bn-05.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-05-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-05-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-05.m4a",
+        "sentence": "audio/bn/pradeep/bn-05-s.m4a"
+      }
+    }
   },
   "bn-06": {
-    "word": "audio/bn/bn-06.mp3",
+    "word": "audio/bn/bn-06.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-06-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-06-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-06.m4a",
+        "sentence": "audio/bn/pradeep/bn-06-s.m4a"
+      }
+    }
   },
   "bn-07": {
-    "word": "audio/bn/bn-07.mp3",
+    "word": "audio/bn/bn-07.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-07-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-07-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-07.m4a",
+        "sentence": "audio/bn/pradeep/bn-07-s.m4a"
+      }
+    }
   },
   "bn-08": {
-    "word": "audio/bn/bn-08.mp3",
+    "word": "audio/bn/bn-08.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-08-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-08-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-08.m4a",
+        "sentence": "audio/bn/pradeep/bn-08-s.m4a"
+      }
+    }
   },
   "bn-09": {
-    "word": "audio/bn/bn-09.mp3",
+    "word": "audio/bn/bn-09.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-09-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-09-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-09.m4a",
+        "sentence": "audio/bn/pradeep/bn-09-s.m4a"
+      }
+    }
   },
   "bn-10": {
-    "word": "audio/bn/bn-10.mp3",
+    "word": "audio/bn/bn-10.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-10-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-10-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-10.m4a",
+        "sentence": "audio/bn/pradeep/bn-10-s.m4a"
+      }
+    }
   },
   "bn-11": {
-    "word": "audio/bn/bn-11.mp3",
+    "word": "audio/bn/bn-11.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-11-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-11-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-11.m4a",
+        "sentence": "audio/bn/pradeep/bn-11-s.m4a"
+      }
+    }
   },
   "bn-12": {
-    "word": "audio/bn/bn-12.mp3",
+    "word": "audio/bn/bn-12.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-12-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-12-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-12.m4a",
+        "sentence": "audio/bn/pradeep/bn-12-s.m4a"
+      }
+    }
   },
   "bn-13": {
-    "word": "audio/bn/bn-13.mp3",
-    "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-13-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "word": "audio/bn/bn-13.m4a",
+    "wordSource": "neural voice bn-IN-TanishaaNeural",
+    "sentence": "audio/bn/bn-13-s.m4a",
+    "sentenceSource": "neural voice bn-IN-TanishaaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-13.m4a",
+        "sentence": "audio/bn/pradeep/bn-13-s.m4a"
+      }
+    }
   },
   "bn-14": {
-    "word": "audio/bn/bn-14.mp3",
+    "word": "audio/bn/bn-14.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-14-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-14-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-14.m4a",
+        "sentence": "audio/bn/pradeep/bn-14-s.m4a"
+      }
+    }
   },
   "bn-15": {
-    "word": "audio/bn/bn-15.mp3",
+    "word": "audio/bn/bn-15.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-15-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-15-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-15.m4a",
+        "sentence": "audio/bn/pradeep/bn-15-s.m4a"
+      }
+    }
   },
   "bn-16": {
-    "word": "audio/bn/bn-16.mp3",
+    "word": "audio/bn/bn-16.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-16-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-16-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-16.m4a",
+        "sentence": "audio/bn/pradeep/bn-16-s.m4a"
+      }
+    }
   },
   "bn-17": {
-    "word": "audio/bn/bn-17.mp3",
+    "word": "audio/bn/bn-17.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-17-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-17-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-17.m4a",
+        "sentence": "audio/bn/pradeep/bn-17-s.m4a"
+      }
+    }
   },
   "bn-18": {
-    "word": "audio/bn/bn-18.mp3",
+    "word": "audio/bn/bn-18.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-18-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-18-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-18.m4a",
+        "sentence": "audio/bn/pradeep/bn-18-s.m4a"
+      }
+    }
   },
   "bn-19": {
-    "word": "audio/bn/bn-19.mp3",
+    "word": "audio/bn/bn-19.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-19-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-19-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-19.m4a",
+        "sentence": "audio/bn/pradeep/bn-19-s.m4a"
+      }
+    }
   },
   "bn-20": {
-    "word": "audio/bn/bn-20.mp3",
+    "word": "audio/bn/bn-20.m4a",
     "wordSource": "neural voice bn-BD-NabanitaNeural",
-    "sentence": "audio/bn/bn-20-s.mp3",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural"
+    "sentence": "audio/bn/bn-20-s.m4a",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "voices": {
+      "pradeep": {
+        "word": "audio/bn/pradeep/bn-20.m4a",
+        "sentence": "audio/bn/pradeep/bn-20-s.m4a"
+      }
+    }
   },
   "ar-01": {
-    "word": "audio/ar/ar-01.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-01.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-01.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-01.m4a"
+      }
+    }
   },
   "ar-02": {
-    "word": "audio/ar/ar-02.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-02.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-02.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-02.m4a"
+      }
+    }
   },
   "ar-03": {
-    "word": "audio/ar/ar-03.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-03.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-03.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-03.m4a"
+      }
+    }
   },
   "ar-04": {
-    "word": "audio/ar/ar-04.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-04.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-04.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-04.m4a"
+      }
+    }
   },
   "ar-05": {
-    "word": "audio/ar/ar-05.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-05.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-05.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-05.m4a"
+      }
+    }
   },
   "ar-06": {
-    "word": "audio/ar/ar-06.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-06.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-06.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-06.m4a"
+      }
+    }
   },
   "ar-07": {
-    "word": "audio/ar/ar-07.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-07.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-07.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-07.m4a"
+      }
+    }
   },
   "ar-08": {
-    "word": "audio/ar/ar-08.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-08.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-08.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-08.m4a"
+      }
+    }
   },
   "ar-09": {
-    "word": "audio/ar/ar-09.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-09.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-09.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-09.m4a"
+      }
+    }
   },
   "ar-10": {
-    "word": "audio/ar/ar-10.mp3",
-    "wordSource": "neural voice ar-SA-ZariyahNeural"
+    "word": "audio/ar/ar-10.m4a",
+    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "voices": {
+      "fatima": {
+        "word": "audio/ar/fatima/ar-10.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-10.m4a"
+      }
+    }
   }
 }

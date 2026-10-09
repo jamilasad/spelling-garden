@@ -13,6 +13,7 @@ const DEFAULT_SETTINGS = {
   contestDate: '',
   mockTimer: 0,        // seconds per word in Mock Contest (0 = no timer)
   dailyGoal: 20,       // honey drops to collect each day
+  narrator: {},        // lang → narrator id (the first voice in data/voices.json when unset)
 };
 
 let state = null;
@@ -100,6 +101,36 @@ function emptyProgress() {
   };
 }
 
+/** Per-day totals for the parent report: answers, right answers, words learned, game words, active seconds. */
+function dayLog(p, day) {
+  p.days = p.days || {};
+  if (!p.days[day]) p.days[day] = { test: 0, right: 0, learn: 0, game: 0, seconds: 0 };
+  const keys = Object.keys(p.days).sort();
+  for (const old of keys.slice(0, Math.max(0, keys.length - 120))) delete p.days[old];
+  return p.days[day];
+}
+
+export function addActiveSeconds(seconds, day = dayString()) {
+  if (!state.active) return;
+  dayLog(progress(), day).seconds += seconds;
+  save();
+}
+
+/** Missing-letters game: a word solved. Honey only when solved without a wrong tap. */
+export function recordGameWord(wordId, clean, day = dayString()) {
+  const p = progress();
+  const d = dayLog(p, day);
+  d.game += 1;
+  p.games = p.games || {};
+  const g = p.games[wordId] || { played: 0, clean: 0 };
+  g.played += 1;
+  if (clean) g.clean += 1;
+  p.games[wordId] = g;
+  const goalReached = clean ? addHoney(p, day) : false;
+  save();
+  return { goalReached };
+}
+
 /** Adds one honey drop. Returns true when this drop reaches today's goal. */
 function addHoney(p, day) {
   p.honey = (p.honey || 0) + 1;
@@ -120,6 +151,9 @@ export function progress(profileId = state.active) {
 export function recordResult(wordId, gotIt, day = dayString()) {
   const p = progress();
   p.words[wordId] = applyResult(p.words[wordId], gotIt, day);
+  const d = dayLog(p, day);
+  d.test += 1;
+  if (gotIt) d.right += 1;
   const goalReached = gotIt ? addHoney(p, day) : false;
   save();
   return { record: p.words[wordId], goalReached };
@@ -133,6 +167,7 @@ export function recordLearned(wordId, gotIt, day = dayString()) {
   r.times += 1;
   r.last = day;
   p.learned[wordId] = r;
+  dayLog(p, day).learn += 1;
   const goalReached = gotIt ? addHoney(p, day) : false;
   save();
   return { record: r, goalReached };

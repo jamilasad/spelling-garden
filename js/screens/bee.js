@@ -6,7 +6,7 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML } from '../art.js';
 import { icon } from '../icons.js';
 import { go, holdButton, confirmDialog, toast } from '../ui.js';
-import { sayWord, saySentence, stopAudio } from '../audio.js';
+import { sayWord, saySentence, stopAudio, voicesForWord, voiceName, spellAloud, canSpellAloud } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
 import { tilesHTML, bigWordHTML, runReveal } from '../reveal.js';
@@ -15,7 +15,7 @@ import { maskWord } from '../segment.js';
 import { BADGES, qualifyingBadges } from '../badges.js';
 
 const TODAY_SIZE = 15;
-const HINTS = ['again', 'slow', 'meaning', 'sentence', 'type', 'picture'];
+const HINTS = ['again', 'slow', 'voice', 'meaning', 'sentence', 'type', 'picture'];
 
 function buildSession(params) {
   const day = dayString();
@@ -51,7 +51,7 @@ function sessionTitle(params) {
 }
 
 const hintButton = (h) =>
-  `<button class="hint-btn" type="button" data-hint="${h}">${icon(h === 'again' ? 'again' : h)}<span>${t(`hint.${h}`)}</span></button>`;
+  `<button class="hint-btn" type="button" data-hint="${h}">${icon(h === 'voice' ? 'users' : h)}<span>${t(`hint.${h}`)}</span></button>`;
 
 export default {
   title: () => t('bee.title'),
@@ -78,7 +78,7 @@ export default {
           <div class="ask">
             <p class="word-meta"><span class="lang-tag"></span><span class="word-count"></span></p>
             <button class="btn btn-honey btn-big play-btn" type="button" data-act="play">${icon('play')}<span>${t('bee.hear')}</span></button>
-            <div class="hints">${(mock ? ['slow'] : HINTS.slice(1)).map(hintButton).join('')}</div>
+            <div class="hints">${(mock ? ['slow', 'voice'] : HINTS.slice(1)).map(hintButton).join('')}</div>
             <div class="hint-panel" hidden></div>
             <button class="btn btn-big btn-wide hold-btn" type="button" data-act="reveal">${icon('hand')}<span>${t('bee.holdReveal')}</span></button>
             <p class="hold-help">${t('bee.holdHelp')}</p>
@@ -87,6 +87,10 @@ export default {
             <div class="answer-word"></div>
             <div class="answer-tiles"></div>
             <div class="tip-box" hidden></div>
+            <div class="spell-row" hidden>
+              <button class="btn btn-sky btn-small" type="button" data-act="spell">${icon('sentence')}<span>${t('spell.button')}</span></button>
+              <p class="spell-line" aria-live="polite"></p>
+            </div>
             <div class="check-row" hidden>
               <button class="btn btn-leaf btn-big" type="button" data-act="got">${icon('check')}<span>${t('bee.gotIt')}</span></button>
               <button class="btn btn-orange btn-big" type="button" data-act="notyet">${icon('sprout')}<span>${t('bee.notYet')}</span></button>
@@ -133,6 +137,8 @@ export default {
     let timerId = 0;
     let timerStarted = false;
     let pendingPlay = 0;
+    let voiceList = [];
+    let voiceAt = 0;
 
     const setBubble = (text) => {
       bubble.textContent = text;
@@ -179,7 +185,7 @@ export default {
       const current = word;
       playBtn.classList.add('is-playing');
       setBubble(t('bee.listening'));
-      await sayWord(current, { slow });
+      await sayWord(current, { slow, voice: voiceList[voiceAt] });
       if (!alive || word !== current) return;
       playBtn.classList.remove('is-playing');
       if (state === 'listen') setBubble(t('bee.writeIt'));
@@ -191,6 +197,13 @@ export default {
       sfx.tap();
       let html = '';
       if (kind === 'slow') { play(true); return; }
+      if (kind === 'voice') {
+        if (voiceList.length < 2) { setBubble(t('voice.onlyOne')); return; }
+        voiceAt = (voiceAt + 1) % voiceList.length;
+        play(false).then(() => {});
+        setBubble(t('voice.nowSpeaking', { name: voiceName(word.lang, voiceList[voiceAt]) }));
+        return;
+      }
       if (kind === 'again') { play(false); return; }
       if (kind === 'meaning') {
         const order = [...new Set([getLang(), 'bn', 'en'])];
@@ -198,7 +211,7 @@ export default {
           `<p lang="${l}" dir="${dirOf(l)}"><span class="lang-tag" data-lang="${l}">${t(`langShort.${l}`)}</span> ${escapeHtml(word.meaning[l])}</p>`).join('');
         html = `<span class="hint-label">${t('hint.meaning')}</span>${html}`;
       } else if (kind === 'sentence') {
-        saySentence(word);
+        saySentence(word, { voice: voiceList[voiceAt] });
         html = `<span class="hint-label">${t('hint.sentence')}</span><p lang="${word.lang}" dir="${dirOf(word.lang)}">${escapeHtml(maskWord(word.sentence, word.word))}</p>`;
       } else if (kind === 'type') {
         html = `<span class="hint-label">${t('hint.type')}</span><p>${t(`type.${word.type}`)}</p>`;
@@ -211,6 +224,8 @@ export default {
 
     function showWord() {
       word = data.byId.get(queue[i]);
+      voiceList = voicesForWord(word);
+      voiceAt = 0;
       setState('listen');
       stopTimer();
       timerStarted = false;
@@ -253,6 +268,7 @@ export default {
       checkRow.hidden = true;
       nextBtn.hidden = true;
       answerTiles.innerHTML = tilesHTML(word);
+      $('.spell-row').hidden = true;
       setFlowerStage(flowerEl, 3);
       setPose('think');
       setBubble(t('bee.checkPaper'));
@@ -266,6 +282,9 @@ export default {
         tipBox.innerHTML = `${icon('tip')}<div>${tipText.map((s, k) => `<p ${k ? 'lang="bn"' : ''}>${escapeHtml(s)}</p>`).join('')}</div>`;
         tipBox.hidden = false;
       }
+      const spellRow = $('.spell-row');
+      spellRow.hidden = !canSpellAloud(word);
+      spellRow.querySelector('.spell-line').innerHTML = '';
       checkRow.hidden = false;
       setState('check');
       setBubble(t('bee.didYouGetIt'));
@@ -398,6 +417,15 @@ export default {
       const say = e.target.closest('[data-say]');
       if (say) return sayWord(data.byId.get(say.dataset.say));
       const act = e.target.closest('[data-act]')?.dataset.act;
+      if (act === 'spell') {
+        const line = root.querySelector('.spell-line');
+        const tileEls = [...answerTiles.querySelectorAll('.tile:not(.tile-space)')];
+        spellAloud(word, (k, piece) => {
+          tileEls.forEach((el, n) => el.classList.toggle('walk', n === k));
+          if (piece) line.innerHTML = `<span lang="${word.lang}">${escapeHtml(piece.name)}</span>`;
+        });
+        return;
+      }
       if (act === 'play') play();
       else if (act === 'got') answerWith(true);
       else if (act === 'notyet') answerWith(false);

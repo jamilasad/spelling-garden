@@ -2,7 +2,7 @@
 // Every network request revalidates with the server ("no-cache"), so a new version is picked up
 // on the next online visit instead of waiting for the browser's own cache to expire.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v11';
+const VERSION = 'spelling-garden-v12';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
@@ -11,6 +11,8 @@ const CORE = [
   'js/i18n.js', 'js/icons.js', 'js/reveal.js', 'js/scheduler.js', 'js/segment.js', 'js/sfx.js', 'js/store.js', 'js/ui.js',
   'js/screens/home.js', 'js/screens/profiles.js', 'js/screens/setup.js', 'js/screens/bee.js', 'js/screens/hive.js',
   'js/screens/garden.js', 'js/screens/settings.js', 'js/screens/parent.js', 'js/screens/words.js', 'js/screens/learn.js', 'js/screens/honey.js', 'js/honey.js', 'js/ambience.js',
+  'js/screens/missing.js', 'js/confusions.js', 'js/spellnames.js', 'js/report.js',
+  'data/voices.json', 'data/spell-index.json',
   'audio/garden/garden-morning.m4a', 'audio/garden/bee-buzz.m4a',
   'i18n/en.json', 'i18n/bn.json', 'i18n/ar.json',
   'data/app-config.json', 'data/lists.json', 'data/words-en.json', 'data/words-bn.json', 'data/words-ar.json',
@@ -28,8 +30,10 @@ async function precache() {
   try {
     const audio = await (await fetch('data/audio-index.json', { cache: 'no-store' })).json();
     const art = await (await fetch('images/manifest.json', { cache: 'no-store' })).json();
+    const spell = await (await fetch('data/spell-index.json', { cache: 'no-store' })).json();
     const extra = [
-      ...Object.values(audio).flatMap((e) => [e.word, e.sentence]),
+      ...Object.values(audio).flatMap((e) => [e.word, e.sentence, ...Object.values(e.voices || {}).flatMap((v) => [v.word, v.sentence])]),
+      ...Object.values(spell),
       ...Object.values(art),
     ].filter(Boolean);
     await Promise.allSettled(extra.map((u) => cache.add(fresh(u))));

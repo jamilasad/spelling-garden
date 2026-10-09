@@ -12,6 +12,14 @@ A colorful spelling bee practice app for English, Bangla and Arabic words. Every
 - **My word list:** all words together, or one language at a time (English, বাংলা, العربية). Tap 🔊 to hear a word, or tap the word to learn it. **Print** gives a clean memory sheet with the tricky parts marked, one language per page.
 - **Learn words:** Look → Say → Cover → Write → Check. She sees the word, spells along as the letters light up, the leaves cover it, she writes it from memory on paper, then checks. Learning doesn't affect her test results; afterwards, **Test myself** quizzes the same words.
 
+## Games and spelling aloud
+- **Missing letters** (home screen): the tricky parts of a word disappear, and she picks the right piece from three look-alikes (ি/ী, ন/ণ, ة/ه, missing harakat, b/d…).
+- **Spelling aloud:** Bangla words are spelled the school way, e.g. মঙ্গলবার → ম · উঁয়ো-এ গ · ল · ব-এ আ-কার · র. In Learn words (the Say step) each piece lights up while its name is spoken; the word list shows the spelling under each Bangla word; after a reveal in practice, "Spell it aloud" plays it. English is spelled letter by letter.
+- **Narrators:** each language has several voices (Settings → Narrators). During practice, "Other voice" plays the word in the next voice.
+
+## Parent report
+Parent Corner → **Report**: days practiced, words practiced, right answers, time in the app, a chart of answers per day, readiness per language (not started / tricky / learning / blooming), focus words and suggestions. Printable.
+
 ## Honey Pot
 Every word she gets right earns a **honey drop** (it never goes down for a "Not yet").
 - **Honey jars:** every 25 drops fills a jar.
@@ -59,7 +67,7 @@ Things to know about the online version:
 
 ## Good to know
 - **Progress is saved in each device's browser.** Use Settings → **Save backup** now and then, and **Load backup** to move progress to another device.
-- **Pronunciations:** all three languages use natural Microsoft female voices, generated once and stored in `audio/`: English "Jenny" (American), Bangla "Nabanita" (Bangladesh) and Arabic "Zariyah". Check them in Word check, and record your own voice for any word that's still not right. To rebuild a language: `node tools/build-audio.mjs --force --lang=bn` (your own recordings are always kept). The natural voices need a one-time setup: `python3 -m venv .venv && .venv/bin/pip install edge-tts`. To use a different voice: `--voice-en=en-US-AvaNeural` (any Microsoft voice ending in "Neural"), or a built-in Mac voice such as `--voice-en=Samantha`.
+- **Pronunciations:** natural Microsoft voices, generated once and stored in `audio/` (made louder and even for tablets). Narrators are listed in `data/voices.json` (the first one per language is the default). When a voice says a word wrongly, give it a hint spelling in the word's data — `"say": "লাঙোল"` (the screen still shows লাঙল) — or a different voice for that word — `"voice": "bn-IN-TanishaaNeural"` — then rebuild that word: `node tools/build-audio.mjs --force --only=bn-16`. You can also record your own voice in Word check. One-time setup for the natural voices: `python3 -m venv .venv && .venv/bin/pip install edge-tts`.
 - **Offline:** on the Mac the app keeps working without internet. When the Mac serves it over Wi-Fi, the iPad and phone only work while the Mac is running. Once it's on GitHub Pages (above), every device works fully offline.
 - **Contest date** is set to 22 Oct 2026. Change it in Settings.
 

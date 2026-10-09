@@ -4,7 +4,8 @@ import { progress } from '../store.js';
 import { t, tn, escapeHtml, dirOf, pick, num } from '../i18n.js';
 import { icon } from '../icons.js';
 import { topbar } from '../ui.js';
-import { sayWord } from '../audio.js';
+import { sayWord, spellAloud, canSpellAloud } from '../audio.js';
+import { spellingOf } from '../spellnames.js';
 import { markedWordHTML } from '../reveal.js';
 import { isMastered, isTricky } from '../scheduler.js';
 
@@ -45,7 +46,9 @@ export default {
           <a class="wr-main" href="#/learn?ids=${w.id}">
             <span class="wr-word" lang="${w.lang}" dir="${dirOf(w.lang)}">${markedWordHTML(w)}</span>
             <span class="wr-meaning">${meaningLine(w)}</span>
+            ${w.lang === 'bn' ? `<span class="wr-spell" lang="bn">${spellingOf(w).map((p) => escapeHtml(p.name)).join(' · ')}</span>` : ''}
           </a>
+          ${canSpellAloud(w) ? `<button class="icon-btn wr-spell-btn no-print" type="button" data-spell="${w.id}" aria-label="${t('spell.button')}">${icon('sentence')}</button>` : '<span></span>'}
           ${statusChip(p.words[w.id], learned[w.id])}
         </li>`).join('');
       return `<section class="card word-section">
@@ -73,6 +76,12 @@ export default {
     const onClick = (e) => {
       const say = e.target.closest('[data-say]');
       if (say) return sayWord(data.byId.get(say.dataset.say));
+      const sp = e.target.closest('[data-spell]');
+      if (sp) {
+        const row = sp.closest('.word-row');
+        spellAloud(data.byId.get(sp.dataset.spell), (k) => row.classList.toggle('spelling', k >= 0));
+        return;
+      }
       if (e.target.closest('[data-print]')) window.print();
     };
     root.addEventListener('click', onClick);

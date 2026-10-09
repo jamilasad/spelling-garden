@@ -6,7 +6,7 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl } from '../art.js';
 import { icon } from '../icons.js';
 import { go, toast } from '../ui.js';
-import { sayWord, stopAudio } from '../audio.js';
+import { sayWord, stopAudio, spellAloud, canSpellAloud, voicesForWord, voiceName } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm, motionAllowed } from '../ambient.js';
 import { tilesHTML, bigWordHTML } from '../reveal.js';
@@ -59,6 +59,7 @@ export default {
             <p class="word-meta"><span class="lang-tag"></span><span class="word-count"></span></p>
             <div class="learn-word"></div>
             <div class="learn-tiles"></div>
+            <p class="spell-name" aria-live="polite"></p>
             <div class="learn-info"></div>
             <div class="learn-actions"></div>
           </div>
@@ -87,6 +88,8 @@ export default {
     let word = null;
     let alive = true;
     let run = 0; // cancels older animations when the step changes
+    let voices = [];
+    let voiceAt = 0;
 
     const setBubble = (text) => {
       bubble.textContent = text;
@@ -134,8 +137,8 @@ export default {
       tilesBox.innerHTML = tilesHTML(word, { open: true, covers: 'always' });
       tilesBox.querySelector('.tiles').classList.add('learn');
       infoBox.innerHTML = meaningHTML();
-      setActions(`${btn('hear', 'cream', 'play', t('learn.hear'))}${btn('say', 'honey', 'next', t('learn.spellAlong'))}`);
-      setTimeout(() => { if (alive && page.dataset.step === 'look') sayWord(word); }, 450);
+      setActions(`${btn('hear', 'cream', 'play', t('learn.hear'))}${voices.length > 1 ? btn('voice', 'cream', 'users', t('hint.voice')) : ''}${btn('say', 'honey', 'next', t('learn.spellAlong'))}`);
+      setTimeout(() => { if (alive && page.dataset.step === 'look') sayWord(word, { voice: voices[voiceAt] }); }, 450);
     }
 
     async function say() {
@@ -146,6 +149,18 @@ export default {
       setBubble(t('learn.sayBubble'));
       setActions(`${btn('say', 'cream', 'again', t('learn.again'))}${btn('cover', 'honey', 'next', t('learn.coverIt'))}`);
       const list = tiles();
+      const nameBox = $('.spell-name');
+      if (canSpellAloud(word)) {
+        // Each piece lights up while its name is spoken: ম · উঁয়ো-এ গ · ল · ব-এ আ-কার · র
+        const finished = await spellAloud(word, (k, piece) => {
+          list.forEach((el, n) => el.classList.toggle('walk', n === k));
+          if (piece) nameBox.innerHTML = `<span lang="${word.lang}" dir="${dirOf(word.lang)}">${escapeHtml(piece.name)}</span>`;
+        });
+        if (!alive || me !== run) return;
+        nameBox.innerHTML = '';
+        if (finished) sayWord(word, { voice: voices[voiceAt] });
+        return;
+      }
       const step = motionAllowed() ? 650 : 400;
       for (let k = 0; k < list.length; k++) {
         if (!alive || me !== run) return;
@@ -155,7 +170,7 @@ export default {
         await sleep(step);
       }
       list.forEach((el) => el.classList.remove('walk'));
-      if (alive && me === run) sayWord(word);
+      if (alive && me === run) sayWord(word, { voice: voices[voiceAt] });
     }
 
     function cover() {
@@ -219,6 +234,8 @@ export default {
 
     function showWord() {
       word = data.byId.get(queue[i]);
+      voices = voicesForWord(word);
+      voiceAt = 0;
       $('.lang-tag').dataset.lang = word.lang;
       $('.lang-tag').textContent = t(`langShort.${word.lang}`);
       $('.word-count').textContent = t('bee.wordOf', { n: i + 1, total: queue.length });
@@ -264,7 +281,12 @@ export default {
     const onClick = (e) => {
       const act = e.target.closest('[data-act]')?.dataset.act;
       if (!act) return;
-      if (act === 'hear') sayWord(word);
+      if (act === 'hear') sayWord(word, { voice: voices[voiceAt] });
+      else if (act === 'voice') {
+        voiceAt = (voiceAt + 1) % voices.length;
+        sayWord(word, { voice: voices[voiceAt] });
+        setBubble(t('voice.nowSpeaking', { name: voiceName(word.lang, voices[voiceAt]) }));
+      }
       else if (act === 'say') say();
       else if (act === 'cover') cover();
       else if (act === 'check') check();

@@ -1,0 +1,17 @@
+{
+  "en": [
+    { "id": "jenny", "voice": "en-US-JennyNeural", "name": "Jenny", "kind": "woman" },
+    { "id": "emma", "voice": "en-US-EmmaNeural", "name": "Emma", "kind": "woman" },
+    { "id": "ava", "voice": "en-US-AvaNeural", "name": "Ava", "kind": "woman" },
+    { "id": "andrew", "voice": "en-US-AndrewNeural", "name": "Andrew", "kind": "man" }
+  ],
+  "bn": [
+    { "id": "nabanita", "voice": "bn-BD-NabanitaNeural", "name": "Nabanita", "kind": "woman" },
+    { "id": "pradeep", "voice": "bn-BD-PradeepNeural", "name": "Pradeep", "kind": "man" }
+  ],
+  "ar": [
+    { "id": "zariyah", "voice": "ar-SA-ZariyahNeural", "name": "Zariyah", "kind": "woman" },
+    { "id": "fatima", "voice": "ar-AE-FatimaNeural", "name": "Fatima", "kind": "woman" },
+    { "id": "hamed", "voice": "ar-SA-HamedNeural", "name": "Hamed", "kind": "man" }
+  ]
+}
