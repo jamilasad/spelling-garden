@@ -1,5 +1,7 @@
 # 00 · Start here (paste this first)
 
+> **Using the Codex app instead of ChatGPT?** See [CODEX.md](CODEX.md). Codex reads these rules itself.
+
 Every image is made in **one ChatGPT chat** so they all match.
 - **New chat?** Paste **Message 1** below first, wait for "Ready", then use the prompts from the other files.
 - **Continuing the chat where you made Buzzy?** Skip Message 1.

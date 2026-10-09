@@ -1,67 +1,56 @@
-# Generating the images with Codex
+# Making the images with the Codex app
 
-**Before you start:**
-- Codex needs an **OpenAI API key with billing turned on** (from platform.openai.com). A ChatGPT subscription on its own doesn't cover API image generation.
-- In the Terminal where you run Codex: `export OPENAI_API_KEY="sk-..."` (never paste the key into a file in this project).
-- Allow Codex network access when it asks.
-- Open Codex in this project folder, then copy everything between the two lines below and paste it in.
+1. Open the **Codex app** and choose this project folder (`Spelling Bee Project`).
+2. Copy the prompt below and paste it into Codex. To work on a different file, change only the **first line**.
+3. Codex makes the **first 3 images** and stops so you can check them. Reply "continue" (or ask for changes) and it works through the rest of the file one by one.
+4. If Codex stops halfway or you start a new chat, paste the same prompt again. It continues from the first image that isn't ticked yet.
+5. When a file is finished, tell Claude Code **"add the new images"**.
+
+Order of files: `02-garden-builder.md` → `03-word-treasures.md` → then the optional ones (04–07).
 
 ---
 
-You are generating illustrations for a children's spelling app in this repository ("Spelling Garden"). All prompts are already written. Your job: write and run a small generator that loops through them, calls the OpenAI Images API, saves the PNGs, checks them, and keeps a log. Do not change any app code.
+```
+Prompt file for this run: docs/image-prompts/02-garden-builder.md
 
-## Inputs
-- First run `node tools/build-image-jobs.mjs`. It (re)creates `docs/image-prompts/image-jobs.json` from the prompt files.
-- `docs/image-prompts/image-jobs.json` → `jobs[]`. Each job has:
-  - `file`: the output file name
-  - `group`: the prompt file it came from (`02-garden-builder.md` …)
-  - `size`: `1024x1024`, `1024x1536` or `1536x1024`
-  - `background`: `transparent`
-  - `references`: image paths to attach to the request. `docs/art-reference/style-sheet.png` is on every job so the style stays consistent; some jobs also have the Buzzy character reference.
-  - `prompt`: complete and standalone. Send it exactly as it is.
-  - `done` / `exists`: skip a job if either is true (unless `--force`).
-- Save every result to `images/incoming/<file>` (this folder is git-ignored on purpose).
+You are making illustrations for a children's spelling app ("Spelling Garden") in this project. All the prompts are already written. Make the images yourself with your image generation, one at a time, in the order they appear in the prompt file above.
 
-## Build `tools/generate-images.mjs`
-Node 20+, preferably no extra dependencies (use `fetch`, `FormData`, `Blob`). Read the key from `OPENAI_API_KEY`; never print, log or save it.
+SETUP (once, at the start)
+- Read docs/image-prompts/00-start-here.md (the style rules) and the prompt file above.
+- Run: node tools/build-image-jobs.mjs
+  This writes docs/image-prompts/image-jobs.json. For every image it holds the COMPLETE prompt (style rules + garden rules + the item), the size and the reference pictures. Always use the "prompt" from image-jobs.json for the matching "file", not just the short text in the .md file.
+- Look at docs/art-reference/style-sheet.png. Every new image must match this style exactly: thick dark-brown outlines, flat colours, one soft shading tone, a small white highlight, cute and simple.
 
-For each pending job, in file order:
-1. **Call the OpenAI Images API** with the best image model available on this account (check the current OpenAI docs; at the time of writing that is `gpt-image-1`). Because every job has reference images, use the **image edit endpoint** (`POST /v1/images/edits`, multipart) with each file in `references` attached as an input image, plus `prompt`, `size`, `background: "transparent"`, `output_format: "png"` and `quality` (default `medium`, a flag for `high`). **Check the exact parameter names in the current docs before the first call.**
-2. **Save** the returned base64 PNG to `images/incoming/<file>`.
-3. **Automatic checks:** the PNG size equals `size`, and the image really is transparent (all four corner pixels have alpha 0). If a check fails, retry (at most 2 retries), then mark it "needs review".
-4. **Visual check** (if you can view images): exactly one subject (the lawn is the exception), no text, letters or numbers, same style as the style sheet (thick dark-brown outlines, flat colours), and Buzzy matches the reference when he appears. If not, regenerate (at most 2 retries), then mark "needs review" with a short reason.
-5. **Tick the box** in the matching `docs/image-prompts/0X-*.md`: change ``- [ ] **`<file>`**`` to ``- [x] **`<file>`**``.
-6. **Log** one row in `docs/image-prompts/generation-log.md`: `file | status (saved / needs review / failed) | attempts | note`.
+FOR EACH IMAGE (in the order of the prompt file)
+1. Skip it if its box is already ticked ("- [x]") or images/incoming/<file> already exists.
+2. Generate it using the job's "prompt", in the job's "size" (1024x1024 square, 1024x1536 tall, 1536x1024 wide), with a TRANSPARENT background. If you can attach reference images, attach every path in the job's "references" (the style sheet, plus the Buzzy reference when listed).
+3. Save it as a PNG at images/incoming/<file> with exactly that file name.
+4. Run: node tools/finish-image.mjs images/incoming/<file>
+   It reports the size and transparency and removes a plain background if there is one. If it says "regenerate", make the image again.
+5. Look at the image and check:
+   - exactly one subject (the lawn is the exception), filling most of the canvas, standing at the bottom
+   - no text, letters, numbers or logos anywhere
+   - same style as the style sheet
+   - Buzzy (when he appears) looks like docs/art-reference/mascot-M0-reference.png
+   If any check fails, regenerate (at most 2 more tries). If it still isn't right, keep the best one and note why.
+6. Tick its box in the prompt file: change "- [ ] **`<file>`**" to "- [x] **`<file>`**".
+7. Add one line to docs/image-prompts/generation-log.md: file | saved / needs review | tries | short note.
 
-Script options:
-- `--dry-run`: list what would be generated, with counts per group; no API calls
-- `--group=02`: only jobs from that prompt file
-- `--only=plant-tulip.png,tree-mango.png`, `--limit=N`
-- `--quality=medium|high`
-- `--force`: regenerate even if the file exists
+PACE
+- After the FIRST 3 images, STOP. Show me the three images and wait for my reply.
+- After I say continue, work through the rest of the file without stopping, then give me a short summary: how many were made, and which "need review" and why.
 
-Behaviour:
-- At most 2 requests at a time.
-- On HTTP 429 or 5xx: wait and retry with backoff. On 401, 403, billing or quota errors: stop immediately and tell me.
-- Resumable: safe to stop and run again; finished files are skipped.
-- Show progress like `[12/43] plant-tulip.png … saved (1 attempt)`.
-
-## Order of work (STOP means wait for my reply)
-1. Build the script and run `--dry-run`. Tell me the count per group and an estimated cost from current OpenAI pricing for the model, quality and sizes. **STOP.**
-2. **Test batch:** `--only=garden-lawn.png,plant-tulip.png,tree-mango.png`. Show me the three images. **STOP**: I may want to adjust the prompts.
-3. Run `--group=02`, then `--group=03`, one group at a time. After each group, summarise how many were saved and which need review. **STOP** after each group.
-4. Groups 04–07 only when I ask.
-
-## Do not
-- Do not edit app code (`js/`, `css/`, `index.html`, `sw.js`, `i18n/`, `data/`).
-- Do not change the prompt wording in the `.md` files (only tick boxes). If a prompt needs changing, tell me instead.
+DO NOT
+- Do not change any app code (js/, css/, index.html, sw.js, i18n/, data/, tools/).
+- Do not change the wording of prompts in the .md files (only tick boxes). If a prompt seems wrong, tell me instead.
 - Do not commit or push anything.
-- Do not write outside `images/incoming/`, `tools/generate-images.mjs` and `docs/image-prompts/generation-log.md` (plus ticking boxes).
-
-When a group is finished, list the files that need review. I'll then ask Claude Code to "add the new images", which resizes them and places them in the app.
+- Only write to images/incoming/, docs/image-prompts/generation-log.md, and the tick boxes.
+```
 
 ---
 
-## After Codex finishes
-- Look through `images/incoming/` and delete or regenerate anything you don't like: `node tools/generate-images.mjs --only=<file> --force`.
-- Tell Claude Code **"add the new images"**.
+## Notes
+- **Running out of room:** long runs can fill up a Codex chat. If it gets slow or confused, start a new chat and paste the prompt again; it picks up where it stopped.
+- **Redo one image:** delete it from `images/incoming/`, untick its box, and ask Codex: "Make docs/image-prompts/02-garden-builder.md → `plant-tulip.png` again, a bit taller and with more leaves."
+- **Change a prompt:** edit it in the `.md` file, then run `node tools/build-image-jobs.mjs` (Codex also runs this at the start).
+- **Check everything at once:** `node tools/finish-image.mjs --check images/incoming/*.png`
