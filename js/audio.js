@@ -3,7 +3,6 @@
 import { data } from './data.js';
 import { settings } from './store.js';
 import { duckForSpeech } from './ambience.js';
-import { spellingOf, spellKey, canSpell } from './spellnames.js';
 
 const player = new Audio();
 player.preload = 'auto';
@@ -37,7 +36,6 @@ export function unlockAudio() {
 }
 
 export function stopAudio() {
-  spellRun++;
   try { player.pause(); } catch { /* ignore */ }
   if ('speechSynthesis' in window) speechSynthesis.cancel();
 }
@@ -129,41 +127,3 @@ export function saySentence(word, { voice } = {}) {
 }
 
 export const hasSentence = (word) => Boolean(word.sentence);
-
-// ---------- Spelling aloud ----------
-let spellRun = 0;
-
-export const canSpellAloud = (word) => canSpell(word.lang);
-export const spellClip = (tile, lang) => data.spell[spellKey(tile, lang)] || '';
-
-/** Plays one piece's name (e.g. "উঁয়ো-এ গ"). */
-export function sayPiece(tile, lang) {
-  const url = spellClip(tile, lang);
-  if (!url) return Promise.resolve(false);
-  return withQuietGarden(() => playUrl(url, 1));
-}
-
-/**
- * Spells a word aloud piece by piece. onPiece(index) is called as each piece starts,
- * so the screen can light up the matching tile. Stops when another sound starts.
- */
-export async function spellAloud(word, onPiece = () => {}) {
-  const me = ++spellRun;
-  const pieces = spellingOf(word);
-  duckForSpeech(true);
-  try {
-    for (let i = 0; i < pieces.length; i++) {
-      if (me !== spellRun) return false;
-      onPiece(i, pieces[i]);
-      const url = spellClip(pieces[i].tile, word.lang);
-      if (url) await playUrl(url, 1);
-      else await new Promise((r) => setTimeout(r, 700));
-      await new Promise((r) => setTimeout(r, 180));
-    }
-    return me === spellRun;
-  } finally {
-    if (me === spellRun) { onPiece(-1); duckForSpeech(false); }
-  }
-}
-
-export function stopSpelling() { spellRun++; }

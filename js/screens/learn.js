@@ -6,7 +6,8 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl } from '../art.js';
 import { icon } from '../icons.js';
 import { go, toast } from '../ui.js';
-import { sayWord, stopAudio, spellAloud, canSpellAloud, voicesForWord, voiceName } from '../audio.js';
+import { sayWord, stopAudio, voicesForWord, voiceName } from '../audio.js';
+import { spellingOf } from '../spellnames.js';
 import { sfx } from '../sfx.js';
 import { setCalm, motionAllowed } from '../ambient.js';
 import { tilesHTML, bigWordHTML } from '../reveal.js';
@@ -132,10 +133,11 @@ export default {
       setCalm(true);
       setPose('think');
       setFlowerStage(flowerEl, 2);
-      setBubble(t('learn.lookBubble'));
+      setBubble(word.lang === 'bn' ? t('learn.lookBubbleTap') : t('learn.lookBubble'));
       wordBox.innerHTML = bigWordHTML(word);
       tilesBox.innerHTML = tilesHTML(word, { open: true, covers: 'always' });
       tilesBox.querySelector('.tiles').classList.add('learn');
+      makeTilesTappable();
       infoBox.innerHTML = meaningHTML();
       setActions(`${btn('hear', 'cream', 'play', t('learn.hear'))}${voices.length > 1 ? btn('voice', 'cream', 'users', t('hint.voice')) : ''}${btn('say', 'honey', 'next', t('learn.spellAlong'))}`);
       setTimeout(() => { if (alive && page.dataset.step === 'look') sayWord(word, { voice: voices[voiceAt] }); }, 450);
@@ -149,34 +151,50 @@ export default {
       setBubble(t('learn.sayBubble'));
       setActions(`${btn('say', 'cream', 'again', t('learn.again'))}${btn('cover', 'honey', 'next', t('learn.coverIt'))}`);
       const list = tiles();
-      const nameBox = $('.spell-name');
-      if (canSpellAloud(word)) {
-        // Each piece lights up while its name is spoken: ম · উঁয়ো-এ গ · ল · ব-এ আ-কার · র
-        const finished = await spellAloud(word, (k, piece) => {
-          list.forEach((el, n) => el.classList.toggle('walk', n === k));
-          if (piece) nameBox.innerHTML = `<span lang="${word.lang}" dir="${dirOf(word.lang)}">${escapeHtml(piece.name)}</span>`;
-        });
-        if (!alive || me !== run) return;
-        nameBox.innerHTML = '';
-        if (finished) sayWord(word, { voice: voices[voiceAt] });
-        return;
-      }
-      const step = motionAllowed() ? 650 : 400;
+      const pieces = spellingOf(word);
+      const named = pieces.some((x) => x.name && x.name !== x.tile);
+      // Each piece lights up; for Bangla its spoken name shows underneath (ম · উঁয়ো-এ গ · ল …).
+      const step = !motionAllowed() ? 400 : named ? 1400 : 650;
       for (let k = 0; k < list.length; k++) {
         if (!alive || me !== run) return;
-        list.forEach((el) => el.classList.remove('walk'));
-        list[k].classList.add('walk');
+        showPiece(k, named);
         sfx.pop(k);
         await sleep(step);
       }
-      list.forEach((el) => el.classList.remove('walk'));
+      showPiece(-1);
       if (alive && me === run) sayWord(word, { voice: voices[voiceAt] });
+    }
+
+    /** Lights up tile k and, when it has one, shows how it is said. k = -1 clears. */
+    function showPiece(k, withName = true) {
+      const list = tiles();
+      list.forEach((el, n) => el.classList.toggle('walk', n === k));
+      const nameBox = $('.spell-name');
+      const piece = k >= 0 ? spellingOf(word)[k] : null;
+      nameBox.innerHTML = piece && withName && piece.name && piece.name !== piece.tile
+        ? `<span lang="${word.lang}" dir="${dirOf(word.lang)}"><b>${escapeHtml(piece.display)}</b> = ${escapeHtml(piece.name)}</span>`
+        : '';
+    }
+
+    /** Makes the letter tiles tappable: tap one to see how that piece is said. */
+    function makeTilesTappable() {
+      const box = tilesBox.querySelector('.tiles');
+      if (!box || word.lang !== 'bn') return; // names exist for Bangla pieces for now
+      box.removeAttribute('aria-hidden');
+      box.classList.add('tappable');
+      const pieces = spellingOf(word);
+      tiles().forEach((el, k) => {
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-label', `${pieces[k].tile}: ${pieces[k].name}`);
+      });
     }
 
     function cover() {
       run++;
       setStep('cover');
       setPose('think');
+      showPiece(-1);
       tiles().forEach((el) => { el.classList.remove('open', 'walk'); el.classList.add('covered'); });
       sfx.whoosh();
       setBubble(t('learn.coverBubble'));
@@ -278,7 +296,22 @@ export default {
       summary.dataset.ids = ids.join(',');
     }
 
+    const tapTile = (el) => {
+      const step = page.dataset.step;
+      if (step === 'cover' || step === 'write') return; // the word is hidden — no peeking
+      run++; // stop the spell-along so the tapped piece stays
+      const k = tiles().indexOf(el);
+      if (k >= 0) { showPiece(k); sfx.tap(); }
+    };
+    const onKey = (e) => {
+      const el = e.target.closest?.('.tiles.tappable .tile');
+      if (el && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); tapTile(el); }
+    };
+    root.addEventListener('keydown', onKey);
+
     const onClick = (e) => {
+      const tileEl = e.target.closest('.tiles.tappable .tile');
+      if (tileEl) return tapTile(tileEl);
       const act = e.target.closest('[data-act]')?.dataset.act;
       if (!act) return;
       if (act === 'hear') sayWord(word, { voice: voices[voiceAt] });
@@ -314,6 +347,7 @@ export default {
       stopAudio();
       setCalm(false);
       root.removeEventListener('click', onClick);
+      root.removeEventListener('keydown', onKey);
     };
   },
 };

@@ -6,7 +6,7 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML } from '../art.js';
 import { icon } from '../icons.js';
 import { go, holdButton, confirmDialog, toast } from '../ui.js';
-import { sayWord, saySentence, stopAudio, voicesForWord, voiceName, spellAloud, canSpellAloud } from '../audio.js';
+import { sayWord, saySentence, stopAudio, voicesForWord, voiceName } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
 import { tilesHTML, bigWordHTML, runReveal } from '../reveal.js';
@@ -87,10 +87,6 @@ export default {
             <div class="answer-word"></div>
             <div class="answer-tiles"></div>
             <div class="tip-box" hidden></div>
-            <div class="spell-row" hidden>
-              <button class="btn btn-sky btn-small" type="button" data-act="spell">${icon('sentence')}<span>${t('spell.button')}</span></button>
-              <p class="spell-line" aria-live="polite"></p>
-            </div>
             <div class="check-row" hidden>
               <button class="btn btn-leaf btn-big" type="button" data-act="got">${icon('check')}<span>${t('bee.gotIt')}</span></button>
               <button class="btn btn-orange btn-big" type="button" data-act="notyet">${icon('sprout')}<span>${t('bee.notYet')}</span></button>
@@ -268,7 +264,6 @@ export default {
       checkRow.hidden = true;
       nextBtn.hidden = true;
       answerTiles.innerHTML = tilesHTML(word);
-      $('.spell-row').hidden = true;
       setFlowerStage(flowerEl, 3);
       setPose('think');
       setBubble(t('bee.checkPaper'));
@@ -282,9 +277,6 @@ export default {
         tipBox.innerHTML = `${icon('tip')}<div>${tipText.map((s, k) => `<p ${k ? 'lang="bn"' : ''}>${escapeHtml(s)}</p>`).join('')}</div>`;
         tipBox.hidden = false;
       }
-      const spellRow = $('.spell-row');
-      spellRow.hidden = !canSpellAloud(word);
-      spellRow.querySelector('.spell-line').innerHTML = '';
       checkRow.hidden = false;
       setState('check');
       setBubble(t('bee.didYouGetIt'));
@@ -417,15 +409,6 @@ export default {
       const say = e.target.closest('[data-say]');
       if (say) return sayWord(data.byId.get(say.dataset.say));
       const act = e.target.closest('[data-act]')?.dataset.act;
-      if (act === 'spell') {
-        const line = root.querySelector('.spell-line');
-        const tileEls = [...answerTiles.querySelectorAll('.tile:not(.tile-space)')];
-        spellAloud(word, (k, piece) => {
-          tileEls.forEach((el, n) => el.classList.toggle('walk', n === k));
-          if (piece) line.innerHTML = `<span lang="${word.lang}">${escapeHtml(piece.name)}</span>`;
-        });
-        return;
-      }
       if (act === 'play') play();
       else if (act === 'got') answerWith(true);
       else if (act === 'notyet') answerWith(false);

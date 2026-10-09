@@ -14,7 +14,7 @@ A colorful spelling bee practice app for English, Bangla and Arabic words. Every
 
 ## Games and spelling aloud
 - **Missing letters** (home screen): the tricky parts of a word disappear, and she picks the right piece from three look-alikes (ি/ী, ন/ণ, ة/ه, missing harakat, b/d…).
-- **Spelling aloud:** Bangla words are spelled the school way, e.g. মঙ্গলবার → ম · উঁয়ো-এ গ · ল · ব-এ আ-কার · র. In Learn words (the Say step) each piece lights up while its name is spoken; the word list shows the spelling under each Bangla word; after a reveal in practice, "Spell it aloud" plays it. English is spelled letter by letter.
+- **How to say each piece (Bangla):** the school way of spelling aloud, e.g. মঙ্গলবার → ম · উঁয়ো-এ গ · ল · ব-এ আ-কার · র. In Learn words, tap any hexagon to see how that piece is said (and the Say step shows each name as the tiles light up); the word list shows the full spelling under each Bangla word. Spoken letter names are planned for later.
 - **Narrators:** each language has several voices (Settings → Narrators). During practice, "Other voice" plays the word in the next voice.
 
 ## Parent report

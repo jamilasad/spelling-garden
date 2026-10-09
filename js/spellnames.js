@@ -62,12 +62,3 @@ export function spellingOf(word) {
     .filter((t) => !t.space)
     .map((t) => ({ tile: t.text, display: t.display, name: tileName(t.text, word.lang) }));
 }
-
-export const canSpell = (lang) => lang === 'bn' || lang === 'en';
-
-/** Text the voice reads for a name (hyphens become pauses). */
-export const spokenName = (name, lang) => (lang === 'en' ? `${name.toUpperCase()}.` : name.replace(/-/g, ' '));
-
-/** File-name key for a tile's name audio. */
-export const spellKey = (tile, lang) =>
-  `${lang}-${[...tile.normalize('NFC')].map((c) => c.codePointAt(0).toString(16)).join('-')}`;

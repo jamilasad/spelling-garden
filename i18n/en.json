@@ -334,7 +334,6 @@
   "voice.nowSpeaking": "Now {name} is speaking.",
   "voice.woman": "woman",
   "voice.man": "man",
-  "spell.button": "Spell it aloud",
   "settings.narrators": "Narrators",
   "settings.narratorsHint": "Choose the voice that is easiest to understand. During practice, \"Other voice\" tries the next one.",
   "settings.narrator.en": "English",
@@ -380,5 +379,6 @@
   "report.tipTricky": "{n} tricky words. A few minutes in the Tricky Words Hive each day helps.",
   "report.tipDaily": "Short daily sessions work best: aim for 10–15 minutes every day.",
   "report.tipMock": "The contest is in {n} days. Do a Mock contest with the timer each day.",
-  "report.tipAllBlooming": "Every word is blooming! Keep a daily Mock contest until the big day."
+  "report.tipAllBlooming": "Every word is blooming! Keep a daily Mock contest until the big day.",
+  "learn.lookBubbleTap": "Look carefully. Tap a letter to see how to say it!"
 }

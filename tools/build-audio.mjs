@@ -20,8 +20,6 @@ import { promisify } from 'node:util';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { makeLoud } from './loudness.mjs';
-import { tileName, spokenName, spellKey, canSpell } from '../js/spellnames.js';
-import { segment } from '../js/segment.js';
 
 const run = promisify(execFile);
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -37,8 +35,8 @@ const onlyLang = arg('lang');
 const EDGE_TTS = path.join(ROOT, '.venv', 'bin', 'edge-tts');
 const NEURAL = { en: 'en-US-JennyNeural', bn: 'bn-BD-NabanitaNeural', ar: 'ar-SA-ZariyahNeural' };
 const MAC = { en: 'Samantha', bn: 'Piya', ar: 'Majed' };
-const RATE = { word: 135, sentence: 150, name: 145 };   // Mac voices, words per minute
-const NEURAL_RATE = { word: '-12%', sentence: '-6%', name: '-8%' };   // a little slower for children
+const RATE = { word: 135, sentence: 150 };   // Mac voices, words per minute
+const NEURAL_RATE = { word: '-12%', sentence: '-6%' };   // a little slower for children
 // Words whose dictionary recording may be the wrong pronunciation.
 const PREFER_VOICE = new Set(['present']);
 
@@ -194,24 +192,6 @@ async function main() {
 
   await writeFile(INDEX_FILE, JSON.stringify(index, null, 2) + '\n');
 
-  // Spelling-aloud names: one short clip per letter / akshara (e.g. "উঁয়ো-এ গ").
-  const spellFile = path.join(ROOT, 'data/spell-index.json');
-  const spell = await readJson(spellFile, {});
-  const spellDir = path.join(ROOT, 'audio', 'spell');
-  await mkdir(spellDir, { recursive: true });
-  for (const list of lists) {
-    if (only.length || !canSpell(list.lang) || (onlyLang && list.lang !== onlyLang)) continue;
-    const words = await readJson(path.join(ROOT, list.file), []);
-    const tiles = new Set(words.flatMap((w) => segment(w.word, list.lang).filter((t) => !t.space).map((t) => t.text)));
-    for (const tile of tiles) {
-      const key = spellKey(tile, list.lang);
-      if (!force && spell[key] && await exists(path.join(ROOT, spell[key]))) { kept++; continue; }
-      const file = await speak(spokenName(tileName(tile, list.lang), list.lang), VOICES[list.lang], 'name', path.join(spellDir, key));
-      spell[key] = rel(file);
-      made++;
-    }
-  }
-  await writeFile(spellFile, JSON.stringify(spell, null, 2) + '\n');
   console.log(`\nDone: ${made} made, ${kept} already there. Index → data/audio-index.json`);
 }
 
