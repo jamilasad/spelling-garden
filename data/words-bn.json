@@ -104,6 +104,8 @@
   { "id": "bn-18", "n": 18, "word": "চমৎকার", "type": "adjective",
     "meaning": { "en": "Wonderful, excellent", "bn": "খুব সুন্দর; অসাধারণ" },
     "sentence": "তোমার ছবিটা চমৎকার হয়েছে!",
+    "say": "চমোৎকার",
+    "sentenceSay": "তোমার ছবিটা চমোৎকার হয়েছে!",
     "tip": { "bn": "ম-এর পরে খণ্ড ত (ৎ)।", "en": "After ম comes খণ্ড-ত (ৎ)." },
     "highlight": ["ৎ"] },
 

@@ -7,6 +7,8 @@
 //   • Mac voices (offline, built in): Samantha (US English), Piya (Bangla, India), Majed (Arabic)
 // A voice name ending in "Neural" uses the Microsoft voice; any other name uses the Mac `say` command.
 // Recordings made on the Word Check page are never overwritten.
+// A word can give the voice a hint spelling with "say" / "sentenceSay" in its data, when the voice
+// mispronounces the real spelling (e.g. চমৎকার → "চমোৎকার" so it says cho-mot-kar). The screen still shows the real word.
 // Usage: node tools/build-audio.mjs [--force] [--lang=bn] [--only=en-03,bn-02]
 //        [--voice-en=en-US-JennyNeural] [--voice-bn=bn-BD-NabanitaNeural] [--voice-ar=Majed] [--dictionary]
 //   --dictionary  try human recordings from the free dictionary API first for English (mixed speakers).
@@ -122,7 +124,7 @@ async function main() {
         if (useDictionary && list.lang === 'en' && !PREFER_VOICE.has(w.word)) got = await dictionaryRecording(w.word, base);
         if (!got) {
           const voice = VOICES[list.lang];
-          const file = await speak(w.word, voice, 'word', base);
+          const file = await speak(w.say || w.word, voice, 'word', base);
           got = { file, source: `${isNeural(voice) ? 'neural' : 'mac'} voice ${voice}` };
         }
         await replaceOld(entry.word, got.file);
@@ -140,7 +142,7 @@ async function main() {
           kept++;
         } else {
           const voice = VOICES[list.lang];
-          const sFile = await speak(w.sentence, voice, 'sentence', path.join(dir, `${w.id}-s`));
+          const sFile = await speak(w.sentenceSay || w.sentence, voice, 'sentence', path.join(dir, `${w.id}-s`));
           await replaceOld(entry.sentence, sFile);
           entry.sentence = rel(sFile);
           entry.sentenceSource = `${isNeural(voice) ? 'neural' : 'mac'} voice ${voice}`;
