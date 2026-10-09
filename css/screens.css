@@ -412,6 +412,11 @@ fieldset.field > legend { padding: 0; margin-bottom: var(--s2); display: flex; a
 .ws-count { font-size: var(--fs-small); color: var(--text-muted); font-weight: 700; }
 .ws-actions { display: flex; flex-wrap: wrap; gap: var(--s2); }
 .word-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s2); }
+/* Two columns on wider screens, reading down then across like the school's paper list */
+@media (min-width: 760px) {
+  .word-rows { display: block; columns: 2; column-gap: var(--s3); }
+  .word-rows .word-row { break-inside: avoid; margin-bottom: var(--s2); }
+}
 .word-row {
   display: grid;
   grid-template-columns: 2em auto 1fr auto;
@@ -439,7 +444,8 @@ fieldset.field > legend { padding: 0; margin-bottom: var(--s2); display: flex; a
 @media print {
   .words-page .word-section { border: 0; box-shadow: none; padding: 0; background: #fff; break-before: page; }
   .words-page .word-section:first-of-type { break-before: auto; }
-  .words-page .word-row { break-inside: avoid; border: 1px solid #bbb; grid-template-columns: 2em 1fr; }
+  .words-page .word-rows { display: block; columns: 2; column-gap: 12px; }
+  .words-page .word-row { break-inside: avoid; border: 1px solid #bbb; grid-template-columns: 2em 1fr; margin-bottom: 8px; }
   .words-page .wr-status, .words-page .wr-play { display: none !important; }
   .words-page .garden-key { display: none; }
 }

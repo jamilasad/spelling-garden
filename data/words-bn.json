@@ -84,13 +84,13 @@
     "highlight": ["ব্যা", "ঙ"] },
 
   { "id": "bn-15", "n": 15, "word": "রুপালি", "type": "adjective",
-    "meaning": { "en": "Silvery, silver-coloured", "bn": "রুপার মতো রঙের" },
+    "meaning": { "en": "Silvery, silver-colored", "bn": "রুপার মতো রঙের" },
     "sentence": "নদীতে রুপালি ইলিশ মাছ।",
     "tip": { "bn": "র-এ হ্রস্ব উ-কার (রু); শেষে ল-এ হ্রস্ব ই-কার (লি)।", "en": "রু has short ু; it ends with লি (short ি)." },
     "highlight": ["রু", "লি"] },
 
   { "id": "bn-16", "n": 16, "word": "লাঙল", "type": "noun",
-    "meaning": { "en": "Plough — a tool for digging up fields", "bn": "জমি চাষের যন্ত্র" },
+    "meaning": { "en": "Plow — a tool for digging up fields", "bn": "জমি চাষের যন্ত্র" },
     "sentence": "কৃষক লাঙল দিয়ে জমি চাষ করেন।",
     "tip": { "bn": "লা-এর পরে ঙ (উঁয়ো), শেষে ল।", "en": "লা + ঙ + ল." },
     "highlight": ["ঙ"] },
