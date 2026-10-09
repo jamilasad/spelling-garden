@@ -229,7 +229,7 @@ export default {
 
     function answer(got) {
       run++;
-      const { goalReached } = recordLearned(word.id, got);
+      const { goalReached, earned } = recordLearned(word.id, got);
       if (goalReached) setTimeout(() => { if (alive) { sfx.badge(); confetti(70); toast(t('honey.goalToast'), 4000); } }, 900);
       if (!done.has(word.id)) done.set(word.id, got);
       if (got) {
@@ -237,8 +237,8 @@ export default {
         petalBurst(flowerEl);
         sfx.chime();
         setPose('cheer');
-        setBubble(t(`praise.${1 + Math.floor(Math.random() * 6)}`));
-        honeyFly(flowerEl, honeyChip);
+        setBubble(earned ? t(`praise.${1 + Math.floor(Math.random() * 6)}`) : t('honey.capped'));
+        if (earned) honeyFly(flowerEl, honeyChip);
         setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
         setActions(btn('next', 'honey', 'next', i === queue.length - 1 ? t('bee.finish') : t('bee.next')));
       } else {

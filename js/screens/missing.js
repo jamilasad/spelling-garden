@@ -175,15 +175,15 @@ export default {
     function finishWord() {
       const clean = mistakes === 0;
       results.push(clean);
-      const { goalReached } = recordGameWord(word.id, clean);
+      const { goalReached, earned } = recordGameWord(word.id, clean);
       tray.innerHTML = '';
       wordBox.insertAdjacentHTML('afterbegin', bigWordHTML(word));
       setFlowerStage(flowerEl, 4);
       petalBurst(flowerEl);
       sfx.chime();
       setPose('cheer');
-      setBubble(clean ? t(`praise.${1 + Math.floor(Math.random() * 6)}`) : t('missing.doneWithHelp'));
-      if (clean) {
+      setBubble(!clean ? t('missing.doneWithHelp') : earned ? t(`praise.${1 + Math.floor(Math.random() * 6)}`) : t('honey.capped'));
+      if (earned) {
         honeyFly(flowerEl, honeyChip);
         setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
       }

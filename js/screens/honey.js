@@ -80,7 +80,10 @@ export default {
         </div>
         ${shopSection('hats')}
         ${shopSection('colours')}
-        ${shopSection('decor')}
+        <a class="tap-card garden-link" href="#/garden">
+          <span class="art art-icon art-leaf">${icon('flower')}</span>
+          <span><span class="label">${t('honey.gardenLink')}</span><span class="sub">${t('honey.gardenLinkSub')}</span></span>
+        </a>
       </section>
     </div>`;
   },

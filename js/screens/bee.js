@@ -133,6 +133,7 @@ export default {
     let timerId = 0;
     let timerStarted = false;
     let pendingPlay = 0;
+    const treasures = []; // words that started blooming this session
     let voiceList = [];
     let voiceAt = 0;
 
@@ -286,8 +287,9 @@ export default {
     function answerWith(got) {
       if (state !== 'check') return;
       setState('done');
-      const { goalReached } = recordResult(word.id, got);
+      const { goalReached, earned, treasure } = recordResult(word.id, got);
       if (goalReached) setTimeout(() => celebrateGoal(), 900);
+      if (treasure) treasures.push(treasure);
       if (!firstTry.has(word.id)) firstTry.set(word.id, got);
       results[i] = got;
       checkRow.hidden = true;
@@ -297,9 +299,13 @@ export default {
         sfx.chime();
         setPose('cheer');
         const n = 1 + Math.floor(Math.random() * 6);
-        setBubble(t(`praise.${n}`));
-        honeyFly(flowerEl, honeyChip);
-        setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
+        if (earned) {
+          setBubble(t(`praise.${n}`));
+          honeyFly(flowerEl, honeyChip);
+          setTimeout(() => { if (alive) $('.honey-n').textContent = num(honeyBalance()); }, 750);
+        } else {
+          setBubble(t('honey.capped'));
+        }
       } else {
         setFlowerStage(flowerEl, 5);
         sfx.soft();
@@ -375,6 +381,11 @@ export default {
         </div>
         <div class="mini-garden" aria-hidden="true">${ids.map((id) => `<div class="mini-plant">${flowerHTML(firstTry.get(id) ? 4 : 1)}</div>`).join('')}</div>
         ${badgeBits ? `<div class="new-badges"><h3>${t('summary.newBadges')}</h3><div class="badge-row">${badgeBits}</div></div>` : ''}
+        ${treasures.length || p.lastSeed ? `<div class="garden-gifts">
+          ${treasures.length ? `<p>${icon('flower')} ${tn('summary.treasures', treasures.length)}</p>` : ''}
+          ${p.lastSeed ? `<p>${icon('sprout')} ${t('summary.seed')}</p>` : ''}
+          <a class="btn btn-leaf" href="#/garden">${icon('flower')}<span>${t('summary.toGarden')}</span></a>
+        </div>` : ''}
         ${missedChips ? `<div class="missed"><h3>${t('summary.missedTitle')}</h3><div class="word-chips">${missedChips}</div></div>` : ''}
         <div class="summary-actions">
           ${missed.length ? `<button class="btn btn-orange btn-big" type="button" data-act="retry">${icon('again')}<span>${t('summary.retry')}</span></button>` : ''}

@@ -20,11 +20,21 @@ A colorful spelling bee practice app for English, Bangla and Arabic words. Every
 ## Parent report
 Parent Corner → **Report**: days practiced, words practiced, right answers, time in the app, a chart of answers per day, readiness per language (not started / tricky / learning / blooming), focus words and suggestions. Printable.
 
+## My Garden (build your own)
+Home → **My Garden**. She builds her own garden with honey and learned words:
+- **Buy** flowers, trees, garden pieces, water and big goals (like Buzzy's home) from the shelf. Each item needs honey **and** a number of **blooming (learned) words** to unlock, so completing the garden means learning nearly all the words.
+- **Drag** anything anywhere. **Tap** an item for **－ / ＋** (5 sizes), **Flip** or **To bag** (put away, place again later from "My bag").
+- **Word treasures:** when a word starts blooming she wins a matching item for free (mango → mango tree, বিজয় → flag, ব্যাঙ → frog…).
+- **Mystery seed:** a full practice session (5+ words) gives one seed a day; it grows into a surprise flower the next day.
+- **Saving goal:** pick a big item to save honey for.
+- **More garden** opens at 10 blooming words. **Visitors** (butterflies, ladybug, duck, rabbit, snail) arrive as the garden grows.
+- Items without an illustration yet use a simple drawn stand-in until the images from `docs/image-prompts/02` and `03` are added.
+
 ## Honey Pot
-Every word she gets right earns a **honey drop** (it never goes down for a "Not yet").
+Every word she gets right earns a **honey drop**, up to **2 drops per word per day** (across practice, Learn and games), so honey comes from practising many different words. A "Not yet" never takes honey away.
 - **Honey jars:** every 25 drops fills a jar.
 - **Today's goal:** collect 20 drops a day (change it in Settings: 10, 20 or 30), with a celebration when she reaches it.
-- **Honey Shop:** spend drops on hats for Buzzy, special bee colours (silver, gold, rainbow) and decorations for My Garden.
+- **Honey Shop:** spend drops on hats for Buzzy and special bee colours (silver, gold, rainbow). Garden things are bought in **My Garden**.
 
 ## How she practices
 1. **Hear the word.** It plays automatically, and she can tap again, slowly, meaning, sentence or word type.

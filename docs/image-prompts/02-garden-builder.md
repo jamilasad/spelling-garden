@@ -25,15 +25,15 @@ Sizes: **Square** = 1024×1024 · **Tall** = portrait 2:3 (1024×1536) · **Wide
   ```
 
 ## Step 2 · Flowers and plants (11 images · cheapest, she buys these first)
-- [ ] **`plant-tulip.png`** · Square
+- [x] **`plant-tulip.png`** · Square
   ```
   Using the garden rules: a clump of three berry-pink tulips with long green leaves.
   ```
-- [ ] **`plant-daisy.png`** · Square
+- [x] **`plant-daisy.png`** · Square
   ```
   Using the garden rules: a small clump of white daisies with honey-yellow centres and green leaves.
   ```
-- [ ] **`plant-rose.png`** · Square
+- [x] **`plant-rose.png`** · Square
   ```
   Using the garden rules: a small round rose bush with five pink roses.
   ```
