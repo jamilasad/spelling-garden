@@ -1,21 +1,27 @@
 // Bee Mode — hear the word, write it on paper, hold to reveal, then check yourself.
+// Type mode (Settings): type it on our own keyboard instead; the app checks it and records the result.
 import { data, listById } from '../data.js';
 import { progress, recordResult, finishSession, awardBadge, activeProfile, settings, honeyBalance } from '../store.js';
 import { buildQueue, requeuePosition, dayString, isTricky, shuffle } from '../scheduler.js';
 import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
-import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML } from '../art.js';
+import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML, peekHTML } from '../art.js';
 import { icon } from '../icons.js';
 import { go, holdButton, confirmDialog, toast } from '../ui.js';
 import { sayWord, saySentence, stopAudio, voicesForWord, voiceName } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
-import { tilesHTML, bigWordHTML, runReveal } from '../reveal.js';
+import { tilesHTML, tileRowHTML, typedTilesHTML, markChecked, bigWordHTML, runReveal } from '../reveal.js';
 import { petalBurst, confetti, honeyFly } from '../fx.js';
 import { maskWord } from '../segment.js';
 import { BADGES, qualifyingBadges } from '../badges.js';
+import { createKeyboard } from '../keyboard.js';
+import { checkSpelling } from '../typecheck.js';
 
 const TODAY_SIZE = 15;
 const HINTS = ['again', 'slow', 'voice', 'meaning', 'sentence', 'type', 'picture'];
+
+// The Mock Contest stays on paper, like the real (written) contest.
+const typeMode = (params) => params.mode !== 'mock' && settings().answerMode !== 'paper';
 
 function buildSession(params) {
   const day = dayString();
@@ -58,7 +64,8 @@ export default {
 
   render({ params }) {
     const mock = params.mode === 'mock';
-    return `<div class="page bee-page" data-state="listen">
+    const typing = typeMode(params);
+    return `<div class="page bee-page" data-state="listen" data-answer="${typing ? 'type' : 'paper'}">
       <header class="topbar">
         <button class="icon-btn" type="button" data-act="exit" aria-label="${t('bee.exit')}">${icon('close')}</button>
         <h1 class="title">${escapeHtml(sessionTitle(params))}</h1>
@@ -76,22 +83,29 @@ export default {
         </section>
         <section class="work">
           <div class="ask">
-            <p class="word-meta"><span class="lang-tag"></span><span class="word-count"></span></p>
-            <button class="btn btn-honey btn-big play-btn" type="button" data-act="play">${icon('play')}<span>${t('bee.hear')}</span></button>
-            <div class="hints">${(mock ? ['slow', 'voice'] : HINTS.slice(1)).map(hintButton).join('')}</div>
-            <div class="hint-panel" hidden></div>
-            <button class="btn btn-big btn-wide hold-btn" type="button" data-act="reveal">${icon('hand')}<span>${t('bee.holdReveal')}</span></button>
-            <p class="hold-help">${t('bee.holdHelp')}</p>
+            <div class="ask-tools">
+              <p class="word-meta"><span class="lang-tag"></span><span class="word-count"></span></p>
+              <button class="btn btn-honey btn-big play-btn" type="button" data-act="play">${icon('play')}<span>${t('bee.hear')}</span></button>
+              <div class="hints">${(mock ? ['slow', 'voice'] : HINTS.slice(1)).map(hintButton).join('')}</div>
+              <div class="hint-panel" hidden></div>
+            </div>
+            ${typing ? '<div class="type-zone"></div>' : `<button class="btn btn-big btn-wide hold-btn" type="button" data-act="reveal">${icon('hand')}<span>${t('bee.holdReveal')}</span></button>
+            <p class="hold-help">${t('bee.holdHelp')}</p>`}
           </div>
           <div class="answer" hidden>
-            <div class="answer-word"></div>
-            <div class="answer-tiles"></div>
-            <div class="tip-box" hidden></div>
-            <div class="check-row" hidden>
-              <button class="btn btn-leaf btn-big" type="button" data-act="got">${icon('check')}<span>${t('bee.gotIt')}</span></button>
-              <button class="btn btn-orange btn-big" type="button" data-act="notyet">${icon('sprout')}<span>${t('bee.notYet')}</span></button>
+            <div class="answer-main">
+              ${typing ? `<div class="typed-row"><p class="typed-label">${icon('keyboard')}<span>${t('bee.youTyped')}</span></p><div class="typed-box"></div><p class="typed-note" hidden></p></div>` : ''}
+              <div class="answer-word"></div>
+              <div class="answer-tiles"></div>
             </div>
-            <button class="btn btn-honey btn-big btn-wide next-btn" type="button" data-act="next" hidden></button>
+            <div class="answer-side">
+              <div class="tip-box" hidden></div>
+              <div class="check-row" hidden>
+                <button class="btn btn-leaf btn-big" type="button" data-act="got">${icon('check')}<span>${t('bee.gotIt')}</span></button>
+                <button class="btn btn-orange btn-big" type="button" data-act="notyet">${icon('sprout')}<span>${t('bee.notYet')}</span></button>
+              </div>
+              <button class="btn btn-honey btn-big btn-wide next-btn" type="button" data-act="next" hidden></button>
+            </div>
           </div>
         </section>
       </div>
@@ -119,8 +133,15 @@ export default {
     const honeyChip = $('.honey-chip');
     const timerChip = $('.timer-chip');
     const summary = $('.summary');
+    const typeZone = $('.type-zone');
+    const typedBox = $('.typed-box');
+    const typedNote = $('.typed-note');
 
     const mode = params.mode || 'today';
+    const typing = typeMode(params);
+    let kb = null;         // Type mode: this word's keyboard
+    let checked = null;    // Type mode: how her spelling compares, tile by tile
+    let outcome = null;    // Type mode: the result, saved as soon as she presses Check
     const queue = buildSession(params);
     const results = [];               // by queue position: true / false
     const firstTry = new Map();       // word id → first result this session
@@ -185,7 +206,7 @@ export default {
       await sayWord(current, { slow, voice: voiceList[voiceAt] });
       if (!alive || word !== current) return;
       playBtn.classList.remove('is-playing');
-      if (state === 'listen') setBubble(t('bee.writeIt'));
+      if (state === 'listen') setBubble(t(typing ? 'bee.typeIt' : 'bee.writeIt'));
       startTimer();
     }
 
@@ -227,7 +248,11 @@ export default {
       stopTimer();
       timerStarted = false;
       timerChip.hidden = true;
-      holdBtn.classList.remove('nudge');
+      holdBtn?.classList.remove('nudge');
+      if (typing) {
+        kb?.destroy();
+        kb = createKeyboard(typeZone, { word: word.word, lang: word.lang, style: settings().keyboard, peek: peekHTML(), onSubmit: submitTyped });
+      }
       ask.hidden = false;
       answer.hidden = true;
       hintPanel.hidden = true;
@@ -264,10 +289,14 @@ export default {
       tipBox.hidden = true;
       checkRow.hidden = true;
       nextBtn.hidden = true;
-      answerTiles.innerHTML = tilesHTML(word);
+      answerTiles.innerHTML = typing ? tileRowHTML(checked.target, word.lang) : tilesHTML(word);
+      if (typing) {
+        typedBox.innerHTML = typedTilesHTML(checked, word.lang);
+        typedNote.hidden = true;
+      }
       setFlowerStage(flowerEl, 3);
       setPose('think');
-      setBubble(t('bee.checkPaper'));
+      setBubble(t(typing ? 'bee.checkTyped' : 'bee.checkPaper'));
       await runReveal(answerTiles, { mode: settings().reveal });
       if (!alive || state !== 'reveal') return;
       answerWord.innerHTML = bigWordHTML(word);
@@ -278,20 +307,58 @@ export default {
         tipBox.innerHTML = `${icon('tip')}<div>${tipText.map((s, k) => `<p ${k ? 'lang="bn"' : ''}>${escapeHtml(s)}</p>`).join('')}</div>`;
         tipBox.hidden = false;
       }
+      if (typing) {
+        markChecked(answerTiles, checked.target, checked.firstWrong);
+        typedBox.innerHTML = typedTilesHTML(checked, word.lang, true);
+        if (!checked.correct) {
+          typedNote.textContent = t(checked.harakatOnly ? 'bee.typedHarakat' : 'bee.typedWrong');
+          typedNote.hidden = false;
+        }
+        setState('done');
+        showOutcome(checked.correct, outcome);
+        return;
+      }
       checkRow.hidden = false;
       setState('check');
       setBubble(t('bee.didYouGetIt'));
       checkRow.querySelector('[data-act="got"]').focus({ preventScroll: true });
     }
 
-    function answerWith(got) {
-      if (state !== 'check') return;
-      setState('done');
+    /** Type mode: Check. The result is saved straight away, so leaving during the reveal changes nothing. */
+    function submitTyped(typed) {
+      if (state !== 'listen' || !word) return;
+      checked = checkSpelling(typed, word.word, word.lang);
+      kb.disable();
+      outcome = record(checked.correct);
+      reveal();
+    }
+
+    /** Saves one answer: Leitner box, honey (within the per-word ceiling), and a requeue when missed. */
+    function record(got) {
       const { goalReached, earned, treasure } = recordResult(word.id, got);
-      if (goalReached) setTimeout(() => celebrateGoal(), 900);
       if (treasure) treasures.push(treasure);
       if (!firstTry.has(word.id)) firstTry.set(word.id, got);
       results[i] = got;
+      let back = false;
+      if (!got) {
+        const times = requeued.get(word.id) || 0;
+        if (mode !== 'mock' && times < 2) {
+          queue.splice(requeuePosition(i, queue.length), 0, word.id);
+          requeued.set(word.id, times + 1);
+          back = true;
+        }
+      }
+      return { goalReached, earned, back };
+    }
+
+    function answerWith(got) {
+      if (state !== 'check') return;
+      setState('done');
+      showOutcome(got, record(got));
+    }
+
+    function showOutcome(got, { goalReached, earned, back }) {
+      if (goalReached) setTimeout(() => celebrateGoal(), 900);
       checkRow.hidden = true;
       if (got) {
         setFlowerStage(flowerEl, 4);
@@ -310,14 +377,7 @@ export default {
         setFlowerStage(flowerEl, 5);
         sfx.soft();
         setPose('oops');
-        const times = requeued.get(word.id) || 0;
-        if (mode !== 'mock' && times < 2) {
-          queue.splice(requeuePosition(i, queue.length), 0, word.id);
-          requeued.set(word.id, times + 1);
-          setBubble(t('bee.comeBack'));
-        } else {
-          setBubble(t('bee.keepGoing'));
-        }
+        setBubble(t(back ? 'bee.comeBack' : 'bee.keepGoing'));
       }
       renderCombs();
       setCalm(false);
@@ -431,6 +491,7 @@ export default {
     const onKey = (e) => {
       if (e.target.closest('input, textarea, select') || e.metaKey || e.ctrlKey) return;
       if (document.querySelector('.dialog-backdrop')) return; // a question is open
+      if (typing && state === 'listen') return; // the keys are for typing the word
       const k = e.key.toLowerCase();
       if (state === 'listen' && k === ' ' && document.activeElement !== holdBtn && !e.repeat) {
         e.preventDefault();
@@ -441,7 +502,7 @@ export default {
     };
     root.addEventListener('click', onClick);
     document.addEventListener('keydown', onKey);
-    const stopHold = holdButton(holdBtn, 900, reveal, () => setBubble(t('bee.holdLonger')));
+    const stopHold = holdBtn ? holdButton(holdBtn, 900, reveal, () => setBubble(t('bee.holdLonger'))) : () => {};
 
     if (!queue.length) {
       root.querySelector('.bee-main').hidden = true;
@@ -461,6 +522,7 @@ export default {
       stopTimer();
       clearTimeout(pendingPlay);
       stopHold();
+      kb?.destroy();
       stopAudio();
       setCalm(false);
       root.removeEventListener('click', onClick);

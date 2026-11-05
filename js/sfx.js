@@ -49,8 +49,37 @@ function tone(freq, at, dur, { type = 'sine', gain = 0.16, to = null } = {}) {
   o.stop(t0 + dur + 0.02);
 }
 
+// A burst of filtered noise: the base of the soil, wood and water sounds below.
+let noiseBuf = null;
+function noise(at, dur, { type = 'lowpass', freq = 800, to = null, q = 1, gain = 0.2 } = {}) {
+  const c = audioCtx();
+  if (!c) return;
+  if (!noiseBuf) {
+    noiseBuf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+    const d = noiseBuf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+  }
+  const t0 = c.currentTime + at;
+  const src = c.createBufferSource();
+  src.buffer = noiseBuf;
+  const f = c.createBiquadFilter();
+  f.type = type;
+  f.Q.value = q;
+  f.frequency.setValueAtTime(freq, t0);
+  if (to) f.frequency.exponentialRampToValueAtTime(to, t0 + dur);
+  const g = c.createGain();
+  g.gain.setValueAtTime(0.0001, t0);
+  g.gain.exponentialRampToValueAtTime(gain, t0 + 0.008);
+  g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+  src.connect(f).connect(g).connect(c.destination);
+  src.start(t0, Math.random() * 0.5);
+  src.stop(t0 + dur + 0.02);
+}
+
 export const sfx = {
   tap() { tone(660, 0, 0.07, { type: 'triangle', gain: 0.07 }); },
+  /** A typing key: a soft wooden tick, a little different each time (lower for Backspace). */
+  key(low = false) { noise(0, 0.04, { type: 'bandpass', freq: (low ? 900 : 1600) + Math.random() * 400, q: 3, gain: 0.3 }); },
   pop(i = 0) { tone(520 + i * 40, 0, 0.09, { type: 'triangle', gain: 0.09, to: 900 + i * 40 }); },
   chime() {
     [784, 988, 1175, 1568].forEach((f, i) => tone(f, i * 0.09, 0.45, { type: 'sine', gain: 0.13 }));

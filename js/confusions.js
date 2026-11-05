@@ -35,6 +35,12 @@ const AR = {
 };
 const AR_FILL = ['بَ', 'تِ', 'نُ', 'مْ', 'لَ', 'رِ'];
 
+/** The characters often mixed up with one Bangla or Arabic character (ড় and য় stay whole). */
+export function lookAlikes(ch, lang) {
+  const map = lang === 'bn' ? BN : lang === 'ar' ? AR : null;
+  return (map?.[ch.normalize('NFC')] || '').match(/.\u09BC?/gu) || [];
+}
+
 const DROPPABLE = {
   bn: ['ঁ', '্য', '্র'],
   ar: ['ٰ', 'ّ'],  // dagger alif, shadda

@@ -86,7 +86,7 @@ const POSE_SHAPE = {
 // Where a hat sits on Buzzy's head in each illustrated pose: centre x, hat bottom y and width (% of the box), tilt.
 const HAT_SPOT = {
   wave: [47, 24, 32, -4], listen: [48, 25, 32, 6], think: [50, 28, 30, 0],
-  cheer: [48, 28, 28, -4], oops: [47, 24, 32, -6], face: [50, 26, 40, 0],
+  cheer: [48, 28, 28, -4], oops: [47, 24, 32, -6], face: [50, 26, 40, 0], peek: [50, 31, 40, 0],
 };
 let wornHatId = null;
 /** Called by the app whenever the player changes or buys a hat. */
@@ -108,6 +108,12 @@ export function mascotHTML(pose = 'wave', { avatar = 'honey', hat = wornHatId } 
       ? img('mascot-wave')
       : buzzySVG({ avatar, ...(POSE_SHAPE[pose] || {}) });
   return `<div class="mascot" data-pose="${pose}"><div class="mascot-body">${inner}${hatOverlay(pose, hat)}</div></div>`;
+}
+
+/** Buzzy peeking over the Type-mode keyboard, wearing her hat ('' until the picture exists). */
+export function peekHTML(hat = wornHatId) {
+  if (!hasArt('mascot-peek')) return '';
+  return `<div class="mascot" data-pose="peek"><div class="mascot-body">${img('mascot-peek')}${hatOverlay('peek', hat)}</div></div>`;
 }
 
 export function setMascotPose(el, pose) {

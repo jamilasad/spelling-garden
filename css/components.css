@@ -259,7 +259,7 @@
   content: '';
   position: absolute;
   inset-inline-start: -14px;
-  bottom: 18px;
+  bottom: min(18px, calc(50% - 11px)); /* centred on a one-line bubble, near the bottom on taller ones */
   width: 22px; height: 22px;
   background: var(--white);
   border-inline-start: var(--line) solid var(--ink);
@@ -565,3 +565,230 @@
 #holdmeter.show { transform: translate(-50%, 0); }
 #holdmeter .hm-bar { display: block; height: 10px; border-radius: var(--r-pill); background: rgba(255, 248, 231, .25); overflow: hidden; }
 #holdmeter .hm-bar > span { display: block; height: 100%; width: calc(var(--p, 0) * 100%); background: var(--honey); border-radius: inherit; }
+
+/* ============ Type mode: our own keyboard ============ */
+.kb { --kb-gap: 6px; --kb-h: 56px; --kb-max: 68px; display: grid; gap: var(--s3); width: 100%; }
+.kb-display {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  min-height: 84px;
+  padding: var(--s2) var(--s4);
+  border: var(--line) solid var(--ink);
+  border-radius: var(--r-md);
+  background: var(--white);
+  box-shadow: inset 0 4px 0 rgba(61, 44, 41, .07);
+  font-weight: 700;
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 2.9rem);
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.kb-display[lang='en'] .kb-text { letter-spacing: .05em; }
+.kb-display[lang='bn'] { font-family: var(--font-word-bn); }
+.kb-display[lang='ar'] { font-family: var(--font-word-ar); font-size: clamp(2.3rem, 1.7rem + 3vw, 3.3rem); line-height: 1.75; }
+.kb-text { white-space: pre-wrap; }
+.kb-caret { display: inline-block; width: 3px; height: 1.05em; margin-inline-start: 3px; border-radius: 2px; background: var(--lavender); animation: kb-blink 1.1s steps(1) infinite; }
+@keyframes kb-blink { 50% { opacity: 0; } }
+.kb-placeholder { display: none; font-family: var(--font-ui); font-size: var(--fs-body); font-weight: 600; line-height: 1.5; color: var(--text-muted); }
+.kb.is-empty .kb-placeholder { display: block; }
+.kb.is-empty .kb-caret, .kb.is-done .kb-caret { display: none; }
+
+.kb-keys {
+  display: grid;
+  gap: var(--kb-gap);
+  padding: var(--s2);
+  border: var(--line) solid var(--ink);
+  border-radius: var(--r-md);
+  background: var(--honey-pale);
+}
+.kb-pages { display: grid; }
+.kb-page { grid-area: 1 / 1; display: grid; gap: var(--kb-gap); align-content: center; }
+.kb-page[hidden] { display: grid; visibility: hidden; } /* both pages keep the keyboard the same height */
+.kb-row { display: flex; justify-content: center; gap: var(--kb-gap); }
+.kb-key {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: var(--kb-max);
+  height: var(--kb-h);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 2.5px solid var(--ink);
+  border-radius: 12px;
+  background: var(--white);
+  box-shadow: 0 4px 0 var(--ink);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1.55rem;
+  line-height: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform var(--t-press) var(--ease-out), box-shadow var(--t-press) var(--ease-out), background-color var(--t-quick);
+}
+.kb-key:active, .kb-key.is-pressed { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); background: var(--honey); }
+.kb-keys[lang='bn'] .kb-key { font-family: var(--font-word-bn); font-size: 1.5rem; }
+.kb-keys[lang='ar'] .kb-key { font-family: var(--font-word-ar); font-size: 1.7rem; padding-bottom: .2em; }
+.kb-key.kb-mark { background: var(--sky-pale); }
+/* Noto draws ফলা clearly under the dotted circle; the rounded font squeezes them. */
+.kb-keys[lang='bn'] .kb-key.kb-mark { font-family: 'Garden Bangla Text', var(--font-word-bn); font-size: 1.65rem; }
+.kb-keys[lang='ar'] .kb-key.kb-mark { font-size: 2.2rem; }
+.kb-key.kb-mark:active, .kb-key.kb-mark.is-pressed { background: var(--honey); }
+.kb-keys .kb-bottom .kb-space { flex: 4 1 0; max-width: none; font-family: var(--font-ui); font-size: var(--fs-body); color: var(--text-muted); padding-bottom: 0; }
+.kb-key.kb-fn { flex: 1.7 1 0; max-width: 120px; background: var(--cream); }
+.kb-fn svg { width: 28px; height: 28px; }
+.kb-keys[dir='rtl'] .kb-back svg { transform: scaleX(-1); }
+.kb-keys .kb-toggle { font-family: var(--font-word-bn); font-size: 1.2rem; white-space: nowrap; }
+.kb-check { min-height: 66px; }
+@media (max-width: 480px) {
+  .kb { --kb-gap: 4px; --kb-h: 52px; }
+  .kb-keys { padding: 5px; margin-inline: calc(var(--s2) * -1); }
+  .kb-key { border-width: 2px; border-radius: 10px; font-size: 1.35rem; }
+  .kb-keys[lang='ar'] .kb-key { font-size: 1.55rem; }
+  .kb-keys[lang='bn'] .kb-key.kb-mark { font-size: 1.2rem; }
+  .kb-keys[lang='ar'] .kb-key.kb-mark { font-size: 2rem; }
+  .kb-fn svg { width: 24px; height: 24px; }
+}
+
+/* Checked tiles: green where her spelling matches, orange where it differs; the first difference bobs. */
+.tile.ok .hex-in { background: var(--leaf-pale); }
+.tile.ok.open .glyph { color: #1F6B2C; }
+.tile.bad .hex-in { background: var(--orange-pale); }
+.tile.bad.open .glyph { color: #A33F00; }
+.tile.first .hex { background: var(--orange); }
+.tile.first { animation: tile-first 1.3s ease-in-out 400ms 3; }
+@keyframes tile-first { 50% { transform: translateY(-5px) scale(1.07); } }
+.tile-space.bad::after { content: ''; position: absolute; inset-inline: 8%; bottom: 20%; height: 6px; border-radius: 3px; background: var(--orange); }
+.tile-gap { width: calc(var(--w) * .7); }
+.tile-gap .hex-in { background: var(--white); }
+
+.typed-row { display: grid; justify-items: center; gap: var(--s2); width: 100%; }
+.typed-label { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; font-size: var(--fs-small); color: var(--text-muted); }
+.typed-label svg { width: 22px; height: 22px; }
+.typed-box { width: min(100%, 520px); }
+.tiles.typed-tiles { --gap: 4px; }
+.typed-tiles .tile { --w: clamp(24px, calc((100cqw - (var(--n) - 1) * var(--gap)) / var(--n)), 52px); }
+.typed-note { font-weight: 700; color: #A33F00; }
+.typed-note[hidden] { display: none; }
+
+/* Bee Mode with the keyboard on a phone: a smaller stage and one row of hints, so the keys and Check fit. */
+@media (max-width: 480px) {
+  .bee-page[data-answer='type'] .stage { min-height: 0; grid-template-columns: 1fr 60px; }
+  .bee-page[data-answer='type'] .mascot-slot { width: 70px; height: 70px; }
+  .bee-page[data-answer='type'] .flower-slot { width: 60px; height: 90px; }
+  .bee-page[data-answer='type'] .buddy .bubble { margin-bottom: var(--s2); }
+  .bee-page[data-answer='type'] .ask { gap: var(--s3); padding: var(--s3); }
+  .bee-page[data-answer='type'] .play-btn { min-height: 58px; font-size: 1.3rem; }
+  .bee-page[data-answer='type'] .hints { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(54px, 1fr); gap: var(--s2); overflow-x: auto; scrollbar-width: none; padding-bottom: 5px; }
+  .bee-page[data-answer='type'] .hint-btn { min-height: 56px; font-size: .78rem; padding: var(--s1); }
+  .bee-page[data-answer='type'] .hint-btn svg { width: 22px; height: 22px; }
+  .bee-page[data-answer='type'] .kb { --kb-h: 48px; gap: var(--s2); }
+  .bee-page[data-answer='type'] .kb-display { min-height: 64px; font-size: 1.9rem; }
+  .bee-page[data-answer='type'] .kb-display[lang='ar'] { font-size: 2.2rem; line-height: 1.6; }
+  .bee-page[data-answer='type'] .kb-keys { margin-inline: calc(var(--s1) * -1); }
+  .bee-page[data-answer='type'] .kb-check { min-height: 56px; font-size: 1.3rem; }
+}
+
+/* The leaves that fly off the answer tiles must not widen the page: in Arabic it would then scroll sideways. */
+.answer-tiles { overflow-x: clip; }
+
+/* Buzzy peeks over the keys beside the answer box: the cut-off bottom of his picture sits on the keys
+   panel's top edge, with his hands resting on it. He pops up for each word and hops on every key. */
+.kb-top { display: flex; align-items: flex-end; gap: var(--s2); }
+.kb-top .kb-display { flex: 1 1 auto; min-width: 0; }
+.kb-keys { position: relative; z-index: 1; }
+.kb-peek { --peek-w: 120px; flex: none; width: var(--peek-w); aspect-ratio: 520 / 419; margin-bottom: calc(-1 * var(--s3)); pointer-events: none; }
+.kb-peek .mascot { animation: kb-peek-up .6s var(--ease-pop); }
+.kb-peek.is-hop .mascot-body { animation: kb-peek-hop .22s var(--ease-out); transform-origin: 50% 100%; }
+@keyframes kb-peek-up { from { transform: translateY(100%); } }
+@keyframes kb-peek-hop { 50% { transform: scale(1.04, 1.1); } } /* stretches up from the edge, so the cut never shows */
+@media (max-width: 480px) {
+  .kb-peek { --peek-w: 80px; }
+  .bee-page[data-answer='type'] .kb-peek { margin-bottom: calc(-1 * var(--s2)); }
+}
+
+/* Groups inside the question and answer cards. Elsewhere they don't change the layout; on a laptop
+   they become the separate cards below. */
+.ask-tools, .answer-main, .answer-side { display: contents; }
+
+/* Bee Mode with the keyboard on a laptop or iPad in landscape: each word fits on one screen, no scrolling.
+   Left: Buzzy, then a card with the Hear button and hints (or, after Check, the tip and Next).
+   Right: the answer box, Check and the keys (or the checked tiles). The keys grow or shrink with the
+   window's height. */
+@media (min-width: 900px) {
+  .bee-page[data-answer='type']:not([data-state='summary']) {
+    height: max(460px, calc(100dvh - max(var(--s3), env(safe-area-inset-top)) - max(var(--s5), env(safe-area-inset-bottom))));
+    gap: var(--s3);
+  }
+  .bee-page[data-answer='type'] .bee-main {
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(300px, .8fr) 1.2fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .bee-page[data-answer='type'] :is(.work, .ask:not([hidden]), .answer:not([hidden])) { display: contents; }
+  .bee-page[data-answer='type'] .stage {
+    grid-column: 1;
+    grid-row: 1;
+    position: static;
+    min-height: 0;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: none;
+    justify-items: stretch;
+    align-items: end;
+  }
+  .bee-page[data-answer='type'] .mascot-slot { width: 110px; height: 110px; }
+  .bee-page[data-answer='type'] .flower-slot { width: 76px; height: 114px; }
+  .bee-page[data-answer='type'] .buddy .bubble { margin-bottom: var(--s3); }
+  .bee-page[data-answer='type'] :is(.ask-tools, .type-zone, .answer-main, .answer-side) {
+    display: grid;
+    gap: var(--s3);
+    min-height: 0;
+    margin-bottom: 6px;
+    padding: var(--s4);
+    background: rgba(255, 248, 231, .94);
+    border: var(--line) solid var(--ink);
+    border-radius: var(--r-lg);
+    box-shadow: 0 6px 0 var(--ink), var(--lift);
+  }
+  .bee-page[data-answer='type'] :is(.ask-tools, .answer-side) { grid-column: 1; grid-row: 2; align-content: start; overflow-y: auto; }
+  .bee-page[data-answer='type'] :is(.type-zone, .answer-main) { grid-column: 2; grid-row: 1 / -1; }
+  .bee-page[data-answer='type'] .type-zone { grid-template-rows: minmax(0, 1fr); }
+  .bee-page[data-answer='type'] .answer-side:not(:has(> :not([hidden]))) { visibility: hidden; } /* empty while the tiles open */
+
+  /* The question */
+  .bee-page[data-answer='type'] .play-btn { width: 100%; min-height: 62px; font-size: 1.4rem; }
+  .bee-page[data-answer='type'] .hints { grid-template-columns: repeat(auto-fit, minmax(62px, 1fr)); gap: var(--s2); }
+  .bee-page[data-answer='type'] .hint-btn { min-height: 60px; padding: var(--s1); font-size: .8rem; }
+  .bee-page[data-answer='type'] .hint-btn svg { width: 24px; height: 24px; }
+  .bee-page[data-answer='type'] .kb {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    column-gap: var(--s3);
+  }
+  .bee-page[data-answer='type'] .kb-top { display: contents; }
+  .bee-page[data-answer='type'] .kb-display { grid-column: 1; grid-row: 1; min-height: 68px; font-size: 2.2rem; }
+  .bee-page[data-answer='type'] .kb-display[lang='ar'] { font-size: 2.5rem; line-height: 1.5; }
+  .bee-page[data-answer='type'] .kb-check { grid-column: 2; grid-row: 1; align-self: center; width: auto; min-height: 62px; padding-inline: var(--s4); }
+  .bee-page[data-answer='type'] .kb-peek { grid-column: 3; grid-row: 1; align-self: end; --peek-w: 100px; }
+  .bee-page[data-answer='type'] .kb-keys { grid-column: 1 / -1; grid-row: 2; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+  .bee-page[data-answer='type'] .kb-pages { flex: var(--kb-rows) 1 0; min-height: 0; max-height: calc(var(--kb-rows) * 70px); grid-template-rows: minmax(0, 1fr); }
+  .bee-page[data-answer='type'] .kb-page { grid-template-rows: repeat(var(--kb-rows), minmax(0, 1fr)); align-content: stretch; }
+  .bee-page[data-answer='type'] .kb-bottom { flex: 1 1 0; min-height: 0; max-height: 70px; }
+  .bee-page[data-answer='type'] .kb-row { min-height: 0; }
+  .bee-page[data-answer='type'] .kb-key { height: 100%; min-height: 0; }
+
+  /* The answer: tiles and the word sized by the window's height, so they always fit */
+  .bee-page[data-answer='type'] .answer-main { align-content: center; justify-items: center; text-align: center; overflow: hidden; }
+  .bee-page[data-answer='type'] .typed-tiles .tile { --w: clamp(24px, min(calc((100cqw - (var(--n) - 1) * var(--gap)) / var(--n)), 7dvh), 52px); }
+  .bee-page[data-answer='type'] .answer-tiles .tile { --w: clamp(30px, min(calc((100cqw - (var(--n) - 1) * var(--gap)) / var(--n)), 12dvh), 76px); }
+  .bee-page[data-answer='type'] .answer-word .big-word { font-size: clamp(2rem, 9dvh, 4rem); }
+  .bee-page[data-answer='type'] .answer-word .big-word[lang='ar'] { font-size: clamp(2.2rem, 10dvh, 4.6rem); line-height: 1.6; }
+  .bee-page[data-answer='type'] .answer-side .tip-box { padding: var(--s2) var(--s3); font-size: var(--fs-small); }
+  .bee-page[data-answer='type'] .answer-side .next-btn { min-height: 58px; }
+}

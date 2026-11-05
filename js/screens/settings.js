@@ -1,4 +1,4 @@
-// Settings: language, sound, motion, speech speed, reveal style, contest date, players and backups.
+// Settings: language, sound, motion, speech speed, reveal style, typing or paper, contest date, players and backups.
 import { settings, setSetting, exportBackup, importBackup, activeProfile } from '../store.js';
 import { t, escapeHtml } from '../i18n.js';
 import { icon } from '../icons.js';
@@ -46,6 +46,20 @@ export default {
               ${radio('reveal', 'letters', t('settings.revealLetters'), s.reveal === 'letters')}
               ${radio('reveal', 'word', t('settings.revealWord'), s.reveal === 'word')}
             </div>
+          </fieldset>
+          <fieldset class="field"><legend class="field-label">${icon('write')} ${t('settings.answer')}</legend>
+            <div class="choices">
+              ${radio('answerMode', 'type', t('settings.answerType'), s.answerMode !== 'paper')}
+              ${radio('answerMode', 'paper', t('settings.answerPaper'), s.answerMode === 'paper')}
+            </div>
+            <span class="field-hint">${t('settings.answerHint')}</span>
+          </fieldset>
+          <fieldset class="field"><legend class="field-label">${icon('keyboard')} ${t('settings.keyboard')}</legend>
+            <div class="choices">
+              ${radio('keyboard', 'focused', t('settings.keyboardFocused'), s.keyboard !== 'full')}
+              ${radio('keyboard', 'full', t('settings.keyboardFull'), s.keyboard === 'full')}
+            </div>
+            <span class="field-hint">${t('settings.keyboardHint')}</span>
           </fieldset>
           <fieldset class="field"><legend class="field-label">${icon('honey')} ${t('settings.dailyGoal')}</legend>
             <div class="choices">

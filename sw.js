@@ -2,7 +2,7 @@
 // Every network request revalidates with the server ("no-cache"), so a new version is picked up
 // on the next online visit instead of waiting for the browser's own cache to expire.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v14';
+const VERSION = 'spelling-garden-v18';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',
@@ -12,6 +12,7 @@ const CORE = [
   'js/screens/home.js', 'js/screens/profiles.js', 'js/screens/setup.js', 'js/screens/bee.js', 'js/screens/hive.js',
   'js/screens/garden.js', 'js/screens/settings.js', 'js/screens/parent.js', 'js/screens/words.js', 'js/screens/learn.js', 'js/screens/honey.js', 'js/honey.js', 'js/ambience.js',
   'js/screens/missing.js', 'js/confusions.js', 'js/spellnames.js', 'js/report.js', 'js/garden-items.js',
+  'js/keyboard.js', 'js/typecheck.js',
   'data/voices.json',
   'audio/garden/garden-morning.m4a', 'audio/garden/bee-buzz.m4a',
   'i18n/en.json', 'i18n/bn.json', 'i18n/ar.json',

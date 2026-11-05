@@ -10,6 +10,8 @@ const DEFAULT_SETTINGS = {
   ambient: true,       // garden sounds (birdsong and bees)
   motion: true,
   reveal: 'letters',   // 'letters' | 'word'
+  answerMode: 'type',  // Bee Mode: 'type' (our keyboard, checked by the app) | 'paper' (write, then check yourself)
+  keyboard: 'focused', // Type mode in Bangla and Arabic: 'focused' (word's letters + look-alikes) | 'full'
   contestDate: '',
   mockTimer: 0,        // seconds per word in Mock Contest (0 = no timer)
   dailyGoal: 20,       // honey drops to collect each day
