@@ -86,7 +86,7 @@ async function saveRecording(req, res, url) {
   if (!isLoopback(req)) return send(res, 403, 'Recordings can only be saved from this Mac.');
   const id = url.searchParams.get('id') || '';
   const kind = url.searchParams.get('kind') === 'sentence' ? 'sentence' : 'word';
-  if (!/^[a-z]{2}-\d{2,3}$/.test(id)) return send(res, 400, 'Bad word id');
+  if (!/^[a-z]{2}(-[a-z0-9]+){1,3}$/.test(id)) return send(res, 400, 'Bad word id');   // e.g. bn-02, ar-g1-031
   const ctype = (req.headers['content-type'] || '').split(';')[0];
   const ext = { 'audio/webm': '.webm', 'audio/mp4': '.m4a', 'audio/ogg': '.ogg', 'audio/wav': '.wav' }[ctype];
   if (!ext) return send(res, 415, 'Unsupported audio type');

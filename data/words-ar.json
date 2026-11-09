@@ -584,7 +584,7 @@
     "tip": { "bn": "আলিফের নিচে হামযা ও যের (إِ); শেষে আলিফ মাকসূরা (ى) — নুকতা ছাড়া, ইয়া (ي) নয় (لَى)।", "en": "Alif with hamza below + kasra (إِ); it ends with alif maqsura (ى) — no dots, not ي (لَى)." },
     "highlight": ["إِ", "لَى"] },
 
-  { "id": "ar-g1-118", "n": 118, "word": "عَلَى", "type": "preposition",
+  { "id": "ar-g1-118", "n": 118, "word": "عَلَى", "type": "preposition", "say": "عَ لَا", "voice": "ar-SA-HamedNeural",
     "meaning": { "en": "On, upon", "bn": "উপরে" },
     "tip": { "bn": "আইন (ع) দিয়ে শুরু, আলিফ নয়; শেষে আলিফ মাকসূরা (ى) — নুকতা ছাড়া ইয়া (لَى)।", "en": "Starts with ع (ain), not alif; it ends with alif maqsura (ى) — a yaa with no dots (لَى)." },
     "highlight": ["عَ", "لَى"] },

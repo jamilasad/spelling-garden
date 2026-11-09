@@ -5019,13 +5019,10 @@
   },
   "ar-g1-118": {
     "word": "audio/ar/ar-g1-118.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-118.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-118.m4a"
       }
     }
   },
