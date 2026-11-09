@@ -777,25 +777,19 @@
   },
   "ar-05": {
     "word": "audio/ar/ar-05.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-05.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-05.m4a"
       }
     }
   },
   "ar-06": {
     "word": "audio/ar/ar-06.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-06.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-06.m4a"
       }
     }
   },
@@ -3390,9 +3384,9 @@
   },
   "bn-g1-067": {
     "word": "audio/bn/bn-g1-067.m4a",
-    "wordSource": "neural voice bn-IN-TanishaaNeural",
+    "wordSource": "neural voice bn-BD-NabanitaNeural",
     "sentence": "audio/bn/bn-g1-067-s.m4a",
-    "sentenceSource": "neural voice bn-IN-TanishaaNeural",
+    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
     "voices": {
       "pradeep": {
         "word": "audio/bn/pradeep/bn-g1-067.m4a",
@@ -3402,15 +3396,9 @@
   },
   "bn-g1-068": {
     "word": "audio/bn/bn-g1-068.m4a",
-    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "wordSource": "neural voice bn-BD-PradeepNeural",
     "sentence": "audio/bn/bn-g1-068-s.m4a",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
-    "voices": {
-      "pradeep": {
-        "word": "audio/bn/pradeep/bn-g1-068.m4a",
-        "sentence": "audio/bn/pradeep/bn-g1-068-s.m4a"
-      }
-    }
+    "sentenceSource": "neural voice bn-BD-PradeepNeural"
   },
   "bn-g1-069": {
     "word": "audio/bn/bn-g1-069.m4a",
@@ -3606,9 +3594,9 @@
   },
   "bn-g1-086": {
     "word": "audio/bn/bn-g1-086.m4a",
-    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "wordSource": "neural voice bn-IN-TanishaaNeural",
     "sentence": "audio/bn/bn-g1-086-s.m4a",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
+    "sentenceSource": "neural voice bn-IN-TanishaaNeural",
     "voices": {
       "pradeep": {
         "word": "audio/bn/pradeep/bn-g1-086.m4a",
@@ -3684,15 +3672,9 @@
   },
   "bn-g1-094": {
     "word": "audio/bn/bn-g1-094.m4a",
-    "wordSource": "neural voice bn-IN-TanishaaNeural",
+    "wordSource": "neural voice bn-BD-PradeepNeural",
     "sentence": "audio/bn/bn-g1-094-s.m4a",
-    "sentenceSource": "neural voice bn-IN-TanishaaNeural",
-    "voices": {
-      "pradeep": {
-        "word": "audio/bn/pradeep/bn-g1-094.m4a",
-        "sentence": "audio/bn/pradeep/bn-g1-094-s.m4a"
-      }
-    }
+    "sentenceSource": "neural voice bn-BD-PradeepNeural"
   },
   "bn-g1-095": {
     "word": "audio/bn/bn-g1-095.m4a",
@@ -3726,15 +3708,9 @@
   },
   "bn-g1-098": {
     "word": "audio/bn/bn-g1-098.m4a",
-    "wordSource": "neural voice bn-BD-NabanitaNeural",
+    "wordSource": "neural voice bn-BD-PradeepNeural",
     "sentence": "audio/bn/bn-g1-098-s.m4a",
-    "sentenceSource": "neural voice bn-BD-NabanitaNeural",
-    "voices": {
-      "pradeep": {
-        "word": "audio/bn/pradeep/bn-g1-098.m4a",
-        "sentence": "audio/bn/pradeep/bn-g1-098-s.m4a"
-      }
-    }
+    "sentenceSource": "neural voice bn-BD-PradeepNeural"
   },
   "bn-g1-099": {
     "word": "audio/bn/bn-g1-099.m4a",
@@ -3906,25 +3882,19 @@
   },
   "ar-g1-006": {
     "word": "audio/ar/ar-g1-006.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-006.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-006.m4a"
       }
     }
   },
   "ar-g1-007": {
     "word": "audio/ar/ar-g1-007.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-007.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-007.m4a"
       }
     }
   },
@@ -3966,11 +3936,8 @@
   },
   "ar-g1-011": {
     "word": "audio/ar/ar-g1-011.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-AE-FatimaNeural",
     "voices": {
-      "fatima": {
-        "word": "audio/ar/fatima/ar-g1-011.m4a"
-      },
       "hamed": {
         "word": "audio/ar/hamed/ar-g1-011.m4a"
       }
@@ -3990,25 +3957,19 @@
   },
   "ar-g1-013": {
     "word": "audio/ar/ar-g1-013.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-013.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-013.m4a"
       }
     }
   },
   "ar-g1-014": {
     "word": "audio/ar/ar-g1-014.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-014.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-014.m4a"
       }
     }
   },
@@ -4026,35 +3987,26 @@
   },
   "ar-g1-016": {
     "word": "audio/ar/ar-g1-016.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-016.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-016.m4a"
       }
     }
   },
   "ar-g1-017": {
     "word": "audio/ar/ar-g1-017.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-017.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-017.m4a"
       }
     }
   },
   "ar-g1-018": {
     "word": "audio/ar/ar-g1-018.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-AE-FatimaNeural",
     "voices": {
-      "fatima": {
-        "word": "audio/ar/fatima/ar-g1-018.m4a"
-      },
       "hamed": {
         "word": "audio/ar/hamed/ar-g1-018.m4a"
       }
@@ -4062,13 +4014,10 @@
   },
   "ar-g1-019": {
     "word": "audio/ar/ar-g1-019.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-019.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-019.m4a"
       }
     }
   },
@@ -4086,37 +4035,28 @@
   },
   "ar-g1-021": {
     "word": "audio/ar/ar-g1-021.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-021.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-021.m4a"
       }
     }
   },
   "ar-g1-023": {
     "word": "audio/ar/ar-g1-023.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-023.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-023.m4a"
       }
     }
   },
   "ar-g1-024": {
     "word": "audio/ar/ar-g1-024.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-024.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-024.m4a"
       }
     }
   },
@@ -4146,13 +4086,10 @@
   },
   "ar-g1-027": {
     "word": "audio/ar/ar-g1-027.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-027.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-027.m4a"
       }
     }
   },
@@ -4170,25 +4107,19 @@
   },
   "ar-g1-029": {
     "word": "audio/ar/ar-g1-029.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-029.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-029.m4a"
       }
     }
   },
   "ar-g1-030": {
     "word": "audio/ar/ar-g1-030.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-030.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-030.m4a"
       }
     }
   },
@@ -4383,13 +4314,10 @@
   },
   "ar-g1-052": {
     "word": "audio/ar/ar-g1-052.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-052.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-052.m4a"
       }
     }
   },
@@ -4407,37 +4335,28 @@
   },
   "ar-g1-054": {
     "word": "audio/ar/ar-g1-054.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-054.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-054.m4a"
       }
     }
   },
   "ar-g1-055": {
     "word": "audio/ar/ar-g1-055.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-055.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-055.m4a"
       }
     }
   },
   "ar-g1-056": {
     "word": "audio/ar/ar-g1-056.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-056.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-056.m4a"
       }
     }
   },
@@ -4479,25 +4398,19 @@
   },
   "ar-g1-060": {
     "word": "audio/ar/ar-g1-060.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-060.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-060.m4a"
       }
     }
   },
   "ar-g1-061": {
     "word": "audio/ar/ar-g1-061.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-061.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-061.m4a"
       }
     }
   },
@@ -4659,23 +4572,17 @@
   },
   "ar-g1-075": {
     "word": "audio/ar/ar-g1-075.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-075.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-075.m4a"
       }
     }
   },
   "ar-g1-076": {
     "word": "audio/ar/ar-g1-076.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-AE-FatimaNeural",
     "voices": {
-      "fatima": {
-        "word": "audio/ar/fatima/ar-g1-076.m4a"
-      },
       "hamed": {
         "word": "audio/ar/hamed/ar-g1-076.m4a"
       }
@@ -4719,25 +4626,19 @@
   },
   "ar-g1-080": {
     "word": "audio/ar/ar-g1-080.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-080.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-080.m4a"
       }
     }
   },
   "ar-g1-081": {
     "word": "audio/ar/ar-g1-081.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-081.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-081.m4a"
       }
     }
   },
@@ -4767,25 +4668,19 @@
   },
   "ar-g1-084": {
     "word": "audio/ar/ar-g1-084.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-084.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-084.m4a"
       }
     }
   },
   "ar-g1-085": {
     "word": "audio/ar/ar-g1-085.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-085.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-085.m4a"
       }
     }
   },
@@ -4803,13 +4698,10 @@
   },
   "ar-g1-087": {
     "word": "audio/ar/ar-g1-087.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-087.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-087.m4a"
       }
     }
   },
@@ -4839,13 +4731,10 @@
   },
   "ar-g1-090": {
     "word": "audio/ar/ar-g1-090.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-090.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-090.m4a"
       }
     }
   },
@@ -4875,25 +4764,19 @@
   },
   "ar-g1-093": {
     "word": "audio/ar/ar-g1-093.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-093.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-093.m4a"
       }
     }
   },
   "ar-g1-094": {
     "word": "audio/ar/ar-g1-094.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-094.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-094.m4a"
       }
     }
   },
@@ -4911,61 +4794,46 @@
   },
   "ar-g1-096": {
     "word": "audio/ar/ar-g1-096.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-096.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-096.m4a"
       }
     }
   },
   "ar-g1-097": {
     "word": "audio/ar/ar-g1-097.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-097.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-097.m4a"
       }
     }
   },
   "ar-g1-098": {
     "word": "audio/ar/ar-g1-098.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-098.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-098.m4a"
       }
     }
   },
   "ar-g1-099": {
     "word": "audio/ar/ar-g1-099.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-099.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-099.m4a"
       }
     }
   },
   "ar-g1-100": {
     "word": "audio/ar/ar-g1-100.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-100.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-100.m4a"
       }
     }
   },
@@ -4995,49 +4863,37 @@
   },
   "ar-g1-103": {
     "word": "audio/ar/ar-g1-103.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-103.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-103.m4a"
       }
     }
   },
   "ar-g1-104": {
     "word": "audio/ar/ar-g1-104.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-104.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-104.m4a"
       }
     }
   },
   "ar-g1-105": {
     "word": "audio/ar/ar-g1-105.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-105.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-105.m4a"
       }
     }
   },
   "ar-g1-106": {
     "word": "audio/ar/ar-g1-106.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-106.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-106.m4a"
       }
     }
   },
@@ -5067,13 +4923,10 @@
   },
   "ar-g1-109": {
     "word": "audio/ar/ar-g1-109.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-109.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-109.m4a"
       }
     }
   },
@@ -5091,61 +4944,46 @@
   },
   "ar-g1-111": {
     "word": "audio/ar/ar-g1-111.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-111.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-111.m4a"
       }
     }
   },
   "ar-g1-112": {
     "word": "audio/ar/ar-g1-112.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-112.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-112.m4a"
       }
     }
   },
   "ar-g1-113": {
     "word": "audio/ar/ar-g1-113.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-113.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-113.m4a"
       }
     }
   },
   "ar-g1-114": {
     "word": "audio/ar/ar-g1-114.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-114.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-114.m4a"
       }
     }
   },
   "ar-g1-115": {
     "word": "audio/ar/ar-g1-115.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-SA-HamedNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-115.m4a"
-      },
-      "hamed": {
-        "word": "audio/ar/hamed/ar-g1-115.m4a"
       }
     }
   },

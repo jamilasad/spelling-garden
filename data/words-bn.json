@@ -263,7 +263,7 @@
     "tip": { "bn": "ঢ (ড নয়)-এ এ-কার (ঢে), তারপর স্বরবর্ণ উ।", "en": "ঢে (ঢ, not ড) + the vowel letter উ." },
     "highlight": ["ঢে", "উ"] },
 
-  { "id": "bn-g1-045", "n": 45, "word": "সুধার", "type": "noun", "voice": "bn-IN-TanishaaNeural",
+  { "id": "bn-g1-045", "n": 45, "word": "সুধার", "type": "noun", "say": "সুধার্‌", "voice": "bn-IN-TanishaaNeural",
     "meaning": { "en": "Of nectar (a very sweet drink)", "bn": "অমৃতের; খুব মিষ্টি রসের" },
     "sentence": "মায়ের মুখের কথা যেন সুধার মতো মিষ্টি।",
     "tip": { "bn": "দন্ত্য স-এ হ্রস্ব উ-কার (সু); তারপর ধ (দ নয়)-এ আ-কার (ধা), শেষে র।", "en": "সু has short ু; then ধা (ধ, not দ), then র." },
@@ -395,13 +395,13 @@
     "tip": { "bn": "বর্ষা + কাল; মূর্ধন্য ষ-এর মাথায় রেফ, তাতে আ-কার (র্ষা)।", "en": "বর্ষা + কাল — র্ষা has a রেফ on মূর্ধন্য ষ, with া." },
     "highlight": ["র্ষা"] },
 
-  { "id": "bn-g1-067", "n": 67, "word": "কাঁকড়া", "type": "noun", "voice": "bn-IN-TanishaaNeural",
+  { "id": "bn-g1-067", "n": 67, "word": "কাঁকড়া", "type": "noun", "say": "কাঁকরা",
     "meaning": { "en": "Crab", "bn": "দুটি দাঁড়া আর অনেক পা-ওয়ালা পানির প্রাণী" },
     "sentence": "সাগরপাড়ে লাল কাঁকড়া ছুটে বেড়ায়।",
     "tip": { "bn": "কা-এর মাথায় চন্দ্রবিন্দু (কাঁ); শেষে ড়-এ আ-কার (ড়া)।", "en": "কাঁ has a চন্দ্রবিন্দু; it ends with ড়া (ড় with a dot)." },
     "highlight": ["কাঁ", "ড়া"] },
 
-  { "id": "bn-g1-068", "n": 68, "word": "কুমড়া", "type": "noun",
+  { "id": "bn-g1-068", "n": 68, "word": "কুমড়া", "type": "noun", "say": "কুমরা", "voice": "bn-BD-PradeepNeural",
     "meaning": { "en": "Pumpkin", "bn": "বড় গোল একধরনের সবজি" },
     "sentence": "ঘরের চালে বড় একটা কুমড়া ধরেছে।",
     "tip": { "bn": "কু-তে হ্রস্ব উ-কার; শেষে ড়-এ আ-কার (ড়া)।", "en": "কু has short ু; it ends with ড়া (ড় with a dot)." },
@@ -509,7 +509,7 @@
     "tip": { "bn": "হাসি + খুশি; হাসি-তে দন্ত্য স, খুশি-তে তালব্য শ; দুটোতেই হ্রস্ব ই-কার।", "en": "হাসি + খুশি — হাসি uses দন্ত্য স, খুশি uses তালব্য শ; both with short ি." },
     "highlight": ["সি", "শি"] },
 
-  { "id": "bn-g1-086", "n": 86, "word": "গৃহকাজ", "type": "noun",
+  { "id": "bn-g1-086", "n": 86, "word": "গৃহকাজ", "type": "noun", "say": "গৃহোকাজ", "voice": "bn-IN-TanishaaNeural",
     "meaning": { "en": "Housework; also homework", "bn": "ঘরের কাজ; বাড়ির কাজ" },
     "sentence": "গৃহকাজ শেষ করে আমি খেলতে যাই।",
     "tip": { "bn": "গৃহ + কাজ; গ-এ ঋ-কার (গৃ); কাজ-এর শেষে বর্গীয় জ।", "en": "গৃহ + কাজ — গৃ = গ + ঋ-কার; কাজ ends with বর্গীয় জ." },
@@ -558,7 +558,7 @@
     "tip": { "bn": "জল + প্রপাত; বর্গীয় জ দিয়ে শুরু; প-এ র-ফলা (প্র); শেষে ত।", "en": "জল + প্রপাত — starts with বর্গীয় জ; প্র = প + র-ফলা; it ends with ত." },
     "highlight": ["জ", "প্র"] },
 
-  { "id": "bn-g1-094", "n": 94, "word": "ডালিম", "type": "noun", "voice": "bn-IN-TanishaaNeural",
+  { "id": "bn-g1-094", "n": 94, "word": "ডালিম", "type": "noun", "say": "ডালিম্‌", "voice": "bn-BD-PradeepNeural",
     "meaning": { "en": "Pomegranate", "bn": "ভেতরে লাল লাল দানাওয়ালা ফল" },
     "sentence": "ডালিম ভাঙলে লাল লাল দানা বের হয়।",
     "tip": { "bn": "ডা + লি + ম; ড (দ নয়) দিয়ে শুরু; লি-তে হ্রস্ব ই-কার।", "en": "ডা + লি + ম — starts with ড (not দ); লি has short ি." },
@@ -582,7 +582,7 @@
     "tip": { "bn": "খেলা + ধুলা; খে-তে এ-কার; ধ (দ নয়)-এ হ্রস্ব উ-কার (ধু)।", "en": "খেলা + ধুলা — খে has ে; ধু is ধ (not দ) with short ু." },
     "highlight": ["খে", "ধু"] },
 
-  { "id": "bn-g1-098", "n": 98, "word": "ক্রম", "type": "noun",
+  { "id": "bn-g1-098", "n": 98, "word": "ক্রম", "type": "noun", "say": "ক্রমো", "voice": "bn-BD-PradeepNeural",
     "meaning": { "en": "Order, sequence", "bn": "একটার পর একটা সাজানো; পরপর" },
     "sentence": "ছবিগুলো ঠিক ক্রম অনুযায়ী সাজাও।",
     "tip": { "bn": "ক-এ র-ফলা (ক্র), তারপর ম।", "en": "ক্র = ক + র-ফলা, then ম." },
