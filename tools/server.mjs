@@ -17,7 +17,7 @@ const MAX_UPLOAD = 8 * 1024 * 1024;
 
 // Only these paths are served — the word-list photos, tools and notes stay private.
 const PUBLIC_FILES = new Set(['index.html', 'manifest.webmanifest', 'sw.js']);
-const PUBLIC_DIRS = ['css/', 'js/', 'i18n/', 'data/', 'audio/', 'images/', 'fonts/'];
+const PUBLIC_DIRS = ['css/', 'js/', 'i18n/', 'data/', 'audio/', 'images/', 'fonts/', 'pronounce/'];
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.mjs': 'text/javascript; charset=utf-8',

@@ -2,7 +2,7 @@
 // Every network request revalidates with the server ("no-cache"), so a new version is picked up
 // on the next online visit instead of waiting for the browser's own cache to expire.
 // Bump VERSION when files are added or renamed.
-const VERSION = 'spelling-garden-v18';
+const VERSION = 'spelling-garden-v19';
 
 const CORE = [
   './', 'index.html', 'manifest.webmanifest',

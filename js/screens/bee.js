@@ -7,7 +7,7 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl, badgeHTML, peekHTML } from '../art.js';
 import { icon } from '../icons.js';
 import { go, holdButton, confirmDialog, toast } from '../ui.js';
-import { sayWord, saySentence, stopAudio, voicesForWord, voiceName } from '../audio.js';
+import { sayWord, saySentence, stopAudio, voicesForWord, wordVoiceName } from '../audio.js';
 import { sfx } from '../sfx.js';
 import { setCalm } from '../ambient.js';
 import { tilesHTML, tileRowHTML, typedTilesHTML, markChecked, bigWordHTML, runReveal } from '../reveal.js';
@@ -219,7 +219,7 @@ export default {
         if (voiceList.length < 2) { setBubble(t('voice.onlyOne')); return; }
         voiceAt = (voiceAt + 1) % voiceList.length;
         play(false).then(() => {});
-        setBubble(t('voice.nowSpeaking', { name: voiceName(word.lang, voiceList[voiceAt]) }));
+        setBubble(t('voice.nowSpeaking', { name: wordVoiceName(word, voiceList[voiceAt]) }));
         return;
       }
       if (kind === 'again') { play(false); return; }

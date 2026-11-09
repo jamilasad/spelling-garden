@@ -6,7 +6,7 @@ import { t, tn, pick, escapeHtml, num, dirOf, getLang } from '../i18n.js';
 import { mascotHTML, flowerHTML, setFlowerStage, hasArt, artUrl } from '../art.js';
 import { icon } from '../icons.js';
 import { go, toast } from '../ui.js';
-import { sayWord, stopAudio, voicesForWord, voiceName } from '../audio.js';
+import { sayWord, stopAudio, voicesForWord, wordVoiceName } from '../audio.js';
 import { spellingOf } from '../spellnames.js';
 import { sfx } from '../sfx.js';
 import { setCalm, motionAllowed } from '../ambient.js';
@@ -318,7 +318,7 @@ export default {
       else if (act === 'voice') {
         voiceAt = (voiceAt + 1) % voices.length;
         sayWord(word, { voice: voices[voiceAt] });
-        setBubble(t('voice.nowSpeaking', { name: voiceName(word.lang, voices[voiceAt]) }));
+        setBubble(t('voice.nowSpeaking', { name: wordVoiceName(word, voices[voiceAt]) }));
       }
       else if (act === 'say') say();
       else if (act === 'cover') cover();

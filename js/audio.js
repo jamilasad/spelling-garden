@@ -83,6 +83,12 @@ export const voicesFor = (lang) => data.voices[lang] || [];
 export const narratorOf = (lang) => settings().narrator?.[lang] || voicesFor(lang)[0]?.id || '';
 export const voiceName = (lang, id) => voicesFor(lang).find((v) => v.id === id)?.name || '';
 
+/** The narrator's name for this word. A word with its own "voice" speaks with it in the first narrator's place. */
+export function wordVoiceName(word, id) {
+  if (!word.voice || id !== voicesFor(word.lang)[0]?.id) return voiceName(word.lang, id);
+  return voicesFor(word.lang).find((v) => v.voice === word.voice)?.name || word.voice.split('-')[2]?.replace(/Neural$/, '') || '';
+}
+
 /** Narrators that actually have audio for this word, starting with the chosen one. */
 export function voicesForWord(word) {
   const entry = data.audio[word.id] || {};

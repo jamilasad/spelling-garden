@@ -59,8 +59,8 @@ async function speak(text, voice, kind, base) {
           await run(EDGE_TTS, ['--voice', voice, `--rate=${NEURAL_RATE[kind]}`, '--text', text, '--write-media', raw]);
           break;
         } catch (err) {
-          if (attempt >= 3) throw err;
-          await new Promise((r) => setTimeout(r, 1500 * attempt));
+          if (attempt >= 5) throw err;   // the service sometimes sends no audio for a minute or so
+          await new Promise((r) => setTimeout(r, 3000 * attempt));
         }
       }
     } else {
@@ -111,6 +111,7 @@ async function main() {
   const altVoices = (lang) => (haveNeural ? (voiceSets[lang] || []).slice(1) : []);
   const index = await readJson(INDEX_FILE, {});
   let made = 0, kept = 0;
+  const unused = [];   // audio files the index stops pointing at
 
   for (const list of lists) {
     if (onlyLang && list.lang !== onlyLang) continue;
@@ -169,6 +170,12 @@ async function main() {
       // Alternative narrators
       entry.voices = entry.voices || {};
       for (const v of altVoices(list.lang)) {
+        // A word that already speaks with this narrator (its own "voice") doesn't need a second copy.
+        if (w.voice === v.voice) {
+          if (entry.voices[v.id]) unused.push(...Object.values(entry.voices[v.id]));
+          delete entry.voices[v.id];
+          continue;
+        }
         const vdir = path.join(dir, v.id);
         await mkdir(vdir, { recursive: true });
         const cur = entry.voices[v.id] || {};
@@ -191,6 +198,8 @@ async function main() {
   }
 
   await writeFile(INDEX_FILE, JSON.stringify(index, null, 2) + '\n');
+  // Only now, with the index no longer pointing at them, remove files that are not needed any more.
+  await Promise.all(unused.map((f) => rm(path.join(ROOT, f), { force: true })));
 
   console.log(`\nDone: ${made} made, ${kept} already there. Index → data/audio-index.json`);
 }
