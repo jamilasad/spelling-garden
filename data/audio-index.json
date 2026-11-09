@@ -3900,7 +3900,7 @@
   },
   "ar-g1-008": {
     "word": "audio/ar/ar-g1-008.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-AE-HamdanNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-008.m4a"
@@ -4164,10 +4164,13 @@
   },
   "ar-g1-035": {
     "word": "audio/ar/ar-g1-035.m4a",
-    "wordSource": "neural voice ar-SA-HamedNeural",
+    "wordSource": "neural voice ar-AE-HamdanNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-035.m4a"
+      },
+      "hamed": {
+        "word": "audio/ar/hamed/ar-g1-035.m4a"
       }
     }
   },
@@ -4245,10 +4248,13 @@
   },
   "ar-g1-045": {
     "word": "audio/ar/ar-g1-045.m4a",
-    "wordSource": "neural voice ar-AE-FatimaNeural",
+    "wordSource": "neural voice ar-EG-ShakirNeural",
     "voices": {
       "hamed": {
         "word": "audio/ar/hamed/ar-g1-045.m4a"
+      },
+      "fatima": {
+        "word": "audio/ar/fatima/ar-g1-045.m4a"
       }
     }
   },
@@ -4851,7 +4857,7 @@
   },
   "ar-g1-102": {
     "word": "audio/ar/ar-g1-102.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-AE-HamdanNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-102.m4a"
@@ -5025,7 +5031,7 @@
   },
   "ar-g1-119": {
     "word": "audio/ar/ar-g1-119.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "wordSource": "neural voice ar-JO-SanaNeural",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-119.m4a"

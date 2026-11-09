@@ -34,7 +34,7 @@
     "tip": { "bn": "ত্বোয়া (ط) দিয়ে শুরু, তা (ت) নয়; ত্বোয়া-তে যবর, তারপর আলিফ (طَا); লাম-এ যের।", "en": "Starts with ط (heavy taa), not ت; طَا = taa + fatha + alif; then لِ with kasra." },
     "highlight": ["طَا"] },
 
-  { "id": "ar-g1-008", "n": 8, "word": "عُمْرٌ", "type": "noun",
+  { "id": "ar-g1-008", "n": 8, "word": "عُمْرٌ", "type": "noun", "voice": "ar-AE-HamdanNeural",
     "meaning": { "en": "Age", "bn": "বয়স" },
     "tip": { "bn": "আইন (ع) দিয়ে শুরু, আলিফ নয় — আইন-এ পেশ (عُ); মীম-এ জযম (مْ); শেষে রা-তে দুই পেশ।", "en": "Starts with ع (ain) with damma (عُ), not alif; مْ has sukun; ends with raa + tanween damma." },
     "highlight": ["عُ", "مْ"] },
@@ -169,7 +169,7 @@
     "tip": { "bn": "সীন-এ যের (سِ); তা-তে তাশদীদ ও পেশ (تُّ) — তা (ت), ত্বোয়া নয়; শেষে ওয়াও আর নূন।", "en": "سِ has kasra; ت has shadda + damma (تُّ), and it is ت, not ط; it ends with waw + noon." },
     "highlight": ["سِ", "تُّ"] },
 
-  { "id": "ar-g1-035", "n": 35, "word": "سَبْعُونَ", "type": "number", "voice": "ar-SA-HamedNeural",
+  { "id": "ar-g1-035", "n": 35, "word": "سَبْعُونَ", "type": "number", "voice": "ar-AE-HamdanNeural",
     "meaning": { "en": "Seventy", "bn": "সত্তর" },
     "tip": { "bn": "বা-তে জযম (بْ); তারপর আইন-এ পেশ, ওয়াও আর নূন (عُونَ) — নব্বই (تِسْعُونَ)-এর সাথে গুলিয়ে ফেলো না।", "en": "بْ has sukun; then عُونَ (ain + damma, waw, noon) — don't mix it up with تِسْعُونَ (ninety)." },
     "highlight": ["بْ", "عُونَ"] },
@@ -219,7 +219,7 @@
     "tip": { "bn": "শুরুতে আলিফের উপর মাদ্দা চিহ্ন (آ) — লম্বা 'আ'; সীন-এ যের (سِ); শেষে ফা-তে দুই পেশ।", "en": "Starts with alif madda (آ) — a long 'aa'; سِ has kasra; ends with faa + tanween damma (فٌ)." },
     "highlight": ["آ", "فٌ"] },
 
-  { "id": "ar-g1-045", "n": 45, "word": "فِي", "type": "preposition", "voice": "ar-AE-FatimaNeural",
+  { "id": "ar-g1-045", "n": 45, "word": "فِي", "type": "preposition", "voice": "ar-EG-ShakirNeural",
     "meaning": { "en": "In", "bn": "মধ্যে, ভিতরে" },
     "tip": { "bn": "ফা-তে যের (فِ), তারপর নুকতাওয়ালা ইয়া (ي) — আলিফ মাকসূরা (ى) নয়।", "en": "Faa with kasra (فِ), then a yaa with two dots (ي) — not ى (alif maqsura)." },
     "highlight": ["فِ", "ي"] },
@@ -504,7 +504,7 @@
     "tip": { "bn": "ইয়া-তে জযম (يْ); শেষে সীন-এ এক যবর (سَ), সোয়াদ নয়।", "en": "يْ has sukun; it ends with سَ (seen + one fatha), not ص." },
     "highlight": ["يْ", "سَ"] },
 
-  { "id": "ar-g1-102", "n": 102, "word": "أَمَامَ", "type": "preposition",
+  { "id": "ar-g1-102", "n": 102, "word": "أَمَامَ", "type": "preposition", "voice": "ar-AE-HamdanNeural",
     "meaning": { "en": "In front of", "bn": "সামনে" },
     "tip": { "bn": "আলিফে হামযা ও যবর (أَ); মীম-এ যবর, তারপর আলিফ (مَا); শেষে আবার মীম-এ এক যবর (مَ)।", "en": "أَ = alif with hamza + fatha; مَا = meem + fatha + alif; it ends with another meem + one fatha (مَ)." },
     "highlight": ["أَ", "مَا"] },
@@ -589,7 +589,7 @@
     "tip": { "bn": "আইন (ع) দিয়ে শুরু, আলিফ নয়; শেষে আলিফ মাকসূরা (ى) — নুকতা ছাড়া ইয়া (لَى)।", "en": "Starts with ع (ain), not alif; it ends with alif maqsura (ى) — a yaa with no dots (لَى)." },
     "highlight": ["عَ", "لَى"] },
 
-  { "id": "ar-g1-119", "n": 119, "word": "يُحْضِرُ", "type": "verb",
+  { "id": "ar-g1-119", "n": 119, "word": "يُحْضِرُ", "type": "verb", "voice": "ar-JO-SanaNeural",
     "meaning": { "en": "Brings", "bn": "নিয়ে আসে" },
     "tip": { "bn": "ইয়া-তে পেশ; বড় হা (ح)-এ জযম (حْ), খা নয়; তারপর দোয়াদ (ض) যেরসহ (ضِ), দাল নয়।", "en": "Yaa with damma; ح (not خ) with sukun (حْ); then ض (daad, not د) with kasra (ضِ)." },
     "highlight": ["حْ", "ضِ"] },
