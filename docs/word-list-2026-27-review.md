@@ -35,7 +35,7 @@ Every Arabic word now has full harakat, case endings and tanween, like the earli
 |---|---|---|
 | عمر | عُمْرٌ (age) | Listed next to سَنَة (year), so taken as "age". If it means the name Umar, it is عُمَرُ. |
 | عشر | عَشْرٌ (ten) | Taken as written. Some books teach ten as عَشَرَةٌ. |
-| نَظَارَة | نَظَارَةٌ | Usually written with a shadda: نَظَّارَةٌ. The sheet has none, so none was added. |
+| نَظَارَة | نَظَّارَةٌ | Changed at the parent's request to the standard spelling, with a shadda on ظ. The sheet prints none. |
 | بَرَايَة | بَرَايَةٌ | Everyday usage is بَرَّايَةٌ; standard Arabic is مِبْرَاةٌ. |
 | مَحَايَة | مَحَايَةٌ | Everyday usage is مَحَّايَةٌ; standard Arabic is مِمْحَاةٌ. |
 | الثَّلَاثَاء | الثَّلَاثَاءُ | The sheet has fatha on ث; dictionaries give الثُّلَاثَاءُ (damma). |

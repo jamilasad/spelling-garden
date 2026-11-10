@@ -5,6 +5,8 @@ import { t, tn, escapeHtml, dirOf, pick, num } from '../i18n.js';
 import { icon } from '../icons.js';
 import { topbar, toast, go, confirmDialog } from '../ui.js';
 import { sayWord, saySentence, bustAudio, stopAudio } from '../audio.js';
+import { setAmbienceMuted } from '../ambience.js';
+import { mascotHTML } from '../art.js';
 import { tilesHTML } from '../reveal.js';
 import { isTricky, isMastered, isSeen, MAX_BOX } from '../scheduler.js';
 import { reportTab, mountReport, reportRows } from '../report.js';
@@ -21,6 +23,29 @@ async function checkRecording() {
     canRecord = res.ok && (await res.json()).canRecord === true;
   } catch { canRecord = false; }
   return canRecord;
+}
+
+/** A take as 16-bit mono WAV, trimmed to the voice. Browsers record in their own formats (Chrome's .m4a
+ *  holds Opus, which the Mac can't convert and the iPad may not play); the Mac turns WAV into the app's .m4a. */
+async function toWav(blob) {
+  const audio = await new OfflineAudioContext(1, 1, 44100).decodeAudioData(await blob.arrayBuffer());
+  const n = audio.length, rate = audio.sampleRate;
+  const mono = new Float32Array(n);
+  for (let c = 0; c < audio.numberOfChannels; c++) audio.getChannelData(c).forEach((v, i) => { mono[i] += v / audio.numberOfChannels; });
+  // Leave out the quiet before and after the voice, keeping a short breath of room.
+  const peak = mono.reduce((m, v) => Math.max(m, Math.abs(v)), 0);
+  let a = 0, b = n - 1;
+  while (a < b && Math.abs(mono[a]) < peak * 0.05) a++;
+  while (b > a && Math.abs(mono[b]) < peak * 0.05) b--;
+  const pad = Math.round(rate * 0.2);
+  const part = mono.subarray(Math.max(0, a - pad), Math.min(n, b + pad));
+  const out = new DataView(new ArrayBuffer(44 + part.length * 2));
+  const text = (at, s) => [...s].forEach((ch, i) => out.setUint8(at + i, ch.charCodeAt(0)));
+  text(0, 'RIFF'); out.setUint32(4, 36 + part.length * 2, true); text(8, 'WAVEfmt '); out.setUint32(16, 16, true);
+  out.setUint16(20, 1, true); out.setUint16(22, 1, true); out.setUint32(24, rate, true); out.setUint32(28, rate * 2, true);
+  out.setUint16(32, 2, true); out.setUint16(34, 16, true); text(36, 'data'); out.setUint32(40, part.length * 2, true);
+  part.forEach((v, i) => out.setInt16(44 + i * 2, Math.max(-1, Math.min(1, v)) * 32767, true));
+  return new Blob([out], { type: 'audio/wav' });
 }
 
 function sourceLabel(id, kind) {
@@ -74,6 +99,7 @@ function wordsTab(filter) {
       <p>${t('parent.wordsIntro')}</p>
       <p class="sub">${t('parent.checkedCount', { n: num(checked), total: num(data.words.length) })}</p>
       <p class="sub rec-note">${t('parent.recNote')}</p>
+      <p class="sub rec-where" hidden>${t('parent.recWhere')}</p>
       <div class="choices">${filters}</div>
     </section>
     <div class="wc-grid">${cards}</div>`;
@@ -156,63 +182,150 @@ export default {
   },
 
   mount(root, { params }) {
-    let recorder = null;
-    let chunks = [];
-    let stopTimer = 0;
-
     checkRecording().then((ok) => {
       if (!ok) return;
       root.querySelectorAll('.rec-btn').forEach((b) => { b.hidden = false; });
       const note = root.querySelector('.rec-note');
       if (note) note.hidden = true;
+      const where = root.querySelector('.rec-where');
+      if (where) where.hidden = false;
     });
 
-    async function startRecording(btn) {
-      if (recorder) return stopRecording();
-      try {
-        stopAudio();
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
-        const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'].find((m) => MediaRecorder.isTypeSupported?.(m)) || '';
-        recorder = new MediaRecorder(stream, type ? { mimeType: type } : undefined);
-        chunks = [];
-        recorder.ondataavailable = (e) => e.data.size && chunks.push(e.data);
-        recorder.onstop = async () => {
-          stream.getTracks().forEach((tr) => tr.stop());
-          const blob = new Blob(chunks, { type: (recorder.mimeType || type || 'audio/webm').split(';')[0] });
+    // ---------- Recording: a dialog to record, listen to both versions, then choose ----------
+    let closeRecorder = null;
+
+    function openRecorder(id, kind) {
+      const w = data.byId.get(id);
+      stopAudio();
+      const before = document.activeElement;
+      const wrap = document.createElement('div');
+      wrap.className = 'dialog-backdrop';
+      wrap.innerHTML = `<div class="dialog card rec-dialog" role="dialog" aria-modal="true" aria-labelledby="rec-title">
+          <div class="dialog-mascot" aria-hidden="true">${mascotHTML('listen')}</div>
+          <h2 id="rec-title">${t(kind === 'word' ? 'parent.recTitleWord' : 'parent.recTitleSentence')}</h2>
+          <p class="rec-text" lang="${w.lang}" dir="${dirOf(w.lang)}" data-kind="${kind}">${escapeHtml(kind === 'word' ? w.word : w.sentence)}</p>
+          <p class="sub">${t('parent.recHint')}</p>
+          <div class="rec-rows">
+            <div class="rec-row">
+              <span class="rec-row-label">${t('parent.recNow')}<small>${sourceLabel(id, kind)}</small></span>
+              <button class="btn btn-small btn-cream" type="button" data-r="now">${icon('play')}<span>${t('parent.recPlay')}</span></button>
+            </div>
+            <div class="rec-row rec-new">
+              <span class="rec-row-label">${t('parent.recNew')}<small data-r="state">${t('parent.recNone')}</small></span>
+              <button class="btn btn-small btn-cream rec-btn" type="button" data-r="rec">${icon('mic')}<span>${t('parent.record')}</span></button>
+              <button class="btn btn-small btn-cream" type="button" data-r="new" disabled>${icon('play')}<span>${t('parent.recPlay')}</span></button>
+            </div>
+          </div>
+          <div class="dialog-actions">
+            <button class="btn btn-honey" type="button" data-r="use" disabled>${t('parent.recUse')}</button>
+            <button class="btn btn-cream" type="button" data-r="keep">${t('parent.recKeep')}</button>
+          </div>
+        </div>`;
+      const $ = (r) => wrap.querySelector(`[data-r="${r}"]`);
+      let recorder = null, stream = null, stopTimer = 0, take = null, takeUrl = '', preview = null, saving = false;
+
+      const stopPreview = () => { preview?.pause(); preview = null; };
+      const playTake = () => { stopAudio(); stopPreview(); preview = new Audio(takeUrl); preview.play().catch(() => {}); };
+      const setRecButton = (on) => {
+        $('rec').classList.toggle('is-recording', on);
+        $('rec').innerHTML = `${icon(on ? 'stop' : 'mic')}<span>${t(on ? 'parent.stop' : take ? 'parent.recAgain' : 'parent.record')}</span>`;
+      };
+      function endStream() {
+        stream?.getTracks().forEach((tr) => tr.stop());
+        stream = null;
+        setAmbienceMuted(false);
+      }
+      async function start() {
+        try {
+          stopAudio(); stopPreview();
+          setAmbienceMuted(true);   // no garden sounds in the recording
+          stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+          await new Promise((r) => setTimeout(r, 400));   // let them fade out first
+          if (!wrap.isConnected) return endStream();
+          const type = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm'].find((m) => MediaRecorder.isTypeSupported?.(m)) || '';
+          const chunks = [];
+          recorder = new MediaRecorder(stream, type ? { mimeType: type } : undefined);
+          recorder.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+          recorder.onstop = async () => {
+            const raw = new Blob(chunks, { type: (recorder.mimeType || type || 'audio/webm').split(';')[0] });
+            recorder = null;
+            endStream();
+            take = (await toWav(raw).catch(() => null)) || raw;   // what she would hear: trimmed, as it will be saved
+            if (takeUrl) URL.revokeObjectURL(takeUrl);
+            takeUrl = URL.createObjectURL(take);
+            setRecButton(false);
+            $('new').disabled = false;
+            $('use').disabled = false;
+            $('state').textContent = t('parent.recReady');
+            if (wrap.isConnected) playTake();
+          };
+          recorder.start();
+          setRecButton(true);
+          $('state').textContent = t('parent.recListening');
+          stopTimer = setTimeout(stop, kind === 'sentence' ? 12000 : 6000);
+        } catch {
           recorder = null;
-          btn.classList.remove('is-recording');
-          btn.innerHTML = `${icon('mic')}<span>${t('parent.record')}</span>`;
-          await upload(btn.dataset.rec, btn.dataset.kind, blob);
-        };
-        recorder.start();
-        btn.classList.add('is-recording');
-        btn.innerHTML = `${icon('stop')}<span>${t('parent.stop')}</span>`;
-        stopTimer = setTimeout(stopRecording, btn.dataset.kind === 'sentence' ? 12000 : 6000);
-      } catch {
+          endStream();
+          toast(t('parent.micDenied'));
+        }
+      }
+      function stop() {
+        clearTimeout(stopTimer);
+        if (recorder && recorder.state !== 'inactive') recorder.stop();
+      }
+      // Only now is the recording saved: it replaces the one in the app.
+      async function use() {
+        if (!take || saving) return;
+        saving = true;
+        $('use').disabled = true;
+        try {
+          const res = await fetch(`api/recording?id=${encodeURIComponent(id)}&kind=${kind}`, {
+            method: 'POST', headers: { 'Content-Type': take.type }, body: take,
+          });
+          if (!res.ok) throw new Error(await res.text());
+          await reloadAudioIndex();
+          bustAudio(id);
+          const src = root.querySelector(`[data-rec="${id}"][data-kind="${kind}"]`)?.parentElement?.querySelector('.wc-src');
+          if (src) src.textContent = t('parent.srcRecording');
+          toast(t('parent.saved'));
+          close();
+        } catch {
+          saving = false;
+          $('use').disabled = false;
+          toast(t('parent.saveFailed'));
+        }
+      }
+      function close() {
+        if (!wrap.isConnected || wrap.classList.contains('closing')) return;
+        clearTimeout(stopTimer);
+        if (recorder && recorder.state !== 'inactive') { recorder.onstop = null; recorder.stop(); }
         recorder = null;
-        toast(t('parent.micDenied'));
+        endStream();
+        stopPreview();
+        stopAudio();
+        if (takeUrl) URL.revokeObjectURL(takeUrl);
+        document.removeEventListener('keydown', onKey, true);
+        wrap.classList.add('closing');
+        setTimeout(() => wrap.remove(), 160);
+        closeRecorder = null;
+        if (before?.focus) before.focus({ preventScroll: true });
       }
-    }
-    function stopRecording() {
-      clearTimeout(stopTimer);
-      if (recorder && recorder.state !== 'inactive') recorder.stop();
-    }
-    async function upload(id, kind, blob) {
-      try {
-        const res = await fetch(`api/recording?id=${encodeURIComponent(id)}&kind=${kind}`, {
-          method: 'POST', headers: { 'Content-Type': blob.type }, body: blob,
-        });
-        if (!res.ok) throw new Error(await res.text());
-        await reloadAudioIndex();
-        bustAudio(id);
-        toast(t('parent.saved'));
-        const w = data.byId.get(id);
-        if (kind === 'word') sayWord(w); else saySentence(w);
-        const src = root.querySelector(`[data-rec="${id}"][data-kind="${kind}"]`)?.parentElement?.querySelector('.wc-src');
-        if (src) src.textContent = t('parent.srcRecording');
-      } catch {
-        toast(t('parent.saveFailed'));
-      }
+      const onKey = (e) => { if (e.key === 'Escape') { e.preventDefault(); close(); } };
+      wrap.addEventListener('click', (e) => {
+        if (e.target === wrap) { if (!recorder) close(); return; }
+        const b = e.target.closest('[data-r]');
+        if (!b || b.disabled) return;
+        const r = b.dataset.r;
+        if (r === 'now') { stopPreview(); if (kind === 'word') sayWord(w); else saySentence(w); }
+        else if (r === 'rec') { if (recorder) stop(); else start(); }
+        else if (r === 'new') playTake();
+        else if (r === 'use') use();
+        else if (r === 'keep') close();
+      });
+      document.addEventListener('keydown', onKey, true);
+      document.body.appendChild(wrap);
+      $('rec').focus({ preventScroll: true });
+      closeRecorder = close;
     }
 
     const onClick = (e) => {
@@ -220,7 +333,7 @@ export default {
       if (!el) return;
       if (el.dataset.play) sayWord(data.byId.get(el.dataset.play));
       else if (el.dataset.playS) saySentence(data.byId.get(el.dataset.playS));
-      else if (el.dataset.rec) startRecording(el);
+      else if (el.dataset.rec) openRecorder(el.dataset.rec, el.dataset.kind);
       else if (el.dataset.act === 'print') window.print();
       else if (el.dataset.act === 'reset') {
         confirmDialog({
@@ -254,7 +367,7 @@ export default {
     const stopReport = tab === 'report' ? mountReport(root, reportRows(pid, Number(params.range) === 14 ? 14 : 7)) : null;
     return () => {
       stopReport?.();
-      stopRecording();
+      closeRecorder?.();
       root.removeEventListener('click', onClick);
       root.removeEventListener('change', onChange);
     };

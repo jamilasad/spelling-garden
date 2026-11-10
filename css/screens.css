@@ -362,6 +362,14 @@ fieldset.field > legend { padding: 0; margin-bottom: var(--s2); display: flex; a
 .wc-audio-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
 .wc-src { font-size: .85rem; color: var(--text-muted); font-weight: 600; flex: 1; }
 .rec-btn.is-recording { --btn-bg: var(--berry); animation: nudge 1s infinite; }
+.rec-dialog { width: min(100%, 480px); }
+.rec-text { font-size: 1.6rem; font-weight: 800; line-height: 1.6; }
+.rec-text[lang='ar'] { font-family: var(--font-word-ar); font-size: 2.4rem; }
+.rec-text[data-kind='sentence'] { font-size: 1.15rem; }
+.rec-rows { display: grid; gap: var(--s2); width: 100%; }
+.rec-row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); border-radius: var(--r-sm); background: var(--honey-pale); text-align: start; }
+.rec-row-label { flex: 1 1 140px; font-weight: 800; }
+.rec-row-label small { display: block; font-size: .85rem; font-weight: 600; color: var(--text-muted); }
 .table-card { overflow-x: auto; padding: var(--s3); }
 .progress-table { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
 .progress-table th, .progress-table td { padding: var(--s2); text-align: start; border-bottom: 2px solid rgba(61, 44, 41, .12); white-space: nowrap; }

@@ -4124,8 +4124,8 @@
     }
   },
   "ar-g1-031": {
-    "word": "audio/ar/ar-g1-031.m4a",
-    "wordSource": "neural voice ar-SA-ZariyahNeural",
+    "word": "audio/rec/ar-g1-031.m4a",
+    "wordSource": "recording",
     "voices": {
       "fatima": {
         "word": "audio/ar/fatima/ar-g1-031.m4a"

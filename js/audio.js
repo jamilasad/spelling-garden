@@ -89,9 +89,13 @@ export function wordVoiceName(word, id) {
   return voicesFor(word.lang).find((v) => v.voice === word.voice)?.name || word.voice.split('-')[2]?.replace(/Neural$/, '') || '';
 }
 
+// A parent's own recording (Word Check) is what she hears, whichever narrator is chosen.
+const recorded = (entry, kind) => (kind === 'word' ? entry.wordSource : entry.sentenceSource) === 'recording';
+
 /** Narrators that actually have audio for this word, starting with the chosen one. */
 export function voicesForWord(word) {
   const entry = data.audio[word.id] || {};
+  if (recorded(entry, 'word')) return [voicesFor(word.lang)[0]?.id].filter(Boolean);
   const all = voicesFor(word.lang).map((v) => v.id);
   const have = all.filter((id, i) => (i === 0 ? entry.word : entry.voices?.[id]?.word));
   const first = narratorOf(word.lang);
@@ -102,7 +106,7 @@ function urlFor(word, kind, voice = narratorOf(word.lang)) {
   const entry = data.audio[word.id];
   if (!entry) return '';
   const isDefault = voice === voicesFor(word.lang)[0]?.id;
-  const path = (!isDefault && entry.voices?.[voice]?.[kind]) || entry[kind];
+  const path = (!isDefault && !recorded(entry, kind) && entry.voices?.[voice]?.[kind]) || entry[kind];
   if (!path) return '';
   return busts[word.id] ? `${path}?v=${busts[word.id]}` : path;
 }

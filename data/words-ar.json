@@ -409,10 +409,10 @@
     "tip": { "bn": "কাফ (ك) পেশসহ (كُ), ক্বাফ (ق) নয়; রা-তে যবর, শেষে গোল তা (رَةٌ)।", "en": "ك (kaaf, not ق) with damma (كُ); then رَةٌ (raa + fatha + taa marbuta)." },
     "highlight": ["كُ", "رَةٌ"] },
 
-  { "id": "ar-g1-083", "n": 83, "word": "نَظَارَةٌ", "type": "noun",
+  { "id": "ar-g1-083", "n": 83, "word": "نَظَّارَةٌ", "type": "noun",
     "meaning": { "en": "Eyeglasses", "bn": "চশমা" },
-    "tip": { "bn": "নূন-এর পরে যোয়া (ظ) — যাল (ذ) বা যা (ز) নয় (ظَا); শেষে রা-তে যবর ও গোল তা (رَةٌ)।", "en": "After نَ comes ظ (dhaa), not ذ or ز (ظَا); it ends with رَةٌ." },
-    "highlight": ["ظَا", "رَةٌ"] },
+    "tip": { "bn": "নূন-এর পরে যোয়া (ظ) — যাল (ذ) বা যা (ز) নয়; যোয়া-তে তাশদীদ ও যবর (ظَّا); শেষে রা-তে যবর ও গোল তা (رَةٌ)।", "en": "After نَ comes ظ (dhaa) with a shadda, not ذ or ز (ظَّا); it ends with رَةٌ." },
+    "highlight": ["ظَّا", "رَةٌ"] },
 
   { "id": "ar-g1-084", "n": 84, "word": "يُرِيدُ", "type": "verb", "voice": "ar-SA-HamedNeural",
     "meaning": { "en": "Wants", "bn": "চায়" },

@@ -7,9 +7,10 @@
 import http from 'node:http';
 import os from 'node:os';
 import path from 'node:path';
-import { readFile, writeFile, stat, mkdir, unlink } from 'node:fs/promises';
+import { readFile, writeFile, stat, mkdir, unlink, rename } from 'node:fs/promises';
 import { createReadStream } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { makeLoud } from './loudness.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PORT = Number(process.env.PORT) || 8080;
@@ -94,8 +95,18 @@ async function saveRecording(req, res, url) {
   const body = await readBody(req);
   const dir = path.join(ROOT, 'audio', 'rec');
   await mkdir(dir, { recursive: true });
-  const name = `${id}${kind === 'sentence' ? '-s' : ''}${ext}`;
-  await writeFile(path.join(dir, name), body);
+  // Recordings become the app's usual .m4a (AAC, as loud as the voices); a format the Mac can't read is kept as sent.
+  const base = `${id}${kind === 'sentence' ? '-s' : ''}`;
+  const upload = path.join(dir, `${base}.upload${ext}`);
+  await writeFile(upload, body);
+  let name = `${base}.m4a`;
+  try {
+    await makeLoud(upload, path.join(dir, name));
+    await unlink(upload);
+  } catch {
+    name = `${base}${ext}`;
+    await rename(upload, path.join(dir, name));
+  }
 
   const indexFile = path.join(ROOT, 'data', 'audio-index.json');
   let index = {};
